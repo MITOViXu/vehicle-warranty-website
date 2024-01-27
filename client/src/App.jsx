@@ -1,35 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import React, { useState, Fragment, useEffect } from "react";
+import Navbar from "./components/NavBar/NavBar";
+import Footer from "./components/Footer/Footer";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Loading from "./components/Loading/Loading";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { routes } from "./routes";
 function App() {
-  const [count, setCount] = useState(0)
+ // dark mode start
+ const [theme, setTheme] = useState(
+  localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+);
+const element = document.documentElement;
 
+useEffect(() => {
+  if (theme === "dark") {
+    element.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  } else {
+    element.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  }
+}, [theme]);
+// dark mode end
+
+React.useEffect(() => {
+  AOS.init({
+    offset: 100,
+    duration: 800,
+    easing: "ease-in-sine",
+    delay: 100,
+  });
+  AOS.refresh();
+}, []);
+  const [isLoading, setIsLoading] = useState(false);
+  const Main = ({ children, isNavbar, isFooter }) => (
+    <div className="bg-white dark:bg-black dark:text-white text-black overflow-x-hidden">
+      {isNavbar && <Navbar theme={theme} setTheme={setTheme} />}
+      {children}
+      {isFooter && <Footer />}
+    </div>
+  );
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div style={{ height: "100vh", width: "100%" }}>
+      <Loading isLoading={isLoading}>
+        <Router>
+          <Routes>
+            {routes.map((route, i) => {
+              const Page = route.page;
+              return (
+                <Route
+                  key={i}
+                  path={route.path}
+                  element={
+                    <Main isNavbar={route.isNavbar} isFooter={route.isFooter}>
+                      <Page />
+                    </Main>
+                  }
+                />
+              );
+            })}
+          </Routes>
+        </Router>
+      </Loading>
+    </div>
+  );
 }
 
-export default App
+export default App;
