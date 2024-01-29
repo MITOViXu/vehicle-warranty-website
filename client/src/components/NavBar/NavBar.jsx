@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
+import logoCar from "../../assets/logoCar.png";
 
 export const Navlinks = [
   {
@@ -43,13 +44,13 @@ const Navbar = ({ theme, setTheme }) => {
   };
   return (
     <div
-      className="fixed pr-10 pl-10 z-10 shadow-md w-full dark:bg-black dark:text-white duration-300
+      className="relative pr-10 pl-10 z-1 shadow-md w-full dark:bg-black dark:text-white duration-300
     "
     >
       <div className="container py-2 md:py-0">
         <div className="flex justify-between items-center">
           <div>
-            <span className="text-3xl font-bold">TTDK MIỀN NAM</span>
+            <span className="text-3xl font-bold">TTDK</span>
           </div>
           <nav className="hidden md:block">
             <ul className="flex items-center gap-8">

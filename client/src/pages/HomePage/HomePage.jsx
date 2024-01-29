@@ -1,8 +1,12 @@
 import React from 'react'
-
-const HomePage = () => {
+import Hero from '../../components/Hero/Hero'
+import Option from '../../components/Option/Option'
+const HomePage = ({theme}) => {
   return (
-    <div style={{marginTop:"65px"}}>HomePage</div>
+    <div className="" style={{marginTop:"65px"}}>
+      <Hero theme={theme}/>
+      {/* <Option /> */}
+    </div>
   )
 }
 
