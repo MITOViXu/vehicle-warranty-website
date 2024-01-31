@@ -1,115 +1,115 @@
-import React, { useState } from "react";
-import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
-import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
-import ResponsiveMenu from "./ResponsiveMenu";
-import logoCar from "../../assets/logoCar.png";
-
-export const Navlinks = [
+import React, { useRef } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { Container, Row, Col } from "reactstrap";
+import "./Navbar.css";
+const navLinks = [
   {
-    id: 1,
-    name: "HOME",
-    link: "/",
+    path: "/home",
+    display: "Trang chủ",
   },
   {
-    id: 2,
-    name: "ĐẶT LỊCH",
-    link: "/bookpage",
+    path: "/admin",
+    display: "Ban quản lí",
   },
   {
-    id: 3,
-    name: "LỊCH HẸN",
-    link: "/schedulepage",
-  },
-  {
-    id: 4,
-    name: "TIN TỨC",
-    link: "/news",
-  },
-  {
-    id: 5,
-    name: "TÀI KHOẢN",
-    link: "/accountpage",
-  },
-  {
-    id: 6,
-    name: "LIÊN HỆ HỢP TÁC",
-    link: "/contactpage",
+    path: "/about",
+    display: "Chi tiết",
   },
 ];
-const Navbar = ({ theme, setTheme }) => {
-  const [showMenu, setShowMenu] = useState(false);
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
+const Navbar = () => {
+  const menuRef = useRef(null);
+
+  const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
   return (
-    <div
-      className="relative pr-10 pl-10 z-1 shadow-md w-full dark:bg-black dark:text-white duration-300
-    "
-    >
-      <div className="container py-2 md:py-0">
-        <div className="flex justify-between items-center">
-          <div>
-            <span className="text-3xl font-bold">TTDK</span>
+    //className="navigation__wrapper d-flex align-items-center justify-content-between"
+    
+    <div className="main_navbar" style={{position:"absolute", right:"0", left:"0", top:"0", zIndex:"10000"}}>
+
+      <div className="topbar">
+
+        <div className="need-help">
+          <div className="need-help_text">Cần trợ giúp?</div>
+          <div className="icon-container">
+            <img src={'telephone.png'} alt="telephone" className="need-help-icon" />  
           </div>
-          <nav className="hidden md:block">
-            <ul className="flex items-center gap-8">
-              {Navlinks.map(({ id, name, link }) => (
-                <li key={id} className="py-4">
-                  <a
-                    href={link}
-                    className=" text-lg font-medium  hover:text-primary py-2 hover:border-b-2 hover:border-primary transition-colors duration-500  "
-                  >
-                    {name}
-                  </a>
-                </li>
-              ))}
-              {/* DarkMode feature implement */}
-              {theme === "dark" ? (
-                <BiSolidSun
-                  onClick={() => setTheme("light")}
-                  className="text-2xl"
-                />
-              ) : (
-                <BiSolidMoon
-                  onClick={() => setTheme("dark")}
-                  className="text-2xl"
-                />
-              )}
-            </ul>
-          </nav>
-          {/* Mobile view  */}
-          <div className="flex items-center gap-4 md:hidden ">
-            {/* dark  mode */}
-            {theme === "dark" ? (
-              <BiSolidSun
-                onClick={() => setTheme("light")}
-                className="text-2xl"
-              />
-            ) : (
-              <BiSolidMoon
-                onClick={() => setTheme("dark")}
-                className="text-2xl"
-              />
-            )}
-            {/* Mobile Hamburger icon */}
-            {showMenu ? (
-              <HiMenuAlt1
-                onClick={toggleMenu}
-                className=" cursor-pointer transition-all"
-                size={30}
-              />
-            ) : (
-              <HiMenuAlt3
-                onClick={toggleMenu}
-                className="cursor-pointer transition-all"
-                size={30}
-              />
-            )}
+          <div className="need-help-number">1900 1000</div>
+        </div>
+
+        <div className="login-register">
+          <div className="login-nav">
+            <img src={'login.png'} alt="login" className="topbar-icon"/>
+            Login
           </div>
+          <div className="register-nav">
+            <img src={'user.png'} alt="register" className="topbar-icon"/>
+            Register
+          </div>
+            
         </div>
       </div>
-      <ResponsiveMenu showMenu={showMenu} />
+
+        <div className="time-location">
+
+          <div className="website-name">
+
+            <div className="website-logo">
+              <img src={'car.png'} alt="logo" className="logo" />
+            </div>
+
+            Website Đăng Kiểm
+
+          </div>
+
+          <div className="location">
+
+            <img src={'planet-earth.png'} alt="earth" className="logo" />
+            <div>
+              <div className="location-country">Việt Nam</div>
+              <div className="location-city">Hồ Chí Minh</div>
+            </div>
+
+          </div>
+          
+          <div className="time">
+            <img src={'clock.png'} alt="clock" className="logo" />
+            <div>
+              <div className="time-date">Sunday</div>
+              <div className="time-hour">10am-8pm</div>
+            </div>
+          </div>
+
+          <div className="request-call">
+            <img src={'telephone.png'} alt="telephone" className="request-call-icon" />
+            <button className="request-call-btn">Tư vấn</button>
+          </div>
+        
+        </div>
+
+      <div className="navigation" ref={menuRef} onClick={toggleMenu}>
+      
+        <div className="menu">
+          {navLinks.map((item, index) => (
+              <NavLink
+                to={item.path}
+                className={(a) =>
+                  a.isActive ? "nav_item nav_active" : "nav_item"
+                }
+                key={index}
+              >
+                {item.display}
+              </NavLink>
+          ))}
+        </div>
+
+        <div className="navbar_search">
+          <input type="text" placeholder="Search" className="search-input"/>
+          <button className="search-btn"></button>
+        </div>
+      </div>
+      
+
+      
     </div>
   );
 };

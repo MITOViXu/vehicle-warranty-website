@@ -1,70 +1,67 @@
-import React, { useState, Fragment, useEffect } from "react";
-import Navbar from "./components/NavBar/NavBar";
+import "./App.css";
+import React, { Fragment, useState, useEffect } from "react";
+import { ethers } from "ethers";
+import Navbar from "./components/NavBar/Navbar";
+import { contractAddress, abi } from "./constant/constant";
+import Routers from "./routers/Router";
+import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import Loading from "./components/Loading/Loading";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { routes } from "./routes";
 function App() {
-  // dark mode start
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
-  const element = document.documentElement;
+  const [provider, setProvider] = useState(null);
+  const [account, setAccount] = useState(null);
+  const [contractInstance, setcontractInstance] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const [car, setCar] = useState({
+    provider: null,
+    signer: null,
+    contract: null,
+  });
+  async function connectToMetamask() {
+    if (window.ethereum) {
+      try {
+        const { ethereum } = window;
+        const account = await ethereum.request({
+          method: "eth_requestAccounts",
+        });
 
-  useEffect(() => {
-    if (theme === "dark") {
-      element.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+        window.ethereum.on("accountsChanged", () => {
+          window.location.reload();
+        });
+        setAccount(account);
+        const provider = new ethers.providers.Web3Provider(ethereum); //read the Blockchain
+        const signer = provider.getSigner(); //write the blockchain
+        const address = await signer.getAddress();
+        const contract = new ethers.Contract(contractAddress, abi, signer);
+        console.log("Metamask Connected : " + address);
+        setCar({ provider, signer, contract });
+        setIsConnected(true);
+      } catch (err) {
+        console.error(err);
+      }
     } else {
-      element.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      console.error("Metamask is not detected in the browser");
     }
-  }, [theme]);
-  // dark mode end
-
-  React.useEffect(() => {
-    AOS.init({
-      offset: 100,
-      duration: 800,
-      easing: "ease-in-sine",
-      delay: 100,
-    });
-    AOS.refresh();
-  }, []);
-  const [isLoading, setIsLoading] = useState(false);
-  const Main = ({ children, isNavbar, isFooter }) => (
-    <div className="bg-white dark:bg-black dark:text-white text-black overflow-x-hidden">
-      {isNavbar && <Navbar theme={theme} setTheme={setTheme} />}
-      {children}
-      {isFooter && <Footer />}
-    </div>
-  );
+  }
+  async function handleLogOut() {
+    setIsConnected(false);
+  }
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
-      <Loading isLoading={isLoading}>
-        <Router>
-          <Routes>
-            {routes.map((route, i) => {
-              const Page = route.page;
-              return (
-                <Route
-                  key={i}
-                  path={route.path}
-                  element={
-                    <Main isNavbar={route.isNavbar} isFooter={route.isFooter}>
-                      <Page theme={theme} />
-                    </Main>
-                  }
-                />
-              );
-            })}
-          </Routes>
-        </Router>
-      </Loading>
+    <div style={{padding:"0"}}>
+      <Navbar />
+      <div className="body">
+        <Routers />
+      </div>
     </div>
   );
 }
-
 export default App;
+// import React from 'react'
+// import CarCard from './components/CarCard'
+
+// const App = () => {
+//   return (
+//     <CarCard />
+//   )
+// }
+
+// export default App
