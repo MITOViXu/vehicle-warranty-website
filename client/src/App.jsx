@@ -1,4 +1,3 @@
-import "./App.css";
 import React, { Fragment, useState, useEffect } from "react";
 import { ethers } from "ethers";
 import Navbar from "./components/NavBar/Navbar";
