@@ -26,8 +26,8 @@ const vehicleSchema = new mongoose.Schema(
     identifynumber: { type: String, required: true, unique: true },
     dated: { type: Date, require: true },
     email: { type: String, required: true, unique: true },
-    phone: { type: Number },
-    address: { type: String },
+    phone: { type: Number, required: true },
+    address: { type: String, required: true },
     plates: { type: String, require: true, unique: true },
     bill: { type: String, require: true },
     tax: { type: String, require: true },
@@ -38,6 +38,7 @@ const vehicleSchema = new mongoose.Schema(
     type: { type: String, require: true },
     color: { type: String, require: true },
     brand: { type: String, require: true },
+    description: { type: String},
   },
   {
     timestamps: true,
