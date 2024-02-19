@@ -8,8 +8,11 @@ import FindCar from "../../components/FindCar/FindCar.jsx";
 import SliderAnimate from "../../components/SliderAnimate/SliderAnimate";
 import ResultSearchCar from "../../components/ResultSearchCar/ResultSearchCar.jsx";
 import AboutUs from "../../components/AboutUs/AboutUs.jsx";
+import ReasonWhy from "../../components/ReasonWhy/ReasonWhy.jsx";
 import HersoSlider from "../../components/HeroSlider/HeroSlider.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
+
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const Home = (props) => {
   const [provider, setProvider] = useState(null);
@@ -20,28 +23,12 @@ const Home = (props) => {
   return (
     <div>
       <HersoSlider />
-      <div className="home" style={{ marginTop: "70px" }}>
-        <div className="FindCar">
-          <FindCar addInfo={addInfo} />
-        </div>
-        {vehicleinfor ? (
-          <div className="ResultSearchCar">
-            <ResultSearchCar vehicleinfor={vehicleinfor} />
-          </div>
-        ) : (
-          <div></div>
-        )}
-        <div className="AboutUs">
-          <AboutUs />
-        </div>
-        {/* {vehicleinfor == null ? (
-          <div>
-          
-          </div>
-        ) : (
-        <div className="ResultSearchCar"><ResultSearchCar /></div>
-        )} */}
+      <h1 style={{marginTop:"50px",fontWeight:"bold",marginLeft:"130px"}}>Vì sao bạn nên mua xe qua Dinhgiaxe.com? <button className="Buy-car">Tìm xe ngay</button></h1>
+      <div className="home" style={{ marginTop: "50px" }}>
+       <ReasonWhy />
       </div>
+      <h1 style={{marginTop:"50px",fontWeight:"bold",marginLeft:"130px",display:"flex"}}>Xem xe,mua bán nhanh chóng 
+      <IoMdCheckmarkCircleOutline /></h1>
       <SliderAnimate />
       <Footer />
     </div>

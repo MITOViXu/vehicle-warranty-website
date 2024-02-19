@@ -1,112 +1,86 @@
+.findcar-container{
+  height:80vh;
+  background-color: rgb(255, 255, 255);
+  display:grid;
+  grid-template-rows: 6fr 4fr ;
+  gap:15px;
+  padding-left: 250px;
+  padding-right: 250px;
+  margin-top: 18px;
+}
+.filter-option{
+  background-color: whitesmoke;
+  border-radius:10px;
+  display: grid;
+  grid-template-columns: 3.5fr 7fr 2.7fr;
+  gap:15px;
+}
+.filter-plates{
+  background-color: rgb(134, 101, 101);
+  border-radius:10px;
 
-.find-car-home{
-    box-shadow: #f2f2f2;
-    padding-left: 10px;
-    background-color: white;
-    width: 80%;
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    height: 31vh;
-    border-radius: 2px;
 }
-.find-car-pic{
-    height: 100%;
-    flex: 1;
-    background: linear-gradient(rgb(249, 168, 38, 0.9), rgb(249, 168, 38, 0.9)),
-    url("../../assets/pic3.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 65px 35px; 
+.price-range{
+  background-color: whitesmoke;
+  padding:10px;
+  padding-left: 20px;
+  border-radius: 15px;
 }
-.find-car-infor{
-    padding-left: 20px;
-    flex: 3;
-    background-color: white;
-    border-radius: 5px;
+
+.price-box{
+    height:90%;
+    display: grid;
+    grid-template-rows: 1fr 1.2fr; /* Chia thành 2 hàng bằng nhau */
+    gap: 10px;
+}
+.bttn-600-800{
+    background-color: rgb(91, 91, 204);
+    border-radius: 15px;
+}
+.box2{
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.bttn-800-1m{
+    background-color: blue;
+    border-radius: 15px;
     
 }
-.form-home{
-    width: 100%;
-    background-color: white;
-    border-radius: 5px;
+.bttn-1m{
+    background-color: blue;
+    border-radius: 15px;
 }
 
-.information-car {
-    background-color: #f2f2f2;
-    width: 1400px;
-    display: grid;
-    padding: 20px;
-    background-color: #f2f2f2;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    grid-template-columns: repeat(5, 1fr); /* 5 cột */
-    grid-template-rows: repeat(2, 1fr); /* 2 hàng */
-    gap: 10px; /* Khoảng cách giữa các div con */
-}
-.information-car-connected{
-    background-color: #f2f2f2;
-    width: 1400px;
-    height: 30vh;
-    display: grid;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    grid-template-columns: repeat(6, 1fr); 
-    grid-template-rows: repeat(2, 1fr); 
-    gap: 10px; 
-}
 
-.search-infor {
-    width: 800px;
-    border-radius: 10px;
-    background-color: white;
-    padding: 20px;
-}
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-.form-connected {
-    width: 1400px;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); 
-    grid-template-rows: repeat(2, 1fr); 
-    gap: 10px; 
-}
-.form-group-home {
-    margin-bottom: 20px;
-    font-size: large;
-}
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
 
-input,
-textarea {
-    width: 95%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.option-range{
+  background-color: whitesmoke;
+  display: grid;
+  grid-template-rows: 1fr 9fr;
+  gap: 7px;
 }
-.logo-image {
-    width: 100px;
+.option-container-button{
+    background-color: whitesmoke;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
 }
-.login-button-home {
-    background-color: #007bff;
-    color: #fff;
-    font-size: 1rem;
-    border: none;
-    border-radius: 0.3rem;
-    padding: 1rem 2rem;
+.btnn-theo-hang{
+    background-color: #ffffff; 
+    color: #000000; 
+    border: none; 
     cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .login-button-home:hover {
-    background-color: #0069d9;
-  }
+
+}
+.btnn-theo-hang:active{
+    
+}
+.option-result{
+    background-color: whitesmoke;
+}
+.support-range{
+background-color: white;    
+
+}

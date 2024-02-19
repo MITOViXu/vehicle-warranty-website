@@ -1,8 +1,5 @@
 .About-us{
-  background-color: white;
-  height: 430px;
   display: flex;
-  padding: 25px 110px;
 }
 .About-infor{
   flex:1.2;

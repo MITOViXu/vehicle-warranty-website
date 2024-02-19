@@ -3,10 +3,9 @@ import Slider from "react-slick";
 
 import "./SliderAnimate.css";
 
-import ava01 from "../../assets/slider-img/slider-1.jpg";
-import ava02 from "../../assets/slider-img/slider-2.jpg";
-import ava03 from "../../assets/slider-img/slider-3.jpg";
-import ava04 from "../../assets/slider-img/slider-4.jpg";
+import ava01 from  "../../assets/slider-img/slide1.png";
+import ava02 from "../../assets/slider-img/slide2.png";
+import ava03 from "../../assets/slider-img/slide3.png";
 
 const SliderAnimate = () => {
   const settings = {
@@ -39,78 +38,36 @@ const SliderAnimate = () => {
   };
 
   return (
-    <div style={{marginLeft:"15%", marginRight:"15%"}}>
+    <div style={{marginLeft:"130px", marginRight:"130px"}}>
       <Slider {...settings}>
         <div className="testimonial py-4 px-3">
           <p className="section__description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-            magni explicabo molestias recusandae repudiandae, dolor, sapiente
-            placeat ab, animi eum minima nulla facere aliquam aut vitae quo
-            pariatur voluptate odit?
+           <h3 style={{color: "blue"}}>Bước 1:    Nhận giá xe online</h3>
+           Ở đây
+           hệ thống định giá xe trực tuyến tiên tiến, sử dụng trí tuệ nhân tạo
+          (AI) để tự động đánh giá giá trị của một chiếc xe dựa trên các yếu tố 
+          như thương hiệu, mô hình, năm sản xuất và điều kiện.
+          Hơn nữa, chúng tôi sử dụng công nghệ lưu trữ chuỗi khối để đảm bảo 
+          tính minh bạch và an toàn cho thông tin về giá cả và lịch sử của các 
+          giao dịch liên quan đến xe hơi.
           </p>
-
-          <div className="mt-3 d-flex align-items-center gap-4">
-            <img src={ava01} alt="" className="w-25 h-25 rounded-2" />
-
-            <div>
-              <h6 className="mb-0 mt-3">Jhon Doe</h6>
-              <p className="section__description">Customer</p>
-            </div>
-          </div>
         </div>
 
         <div className="testimonial py-4 px-3">
           <p className="section__description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-            magni explicabo molestias recusandae repudiandae, dolor, sapiente
-            placeat ab, animi eum minima nulla facere aliquam aut vitae quo
-            pariatur voluptate odit?
+           <h3 style={{color: "blue"}}>Bước 2:      Kiểm định xe</h3>
+           Chúng tôi sử dụng các nguồn dữ liệu đáng tin cậy để lấy thông tin về các lần kiểm định, 
+           bảo dưỡng trước đó và các sửa chữa đã được thực hiện. Từ những thông tin này, chúng tôi
+           có thể đánh giá mức độ bảo dưỡng và sửa chữa của xe, cũng như nhận biết các vấn đề tiềm 
+           ẩn hoặc cần chú ý.  
           </p>
-
-          <div className="mt-3 d-flex align-items-center gap-4">
-            <img src={ava02} alt="" className="w-25 h-25 rounded-2" />
-
-            <div>
-              <h6 className="mb-0 mt-3">Jhon Doe</h6>
-              <p className="section__description">Customer</p>
-            </div>
-          </div>
         </div>
-
         <div className="testimonial py-4 px-3">
           <p className="section__description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-            magni explicabo molestias recusandae repudiandae, dolor, sapiente
-            placeat ab, animi eum minima nulla facere aliquam aut vitae quo
-            pariatur voluptate odit?
+           <h3 style={{color: "blue"}}>Bước 3:   Bàn giao xe và thanh toán</h3>
+           Sau khi đã thu thập đủ thông tin và quyết định mua chiếc xe phù hợp, quá trình bàn giao 
+           xe và thanh toán sẽ diễn ra một cách thuận lợi và an toàn nhất cho cả người mua và người bán.
           </p>
-
-          <div className="mt-3 d-flex align-items-center gap-4">
-            <img src={ava03} alt="" className="w-25 h-25 rounded-2" />
-
-            <div>
-              <h6 className="mb-0 mt-3">Jhon Doe</h6>
-              <p className="section__description">Customer</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="testimonial py-4 px-3">
-          <p className="section__description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-            magni explicabo molestias recusandae repudiandae, dolor, sapiente
-            placeat ab, animi eum minima nulla facere aliquam aut vitae quo
-            pariatur voluptate odit?
-          </p>
-
-          <div className="mt-3 d-flex align-items-center gap-4">
-            <img src={ava04} alt="" className="w-25 h-25 rounded-2" />
-
-            <div>
-              <h6 className="mb-0 mt-3">Jhon Doe</h6>
-              <p className="section__description">Customer</p>
-            </div>
-          </div>
         </div>
       </Slider>
     </div>

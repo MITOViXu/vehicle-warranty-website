@@ -1,13 +1,33 @@
 body{
 
 }
-.home{
-    
+.Buy-car{
+ margin-left: 50px;
+  margin-right: 0px;
+  background-color: hsl(245, 70%, 67%);
+  border: none;
+  width: 200px;
+  height: 63%;
+  color: white;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+.Buy-car:hover{
+    background-color: hsl(0, 14%, 80%);
+    color: hsl(245, 70%, 67%);
+}
+.home{  
+    margin-left: 130px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 120vh;
-    background-color: white;
+    height: 105vh;
+    width:100%;
 }
 .FindCar{
     padding-left: 100px;

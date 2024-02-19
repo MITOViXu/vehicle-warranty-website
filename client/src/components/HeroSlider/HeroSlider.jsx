@@ -19,9 +19,9 @@ const HeroSlider = () => {
     autoplay: true,
     infinite: true,
 
-    speed: 400,
-    slidesToShow: 1,
-    autoplaySpeed: 1500,
+    speed: 200,
+    slidesToShow: 3,
+    autoplaySpeed: 2000,
     slidesToScroll: 1,
   };
 
@@ -30,10 +30,6 @@ const HeroSlider = () => {
       <div className="hero-slider item1"></div>
       <div className="hero-slider item2"></div>
       <div className="hero-slider item3"></div>
-      <div className="hero-slider item4"></div>
-      <div className="hero-slider item5"></div>
-      <div className="hero-slider item6"></div>
-      <div className="hero-slider item7"></div>
     </Slider>
   );
 };

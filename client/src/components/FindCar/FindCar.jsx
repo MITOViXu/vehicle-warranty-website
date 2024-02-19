@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
-import { ethers } from 'ethers';
-import { contractAddress, abi } from '../../constant/constant';
-import "./FindCar.css"
+import React, { useState } from "react";
+import { ethers } from "ethers";
+import { contractAddress, abi } from "../../constant/constant";
+import "./FindCar.css";
 const FindCar = (props) => {
   const [provider, setProvider] = useState(null);
   const [vehicleinfor, setVehicleinfor] = useState(null);
-  async function handleSubmit (e){
+  async function handleSubmit(e) {
     try {
       e.preventDefault();
       const numberPLate = document.querySelector("#message").value;
@@ -16,35 +16,71 @@ const FindCar = (props) => {
       const results = await contract.getVehicleInfo(numberPLate);
       setVehicleinfor(results);
       console.log(results);
-      props.addInfo(results); 
+      props.addInfo(results);
     } catch (error) {
       console.error("Error fetching cars from contract:", error);
     }
+  }
+  const [activeButton, setActiveButton] = useState(null);
+
+  const handleClick = (button) => {
+    setActiveButton(button);
   };
   return (
-    <div className="find-car-home">
-      <div className="find-car-pic">
-        <h1 style={{fontSize:'50px'}}>Find You Cars Here</h1>
-      </div>
-      <div className="find-car-infor">
-      <form class="form-home" onSubmit={handleSubmit}>
-        <div class="form-group-home">
-          <label for="name">Nhập CCCD chủ xe:</label>
-          <input type="text" id="name" name="name" placeholder="CCCD" />
+    <div className="findcar-container">
+      <div className="filter-option">
+        <div className="price-range">
+          <h6 style={{ fontWeight: "bold" }}>Theo khoảng giá</h6>
+          <div className="price-box">
+            <button className="bttn-600-800"></button>
+            <div class="box2">
+              <button className="bttn-800-1m"></button>
+              <button className="bttn-1m"></button>
+            </div>
+          </div>
         </div>
-        <div class="form-group-home">
-          <label for="message">Nhập biển số xe:</label>
-          <input
-            id="message"
-            name="message"
-            placeholder="Biển số xe"
-          ></input>
+        <div className="option-range">
+          <div className="option-container-button">
+            <button
+              className={`btnn-theo-hang ${
+                activeButton === "theo-hang" ? "active" : ""
+              }`}
+              onClick={() => handleClick("theo-hang")}
+            >
+              Theo hãng
+            </button>
+            <button
+              className={`btnn-theo-hang ${
+                activeButton === "theo-nhu-cau" ? "active" : ""
+              }`}
+              onClick={() => handleClick("theo-nhu-cau")}
+            >
+              Theo nhu cầu
+            </button>
+            <button
+              className={`btnn-theo-hang ${
+                activeButton === "theo-tra-gop" ? "active" : ""
+              }`}
+              onClick={() => handleClick("theo-tra-gop")}
+            >
+              Theo trả góp
+            </button>
+            <button
+              className={`btnn-theo-hang ${
+                activeButton === "theo-kieu-dang" ? "active" : ""
+              }`}
+              onClick={() => handleClick("theo-kieu-dang")}
+            >
+              Theo kiểu dáng
+            </button>
+          </div>
+          <div className="option-result"></div>
         </div>
-        <button className="login-button-home">Search Information</button>
-      </form>
+        <div className="support-range"></div>
       </div>
+      <div className="filter-plates"></div>
     </div>
-  )
-}
+  );
+};
 
-export default FindCar
+export default FindCar;
