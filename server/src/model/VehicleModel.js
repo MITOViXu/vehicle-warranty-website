@@ -19,6 +19,11 @@
 // Số loại
 // Giấy tờ đăng kiểm
 
+// ==== còn thiếu
+// Số chỗ xe
+// Số km lăn bánh
+// Cần số: ví dụ số tự động
+
 const mongoose = require("mongoose");
 const vehicleSchema = new mongoose.Schema(
   {
@@ -38,7 +43,7 @@ const vehicleSchema = new mongoose.Schema(
     type: { type: String, require: true },
     color: { type: String, require: true },
     brand: { type: String, require: true },
-    description: { type: String},
+    description: { type: String },
   },
   {
     timestamps: true,
