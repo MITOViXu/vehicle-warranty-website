@@ -11,6 +11,9 @@ import Office from "./office.jpg";
 import JobImg from "./job.jpg";
 import Facebook from "./facebook.png";
 import CodeWave from "./codewave.png";
+import Mercedes from "./mercedes.jpg"
+import Mercedes1 from "./mercedes1.jpg"
+import Mercedes2 from "./mercedes2.jpg"
 
 export {
   CodeWave,
@@ -26,4 +29,7 @@ export {
   Youtube,
   Office,
   JobImg,
+  Mercedes,
+  Mercedes1,
+  Mercedes2,
 };
