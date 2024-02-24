@@ -1,7 +1,14 @@
 import React, { useRef } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Navigate } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 import { IoSearchSharp } from "react-icons/io5";
+import {
+  WrapperContent,
+  WrapperLableText,
+  WrapperTextPrice,
+  WrapperTextValue,
+} from "./style";
 import { BsTelephoneInbound } from "react-icons/bs";
 
 import "./Navbar.css";
@@ -26,7 +33,7 @@ const navLinks = [
 
 const Navbar = () => {
   const menuRef = useRef(null);
-
+  const navigate = useNavigate();
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
   return (
     <div
@@ -37,11 +44,10 @@ const Navbar = () => {
         left: "0",
         top: "0",
         zIndex: "10000",
-      }} >
-
-      <div className="logo-1">
-      </div>
-      < div className="navigation" ref={menuRef} onClick={toggleMenu}>
+      }}
+    >
+      <div className="logo-1"></div>
+      <div className="navigation" ref={menuRef} onClick={toggleMenu}>
         <div className="menu">
           {navLinks.map((item, index) => (
             <NavLink
@@ -51,20 +57,42 @@ const Navbar = () => {
               }
               key={index}
             >
-              { item.display}
+              {item.display}
             </NavLink>
           ))}
         </div>
-        <button className="signIn-button">Đăng Nhập</button>
+        <button
+          className="signIn-button"
+          onClick={() => {
+            navigate("/sign-in");
+          }}
+        >
+          Đăng Nhập
+        </button>
         <div className="navbar_search">
           <input type="text" placeholder="Search" className="search-input" />
-          <button className="search-btn"> <IoSearchSharp /></button>
+          <button className="search-btn">
+            {" "}
+            <IoSearchSharp />
+          </button>
         </div>
       </div>
-      <div style={{color: 'white' , marginTop: '7px' , width: '90%',marginRight:'150px'}}>
-      <div><h6> Hotline <p style={{color:'white',display:'flex'}}>0942917989</p> </h6></div>
+      <div
+        style={{
+          color: "white",
+          marginTop: "7px",
+          width: "90%",
+          marginRight: "150px",
+        }}
+      >
+        <div>
+          <h6>
+            {" "}
+            Hotline{" "}
+            <p style={{ color: "white", display: "flex" }}>0942917989</p>{" "}
+          </h6>
+        </div>
       </div>
-      
     </div>
   );
 };

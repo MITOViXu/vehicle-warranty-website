@@ -23,12 +23,26 @@ const Home = (props) => {
   return (
     <div>
       <HersoSlider />
-      <h1 style={{marginTop:"50px",fontWeight:"bold",marginLeft:"130px"}}>Vì sao bạn nên mua xe qua Dinhgiaxe.com? <button className="Buy-car">Tìm xe ngay</button></h1>
+      <h1
+        style={{ marginTop: "50px", fontWeight: "bold", marginLeft: "130px" }}
+      >
+        Vì sao bạn nên mua xe qua Dinhgiaxe.com?{" "}
+        <button className="Buy-car">Tìm xe ngay</button>
+      </h1>
       <div className="home" style={{ marginTop: "50px" }}>
-       <ReasonWhy />
+        <ReasonWhy />
       </div>
-      <h1 style={{marginTop:"50px",fontWeight:"bold",marginLeft:"130px",display:"flex"}}>Xem xe,mua bán nhanh chóng 
-      <IoMdCheckmarkCircleOutline /></h1>
+      <h1
+        style={{
+          marginTop: "50px",
+          fontWeight: "bold",
+          marginLeft: "130px",
+          display: "flex",
+        }}
+      >
+        Xem xe,mua bán nhanh chóng
+        <IoMdCheckmarkCircleOutline />
+      </h1>
       <SliderAnimate />
       <Footer />
     </div>
