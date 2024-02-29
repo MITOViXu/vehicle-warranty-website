@@ -1,14 +1,20 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link, NavLink, Navigate } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { IoSearchSharp } from "react-icons/io5";
+import { Badge, Button, Popover } from "antd";
+import { resetUser } from "../../redux/slides/userSlide";
+import * as UserService from "../../services/UserService";
 import {
-  WrapperContent,
-  WrapperLableText,
-  WrapperTextPrice,
-  WrapperTextValue,
+  WrapperContentPopup,
+  WrapperHeader,
+  WrapperHeaderAccout,
+  WrapperTextHeader,
+  WrapperTextHeaderSmall,
 } from "./style";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BsTelephoneInbound } from "react-icons/bs";
 
 import "./Navbar.css";
@@ -32,9 +38,51 @@ const navLinks = [
 ];
 
 const Navbar = () => {
+  const user = useSelector((state) => state.user);
+  const order = useSelector((state) => state.order);
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
+  const dispatch = useDispatch();
+  const [userName, setUserName] = useState("");
+  console.log("use bên navbar", user);
   const menuRef = useRef(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
+  const handleLogout = async () => {
+    setLoading(true);
+    await UserService.logoutUser();
+    dispatch(resetUser());
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    navigate("/");
+    setLoading(false);
+  };
+  useEffect(() => {
+    setLoading(true);
+    setUserName(user?.name);
+    setLoading(false);
+  }, [user?.name, user?.avatar]);
+  const handleClickNavigate = (type) => {
+    if (type === "admin") {
+      navigate("/admin");
+    } else {
+      handleLogout();
+    }
+    setIsOpenPopup(false);
+  };
+  const content = (
+    <div>
+      {user?.isAdmin && (
+        <WrapperContentPopup onClick={() => handleClickNavigate("admin")}>
+          Quản lí hệ thống
+        </WrapperContentPopup>
+      )}
+      <WrapperContentPopup onClick={() => handleClickNavigate()}>
+        Đăng xuất
+      </WrapperContentPopup>
+    </div>
+  );
+
   return (
     <div
       className="main_navbar"
@@ -61,14 +109,47 @@ const Navbar = () => {
             </NavLink>
           ))}
         </div>
-        <button
-          className="signIn-button"
-          onClick={() => {
-            navigate("/sign-in");
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: "10px",
           }}
         >
-          Đăng Nhập
-        </button>
+          {user?.name ? (
+            <>
+              <Popover content={content} trigger="click" open={isOpenPopup}>
+                <div
+                  style={{
+                    cursor: "pointer",
+                    maxWidth: 100,
+                    overflow: "hidden",
+                    color: "white",
+                    paddingLeft: "60px",
+                    paddingTop: "12px",
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    textOverflow: "ellipsis",
+                  }}
+                  onClick={() => setIsOpenPopup((prev) => !prev)}
+                >
+                  <p>{userName?.length ? userName : user?.email}</p>
+                </div>
+              </Popover>
+            </>
+          ) : (
+            <button
+              className="signIn-button"
+              onClick={() => {
+                navigate("/sign-in");
+              }}
+            >
+              Đăng Nhập
+            </button>
+          )}
+        </div>
+
         <div className="navbar_search">
           <input type="text" placeholder="Search" className="search-input" />
           <button className="search-btn">

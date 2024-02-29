@@ -9,17 +9,21 @@ import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import InputForm from "../../components/InputForm/InputForm";
 import { jwtDecode } from "jwt-decode";
 import * as UserService from "../../services/UserService";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import Loading from "../../components/LoadingComponent/Loading";
 import { useMutationHooks } from "../../hooks/useMutationHook";
-
-const SignInPage = () => {
+import { message } from "antd";
+import { updateUser } from "../../redux/slides/userSlide";
+const SignInPage = (props) => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const location = useLocation();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState("");
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const handleOnchangePassword = (value) => {
     setPassword(value);
   };
@@ -27,7 +31,7 @@ const SignInPage = () => {
     setEmail(value);
   };
   const mutation = useMutationHooks((data) => UserService.loginUser(data));
-  const { data, isPending, isSuccess } = mutation;
+  const { data, isPending, isSuccess, isError } = mutation;
   console.log("mutation: ", mutation);
   const handleSignIn = () => {
     console.log("logingloin");
@@ -39,30 +43,36 @@ const SignInPage = () => {
   const handleGetDetailsUser = async (id, token) => {
     const storage = localStorage.getItem("refresh_token");
     const refreshToken = JSON.parse(storage);
-
     const res = await UserService.getDetailsUser(id, token);
+    console.log("Detail user: ", res);
     dispatch(updateUser({ ...res?.data, access_token: token, refreshToken }));
   };
   useEffect(() => {
     if (isSuccess) {
+      console.log("Kết quả đăng nhập: ", isSuccess);
       if (location?.state) {
         navigate(location?.state);
       } else {
-        navigate("/");
+        navigate("/admin");
       }
       localStorage.setItem("access_token", JSON.stringify(data?.access_token));
+
       localStorage.setItem(
         "refresh_token",
         JSON.stringify(data?.refresh_token)
       );
+      // console.log("access_token bên sign in: ", data?.access_token);
       if (data?.access_token) {
         const decoded = jwtDecode(data?.access_token);
+        // console.log("decode: ", decoded);
         if (decoded?.id) {
           handleGetDetailsUser(decoded?.id, data?.access_token);
         }
       }
+    } else if (isError) {
+      message.error("Sai tên tài khoản hoặc mật khẩu");
     }
-  }, [isSuccess]);
+  }, [isSuccess, isError]);
 
   return (
     <div className="sin">

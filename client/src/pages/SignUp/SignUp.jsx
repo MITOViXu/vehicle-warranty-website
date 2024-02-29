@@ -10,7 +10,7 @@ import Loading from "../../components/LoadingComponent/Loading";
 import { FaRegEyeSlash } from "react-icons/fa";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { FaRegEye } from "react-icons/fa";
-import * as UserService from "../../services/UserService"
+import * as UserService from "../../services/UserService";
 
 const SignUp = () => {
   const navigate = useNavigate();

@@ -1,10 +1,17 @@
 import React from "react";
 import Navbar from "../NavBar/Navbar";
 
-const DefaultComponent = ({ children }) => {
+const DefaultComponent = ({
+  children,
+  isAuthentication,
+  handleAuthentication,
+}) => {
   return (
     <div>
-      <Navbar />
+      <Navbar
+        isAuthentication={isAuthentication}
+        handleAuthentication={handleAuthentication}
+      />
       {children}
     </div>
   );

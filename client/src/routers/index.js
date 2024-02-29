@@ -7,6 +7,7 @@ import Detail from "../pages/Detail/Detail";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
+import AdminPage from "../components/AdminPage/AdminPage";
 export const routes = [
   {
     path: "/",
@@ -20,7 +21,7 @@ export const routes = [
   },
   {
     path: "/admin",
-    page: Admin,
+    page: AdminPage,
     isShowHeader: true,
   },
   {

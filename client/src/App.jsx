@@ -1,65 +1,86 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { ethers } from "ethers";
-import Navbar from "./components/NavBar/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { contractAddress, abi } from "./constant/constant";
 import Routers from "./routers/Router";
 import Home from "./pages/Home/Home";
+import * as UserService from "./services/UserService";
 import Footer from "./components/Footer/Footer";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
 import Loading from "./components/LoadingComponent/Loading";
 import { routes } from "./routers";
 import { useQuery } from "@tanstack/react-query";
+import { updateUser } from "./redux/slides/userSlide";
+import { isJsonString } from "./utils";
+import { jwtDecode } from "jwt-decode";
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    fetchApi();
-  }, []);
-  const fetchApi = async () => {
-    const res = await axios.get(`http://localhost:3001/api/vehicle/get-all`);
-    console.log("res api: ", res);
-  };
-  const query = useQuery({ queryKey: ["todos"], queryFn: fetchApi });
-  console.log("query", query);
-  const [provider, setProvider] = useState(null);
-  const [account, setAccount] = useState(null);
-  const [contractInstance, setcontractInstance] = useState(null);
-  const [isConnected, setIsConnected] = useState(false);
-  const [car, setCar] = useState({
-    provider: null,
-    signer: null,
-    contract: null,
-  });
-  async function connectToMetamask() {
-    if (window.ethereum) {
-      try {
-        const { ethereum } = window;
-        const account = await ethereum.request({
-          method: "eth_requestAccounts",
-        });
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
-        window.ethereum.on("accountsChanged", () => {
-          window.location.reload();
-        });
-        setAccount(account);
-        const provider = new ethers.providers.Web3Provider(ethereum); //read the Blockchain
-        const signer = provider.getSigner(); //write the blockchain
-        const address = await signer.getAddress();
-        const contract = new ethers.Contract(contractAddress, abi, signer);
-        console.log("Metamask Connected : " + address);
-        setCar({ provider, signer, contract });
-        setIsConnected(true);
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      console.error("Metamask is not detected in the browser");
+  const [isLoading, setIsLoading] = useState(false);
+  const handleGetDetailsUser = async (id, token) => {
+    let storageRefreshToken = localStorage.getItem("refresh_token");
+    const refreshToken = JSON.parse(storageRefreshToken);
+    const res = await UserService.getDetailsUser(id, token);
+    console.log("Detail user ben app: ", res);
+    dispatch(
+      updateUser({
+        ...res?.data,
+        access_token: token,
+        refreshToken: refreshToken,
+      })
+    );
+  };
+  const handleDecoded = () => {
+    console.log("User sau khi đăng xuất: ", user?.name);
+    let storageData =
+      user?.access_token || localStorage.getItem("access_token");
+    let decoded = {};
+    if (storageData && isJsonString(storageData) && !user?.access_token) {
+      console.log("Vô được decoded");
+      storageData = JSON.parse(storageData);
+      decoded = jwtDecode(storageData);
+      console.log("DEcoded ben apP: ", decoded);
     }
-  }
-  async function handleLogOut() {
-    setIsConnected(false);
-  }
+    return { decoded, storageData };
+  };
+  UserService.axiosJWT.interceptors.request.use(
+    async (config) => {
+      try {
+        // Do something before request is sent
+        const currentTime = new Date();
+        const { decoded } = handleDecoded();
+        let storageRefreshToken = localStorage.getItem("refresh_token");
+        const refreshToken = JSON.parse(storageRefreshToken);
+        const decodedRefreshToken = jwtDecode(refreshToken);
+        if (decoded?.exp < currentTime.getTime() / 1000) {
+          if (decodedRefreshToken?.exp > currentTime.getTime() / 1000) {
+            const data = await UserService.refreshToken(refreshToken);
+            config.headers["token"] = `Bearer ${data?.access_token}`;
+          } else {
+            dispatch(resetUser());
+          }
+        }
+        return config;
+      } catch (error) {
+        console.log("Eror user so vit: ", error);
+      }
+    },
+    (err) => {
+      return Promise.reject(err);
+    }
+  );
+  useEffect(() => {
+    setIsLoading(true);
+    const { storageData, decoded } = handleDecoded();
+    if (decoded?.id) {
+      handleGetDetailsUser(decoded?.id, storageData);
+    }
+    setIsLoading(false);
+  }, []);
+
   return (
     <div style={{ padding: "0" }}>
       <Loading isLoading={isLoading}>

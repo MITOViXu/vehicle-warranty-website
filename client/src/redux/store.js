@@ -1,17 +1,42 @@
-import { configureStore } from "@reduxjs/toolkit";
-
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import productReducer from "./slides/productSlide";
+import userReducer from "./slides/userSlide";
+import orderReducer from "./slides/orderSlide";
 import {
-  useDispatch as useAppDispatch,
-  useSelector as useAppSelector,
-} from "react-redux";
-import { rootReducer } from "./rootReducer";
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-const store = configureStore({
-  reducer: rootReducer,
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
+  blacklist: ["product", "user"],
+};
+
+const rootReducer = combineReducers({
+  product: productReducer,
+  user: userReducer,
+  order: orderReducer,
 });
 
-const { dispatch } = store;
-const useSelector = useAppSelector;
-const useDispatch = () => useAppDispatch();
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export { store, dispatch, useDispatch, useSelector };
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export let persistor = persistStore(store);

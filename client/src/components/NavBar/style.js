@@ -1,28 +1,44 @@
+import { Row } from "antd";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const WrapperLableText = styled.h4`
-    color: rgb(56, 56, 61);
-    font-size: 14px;
-    font-weight: 500;
-`
+export const WrapperHeader = styled(Row)`
+  background-color: var(--primary-color);
+  align-items: center;
+  gap: 16px;
+  flex-wrap: nowrap;
+  width: 1270px;
+  padding: 10px 0;
+`;
 
-export const WrapperTextValue = styled.span`
-    color: rgb(56, 56, 61);
-    font-size: 12px;
-    font-weight: 400;
-`
+export const WrapperTextHeader = styled(Link)`
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  text-align: left;
+  &:hover {
+    font-size: 18px;
+    color: #fff;
+  }
+`;
 
-export const WrapperContent = styled.div`
-    display: flex;
-    // align-items: center;
-    flex-direction: column;
-    gap: 12px;
-`
+export const WrapperHeaderAccout = styled.div`
+  display: flex;
+  align-items: center;
+  color: #fff;
+  gap: 10px;
+  max-width: 200px;
+`;
 
-export const WrapperTextPrice = styled.div`
-    padding: 4px;
-    color: rgb(56, 56, 61);
-    border-radius: 10px;
-    backgroundColor: rgb(238, 238, 238);
-    width: fit-cotent;
-`
+export const WrapperTextHeaderSmall = styled.span`
+  font-size: 12px;
+  color: #fff;
+  white-space: nowrap;
+`;
+
+export const WrapperContentPopup = styled.p`
+  cursor: pointer;
+  &:hover {
+    color: rgb(26, 148, 255);
+  }
+`;

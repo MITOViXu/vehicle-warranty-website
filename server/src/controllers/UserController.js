@@ -43,20 +43,20 @@ const loginUser = async (req, res) => {
         message: "The input is required",
       });
     } else if (!isCheckEmail) {
-      return res.status(200).json({
+      return res.status(404).json({
         status: "ERR",
         message: "The input is email",
       });
     }
     const response = await UserService.loginUser(req.body);
-    const { refresh_token, ...newReponse } = response
-    res.cookie('refresh_token', refresh_token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'strict',
-        path: '/',
-    })
-    return res.status(200).json({...newReponse, refresh_token})
+    const { refresh_token, ...newReponse } = response;
+    res.cookie("refresh_token", refresh_token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict",
+      path: "/",
+    });
+    return res.status(200).json({ ...newReponse, refresh_token });
     return res.status(200).json(response);
   } catch (e) {
     return res.status(404).json({
