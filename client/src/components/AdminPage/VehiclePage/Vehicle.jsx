@@ -41,7 +41,6 @@ const Vehicle = () => {
   const [vehicleTypes, setVehicleTypes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-
   const [image, setImage] = useState([]);
   const user = useSelector((state) => state?.user);
   const getAllVehicle = async () => {
@@ -69,9 +68,11 @@ const Vehicle = () => {
     engine: "", //
     frame: "", //
     type: "", //
+    newType: "",
     brand: "", //
     description: "", //
   });
+  const [stateVehicleDetail, setStateVehicleDetail] = useState(inittial());
   const handleOnchange = (e) => {
     setStateVehicle({
       ...stateVehicle,
@@ -258,6 +259,34 @@ const Vehicle = () => {
       }
     );
   };
+  const onFinish = () => {
+    const params = {
+      name: stateVehicle.name,
+      identifynumber: stateVehicle.identifynumber, //
+      dated: stateVehicle.dated, //
+      email: stateVehicle.email, //
+      phone: stateVehicle.phone, //
+      address: stateVehicle.address, //
+      plates: stateVehicle.plates, //
+      bill: stateVehicle.bill, //
+      tax: stateVehicle.tax, //
+      seri: stateVehicle.seri, //
+      license: stateVehicle.license, //
+      engine: stateVehicle.engine, //
+      frame: stateVehicle.frame, //
+      type:
+        stateVehicle.type === "add_type"
+          ? stateVehicle.newType
+          : stateVehicle.type, //
+      brand: stateVehicle.brand, //
+      description: stateVehicle.description, //
+    };
+    mutation.mutate(params, {
+      onSettled: () => {
+        querryVehicle.refetch();
+      },
+    });
+  };
   const dataTable =
     vehicles?.data?.length &&
     vehicles?.data?.map((vehicle) => {
@@ -305,7 +334,6 @@ const Vehicle = () => {
           title="Thêm mới super idol car"
           open={isModalOpen}
           width={800}
-          // onOk={handleOk}
           onCancel={handleCancel}
         >
           <Loading isLoading={false}>
@@ -313,7 +341,7 @@ const Vehicle = () => {
               name="basic"
               labelCol={{ span: 6 }}
               wrapperCol={{ span: 18 }}
-              // onFinish={onFinish}
+              onFinish={onFinish}
               autoComplete="on"
               form={form}
             >
