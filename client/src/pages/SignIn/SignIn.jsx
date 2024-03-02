@@ -20,6 +20,7 @@ const SignInPage = (props) => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const location = useLocation();
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const user = useSelector((state) => state.user);
@@ -40,11 +41,14 @@ const SignInPage = (props) => {
       password,
     });
   };
+
   const handleGetDetailsUser = async (id, token) => {
     const storage = localStorage.getItem("refresh_token");
     const refreshToken = JSON.parse(storage);
     const res = await UserService.getDetailsUser(id, token);
-    console.log("Detail user: ", res);
+    console.log("Detail user is Admin: ", res.data.isAdmin);
+    if (res.data.isAdmin) setIsAdmin(true);
+    else setIsAdmin(false);
     dispatch(updateUser({ ...res?.data, access_token: token, refreshToken }));
   };
   useEffect(() => {
@@ -52,8 +56,8 @@ const SignInPage = (props) => {
       console.log("Kết quả đăng nhập: ", isSuccess);
       if (location?.state) {
         navigate(location?.state);
-      } else {
-        navigate("/admin");
+      }else{
+        navigate("/")
       }
       localStorage.setItem("access_token", JSON.stringify(data?.access_token));
 

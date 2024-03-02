@@ -31,10 +31,10 @@ const navLinks = [
     path: "/about",
     display: "Chứng Nhận ",
   },
-  {
-    path: "/register",
-    display: "Đăng kí",
-  },
+  // {
+  //   path: "/register",
+  //   display: "Đăng kí",
+  // },
 ];
 
 const Navbar = () => {

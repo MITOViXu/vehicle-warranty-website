@@ -11,7 +11,6 @@ import axios from "axios";
 import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
 import Loading from "./components/LoadingComponent/Loading";
 import { routes } from "./routers";
-import { useQuery } from "@tanstack/react-query";
 import { updateUser } from "./redux/slides/userSlide";
 import { isJsonString } from "./utils";
 import { jwtDecode } from "jwt-decode";

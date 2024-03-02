@@ -11,17 +11,23 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import React, { useState } from "react";
-function getItem(label, key, icon, children) {
+import User from "./UserPage/User";
+import Vehicle from "./VehiclePage/Vehicle";
+import { useSelector } from "react-redux";
+
+function getItem(label, key, icon, children, type) {
   return {
     key,
     icon,
     children,
     label,
+    type,
   };
 }
+
 const items = [
+  getItem("Phương tiện", "vehicles", <AppstoreOutlined />),
   getItem("Người dùng", "users", <UserOutlined />),
-  getItem("Phương tiện", "products", <AppstoreOutlined />),
   // getItem(
   //   <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
   //     Ant Design
@@ -33,20 +39,26 @@ const items = [
 const AdminPage = () => {
   const [mode, setMode] = useState("inline");
   const [theme, setTheme] = useState("light");
+  const user = useSelector((state) => state.user);
   const rootSubmenuKeys = ["user", "product"];
   const [openKeys, setOpenKeys] = useState(["user"]);
-  const [keySelect, setKeyselect] = useState("");
+  const [keySelect, setKeyselect] = useState("vehicles");
   const changeMode = (value) => {
     setMode(value ? "vertical" : "inline");
   };
   const changeTheme = (value) => {
     setTheme(value ? "dark" : "light");
   };
-  const handleOnclick = ({ key, item, keyPath, domEvent }) => {
+  const handleOnclick = ({ key }) => {
     setKeyselect(key);
-    console.log(keySelect);
+    console.log("kEY ĐÃ được select: ", keySelect);
   };
-  return (
+  let renderPage = () => {
+    if (keySelect === "users") {
+      return <User />;
+    } else return <Vehicle />;
+  };
+  return user?.isAdmin ? (
     <div
       style={{
         marginTop: "100px",
@@ -55,27 +67,28 @@ const AdminPage = () => {
         alignItems: "center",
       }}
     >
-      <div>
-        <Menu
-          style={{
-            width: 256,
-            borderRadius: 10,
-          }}
-          onClick={handleOnclick}
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
-          mode={"inline"}
-          theme={"light"}
-          items={items}
-        />
+      <Menu
+        style={{
+          width: 256,
+          borderRadius: 10,
+          height: "100vh",
+        }}
+        onClick={handleOnclick}
+        defaultSelectedKeys={["vehicles"]}
+        defaultOpenKeys={["vehicles"]}
+        mode={"inline"}
+        // theme={"light"}
+        items={items}
+      />
 
-        {/* <Switch onChange={changeMode} /> Mode
+      {/* <Switch onChange={changeMode} /> Mode
         <Divider type="vertical" />
         <Switch onChange={changeTheme} /> Style */}
-      </div>
-      <div>
-        <h1>Hello</h1>
-      </div>
+      <div style={{ flex: 1, padding: "15px 0 15px 15px" }}>{renderPage()}</div>
+    </div>
+  ) : (
+    <div style={{ marginTop: "100px", padding: "100px", fontSize: "100px" }}>
+      Bạn không có quyền truy cập trang web này trừ anh TOÀN đẹp trai
     </div>
   );
 };

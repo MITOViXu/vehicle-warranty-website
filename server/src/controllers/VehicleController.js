@@ -118,11 +118,22 @@ const getAllVehicle = async (req, res) => {
     });
   }
 };
+const getAllType = async (req, res) => {
+  try {
+      const response = await VehicleService.getAllType()
+      return res.status(200).json(response)
+  } catch (e) {
+      return res.status(404).json({
+          message: e
+      })
+  }
+}
 
 module.exports = {
   createVehicle,
   getDetailsVehicle,
   deleteVehicle,
   deleteMany,
+  getAllType,
   getAllVehicle,
 };

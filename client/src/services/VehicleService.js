@@ -9,7 +9,7 @@ export const getAllVehicle = async (search, limit) => {
     );
   } else {
     res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/product/get-all?limit=${limit}`
+      `http://localhost:3001/api/vehicle/get-all?limit=${limit}`
     );
   }
   return res.data;
@@ -26,7 +26,7 @@ export const getVehicleType = async (type, page, limit) => {
 
 export const createVehicle = async (data) => {
   const res = await axios.post(
-    `http://localhost:3001/api/vehicle/product/create`,
+    `http://localhost:3001/api/vehicle/create`,
     data
   );
   return res.data;
@@ -34,14 +34,14 @@ export const createVehicle = async (data) => {
 
 export const getDetailsVehicle = async (id) => {
   const res = await axios.get(
-    `http://localhost:3001/api/vehicle/product/get-details/${id}`
+    `http://localhost:3001/api/vehicle/get-details/${id}`
   );
   return res.data;
 };
 
 export const updateVehicle = async (id, access_token, data) => {
   const res = await axiosJWT.put(
-    `http://localhost:3001/api/vehicle/product/update/${id}`,
+    `http://localhost:3001/api/vehicle/update/${id}`,
     data,
     {
       headers: {
@@ -54,7 +54,7 @@ export const updateVehicle = async (id, access_token, data) => {
 
 export const deleteVehicle = async (id, access_token) => {
   const res = await axiosJWT.delete(
-    `http://localhost:3001/api/vehicle/product/delete/${id}`,
+    `http://localhost:3001/api/vehicle/delete/${id}`,
     {
       headers: {
         token: `Bearer ${access_token}`,
@@ -66,7 +66,7 @@ export const deleteVehicle = async (id, access_token) => {
 
 export const deleteManyVehicle = async (data, access_token) => {
   const res = await axiosJWT.post(
-    `http://localhost:3001/api/vehicle/product/delete-many`,
+    `http://localhost:3001/api/vehicle/delete-many`,
     data,
     {
       headers: {
@@ -79,7 +79,7 @@ export const deleteManyVehicle = async (data, access_token) => {
 
 export const getAllTypeVehicle = async () => {
   const res = await axios.get(
-    `http://localhost:3001/api/vehicle/product/get-all-type`
+    `http://localhost:3001/api/vehicle/get-all-type`
   );
   return res.data;
 };

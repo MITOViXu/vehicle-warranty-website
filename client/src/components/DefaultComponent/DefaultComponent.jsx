@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../NavBar/Navbar";
+import Navbar from "../NavBar/NavBar";
 
 const DefaultComponent = ({
   children,
