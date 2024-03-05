@@ -27,7 +27,8 @@
 const mongoose = require("mongoose");
 const vehicleSchema = new mongoose.Schema(
   {
-    name: { type: String },
+    name: { type: String, require: true },
+    image: { type: [String], require: true },
     identifynumber: { type: String, required: true, unique: true },
     dated: { type: Date, require: true },
     email: { type: String, required: true, unique: true },

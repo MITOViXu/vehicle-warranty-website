@@ -8,6 +8,7 @@ import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
 import AdminPage from "../components/AdminPage/AdminPage";
+import SigninNew from "../pages/SigninNew/SigninNew";
 export const routes = [
   {
     path: "/",
@@ -47,6 +48,11 @@ export const routes = [
   {
     path: "/sign-up",
     page: SignUp,
+    isShowHeader: false,
+  },
+  {
+    path: "/sign-in-new",
+    page: SigninNew,
     isShowHeader: false,
   },
   {

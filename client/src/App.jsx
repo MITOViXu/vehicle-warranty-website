@@ -23,7 +23,7 @@ function App() {
     let storageRefreshToken = localStorage.getItem("refresh_token");
     const refreshToken = JSON.parse(storageRefreshToken);
     const res = await UserService.getDetailsUser(id, token);
-    console.log("Detail user ben app: ", res);
+    // console.log("Detail user ben app: ", res);
     dispatch(
       updateUser({
         ...res?.data,
@@ -33,15 +33,15 @@ function App() {
     );
   };
   const handleDecoded = () => {
-    console.log("User sau khi đăng xuất: ", user?.name);
+    // console.log("User sau khi đăng xuất: ", user?.name);
     let storageData =
       user?.access_token || localStorage.getItem("access_token");
     let decoded = {};
     if (storageData && isJsonString(storageData) && !user?.access_token) {
-      console.log("Vô được decoded");
+      // console.log("Vô được decoded");
       storageData = JSON.parse(storageData);
       decoded = jwtDecode(storageData);
-      console.log("DEcoded ben apP: ", decoded);
+      // console.log("DEcoded ben apP: ", decoded);
     }
     return { decoded, storageData };
   };

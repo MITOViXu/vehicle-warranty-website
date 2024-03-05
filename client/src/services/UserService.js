@@ -58,7 +58,7 @@ export const getAllUser = async (access_token) => {
 // }
 
 export const refreshToken = async (refreshToken) => {
-  console.log("refreshToken", refreshToken);
+  // console.log("refreshToken", refreshToken);
   const res = await axios.post(
     `http://localhost:3001/api/user/refresh-token`,
     {},

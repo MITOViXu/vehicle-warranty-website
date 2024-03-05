@@ -4,6 +4,7 @@ const createVehicle = async (req, res) => {
   try {
     const {
       name,
+      image,
       identifynumber,
       dated,
       email,
@@ -22,6 +23,7 @@ const createVehicle = async (req, res) => {
     } = req.body;
     if (
       !name ||
+      !image ||
       !identifynumber ||
       !dated ||
       !email ||
@@ -43,6 +45,24 @@ const createVehicle = async (req, res) => {
       });
     }
     const response = await VehicleService.createVehicle(req.body);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
+const updateVehicle = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const data = req.body;
+    if (!productId) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The productId is required",
+      });
+    }
+    const response = await VehicleService.updateVehicle(productId, data);
     return res.status(200).json(response);
   } catch (e) {
     return res.status(404).json({
@@ -120,14 +140,14 @@ const getAllVehicle = async (req, res) => {
 };
 const getAllType = async (req, res) => {
   try {
-      const response = await VehicleService.getAllType()
-      return res.status(200).json(response)
+    const response = await VehicleService.getAllType();
+    return res.status(200).json(response);
   } catch (e) {
-      return res.status(404).json({
-          message: e
-      })
+    return res.status(404).json({
+      message: e,
+    });
   }
-}
+};
 
 module.exports = {
   createVehicle,
@@ -135,5 +155,6 @@ module.exports = {
   deleteVehicle,
   deleteMany,
   getAllType,
+  updateVehicle,
   getAllVehicle,
 };

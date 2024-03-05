@@ -5,6 +5,7 @@ const { authMiddleWare } = require("../middleware/authMiddleware");
 const Vehicle = require("../model/VehicleModel");
 
 router.post("/create", VehicleController.createVehicle);
+router.put("/update/:id", authMiddleWare, VehicleController.updateVehicle);
 router.get("/get-details/:id", VehicleController.getDetailsVehicle);
 router.get("/get-all", VehicleController.getAllVehicle);
 router.delete("/delete/:id", authMiddleWare, VehicleController.deleteVehicle);

@@ -8,6 +8,7 @@ const InputComponent = ({size, placeholder, bordered, style, ...rests }) => {
         placeholder={placeholder} 
         bordered={bordered} 
         style={style}
+        
         {...rests} 
     />
   )

@@ -5,6 +5,7 @@ const createVehicle = (newVehicle) => {
     const {
       name,
       identifynumber,
+      image,
       dated,
       email,
       phone,
@@ -33,7 +34,8 @@ const createVehicle = (newVehicle) => {
       const newVehicle = await Vehicle.create({
         name,
         identifynumber,
-        dated: dated,
+        image,
+        dated: Date(dated),
         email,
         phone: Number(phone),
         address,
@@ -207,11 +209,38 @@ const getAllType = () => {
     }
   });
 };
+const updateVehicle = (id, data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const checkProduct = await Vehicle.findOne({
+        _id: id,
+      });
+      if (checkProduct === null) {
+        resolve({
+          status: "ERR",
+          message: "The product is not defined",
+        });
+      }
+
+      const updatedProduct = await Vehicle.findByIdAndUpdate(id, data, {
+        new: true,
+      });
+      resolve({
+        status: "OK",
+        message: "SUCCESS",
+        data: updatedProduct,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   createVehicle,
   getDetailsVehicle,
   deleteManyVehicle,
   deleteVehicle,
+  updateVehicle,
   getAllType,
   getAllVehicle,
 };

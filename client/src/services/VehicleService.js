@@ -25,11 +25,17 @@ export const getVehicleType = async (type, page, limit) => {
 };
 
 export const createVehicle = async (data) => {
-  const res = await axios.post(
-    `http://localhost:3001/api/vehicle/create`,
-    data
-  );
-  return res.data;
+  console.log("Vo duoc create ben service");
+  console.log("Data: ", data);
+  try {
+    const res = await axios.post(
+      `http://localhost:3001/api/vehicle/create`,
+      data
+    );
+    return res.data;
+  } catch (error) {
+    console.log("error : ", error);
+  }
 };
 
 export const getDetailsVehicle = async (id) => {
@@ -40,16 +46,21 @@ export const getDetailsVehicle = async (id) => {
 };
 
 export const updateVehicle = async (id, access_token, data) => {
-  const res = await axiosJWT.put(
-    `http://localhost:3001/api/vehicle/update/${id}`,
-    data,
-    {
-      headers: {
-        token: `Bearer ${access_token}`,
-      },
-    }
-  );
-  return res.data;
+  try {
+    // console.log("Access token ben update: ", access_token);
+    const res = await axiosJWT.put(
+      `http://localhost:3001/api/vehicle/update/${id}`,
+      data,
+      {
+        headers: {
+          token: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.log("Error: ", error);
+  }
 };
 
 export const deleteVehicle = async (id, access_token) => {
@@ -78,8 +89,6 @@ export const deleteManyVehicle = async (data, access_token) => {
 };
 
 export const getAllTypeVehicle = async () => {
-  const res = await axios.get(
-    `http://localhost:3001/api/vehicle/get-all-type`
-  );
+  const res = await axios.get(`http://localhost:3001/api/vehicle/get-all-type`);
   return res.data;
 };
