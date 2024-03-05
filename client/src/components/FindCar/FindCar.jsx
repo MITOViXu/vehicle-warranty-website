@@ -1,7 +1,66 @@
 import React, { useState } from "react";
 import { ethers } from "ethers";
 import { contractAddress, abi } from "../../constant/constant";
+import { MdOutlineArrowCircleRight } from "react-icons/md";
 import "./FindCar.css";
+
+// Component hiển thị nội dung khi chọn theo hãng
+const ByBrandContent = () => {
+  return (
+    <div className="content-theo-hang">
+      <div class="item toyota"></div>
+      <div class="item honda"></div>
+      <div class="item huyndai"></div>
+      <div class="item kia"></div>
+      <div class="item madza"></div>
+      <div class="item ford"></div>
+      <div class="item audi"></div>
+      <div class="item bmw"></div>
+      <div class="item chervolet"></div>
+      <div class="item mercedes"></div>
+      <div class="item mitsubishi"></div>
+      <div class="item suzuki"></div>
+      <div class="item vin"></div>
+    </div>
+  );
+};
+// Component hiển thị nội dung khi chọn theo nhu cầu
+const ByNeedsContent = () => {
+  return (
+    <div className="content-theo-nhu-cau">
+      <div className="nhucau xe-gia-dinh"></div>
+      <div className="nhucau xe-luot"></div>
+      <div className="nhucau xe-flex"></div>
+    </div>
+  );
+};
+
+// Component hiển thị nội dung khi chọn theo trả góp
+const ByInstallmentsContent = () => {
+  return (
+    <div className="content-theo-tra-gop">
+      <div className="tragop truoc"></div>
+      <div className="tragop dinhky"></div>
+      <div></div>
+    </div>
+  );
+};
+
+// Component hiển thị nội dung khi chọn theo kiểu dáng
+const ByStyleContent = () => {
+  return (
+    <div className="content-theo-kieu-dang">
+      <div class="kieu sedan"></div>
+      <div class="kieu hatchback"></div>
+      <div class="kieu suv"></div>
+      <div class="kieu mpv"></div>
+      <div class="kieu van"></div>
+      <div class="kieu pickup"></div>
+      <div class="kieu crossover"></div>
+    </div>
+  );
+};
+
 const FindCar = (props) => {
   const [provider, setProvider] = useState(null);
   const [vehicleinfor, setVehicleinfor] = useState(null);
@@ -22,15 +81,34 @@ const FindCar = (props) => {
     }
   }
   const [activeButton, setActiveButton] = useState(null);
-
   const handleClick = (button) => {
-    setActiveButton(button);
+    if (button !== activeButton) {
+      setActiveButton(button);
+    }
+  };
+
+  // Render component phù hợp dựa trên activeButton
+  const renderContent = () => {
+    switch (activeButton) {
+      case "theo-hang":
+        return <ByBrandContent />;
+      case "theo-nhu-cau":
+        return <ByNeedsContent />;
+      case "theo-tra-gop":
+        return <ByInstallmentsContent />;
+      case "theo-kieu-dang":
+        return <ByStyleContent />;
+      default:
+        return <ByBrandContent />;
+    }
   };
   return (
     <div className="findcar-container">
       <div className="filter-option">
         <div className="price-range">
-          <h6 style={{ fontWeight: "bold" }}>Theo khoảng giá</h6>
+          <h6 style={{ fontWeight: "bold", marginBottom: "18px" }}>
+            Theo khoảng giá
+          </h6>
           <div className="price-box">
             <button className="bttn-600-800"></button>
             <div class="box2">
@@ -74,11 +152,70 @@ const FindCar = (props) => {
               Theo kiểu dáng
             </button>
           </div>
-          <div className="option-result"></div>
+          <div className="option-result">{renderContent()}</div>
         </div>
-        <div className="support-range"></div>
+        <div className="support-range">
+          <div className="all-car">
+            <span>Xem tất cả xe</span>
+            <MdOutlineArrowCircleRight />
+          </div>
+          <div className="support-find-car">
+            <div>
+              <p style={{ fontSize: "15px", marginBottom: "6px" }}>
+                Bạn cần hỗ trợ tìm xe?
+              </p>
+              <p style={{ color: "#029AF2" }}>Hãy để chúng tôi giúp bạn</p>
+            </div>
+            <div className="img-support"></div>
+          </div>
+        </div>
       </div>
-      <div className="filter-plates"></div>
+      <div className="filter-plates">
+        <div className="plates">
+          <div className="plates-img"></div>
+          <div className="plates-find">
+            <div>
+              <h1 style={{ fontWeight: "800" }}>Tìm Kiếm Xe Trực Tuyến</h1>
+              <p
+                style={{
+                  fontSize: "13px",
+                  fontWeight: "bold",
+                  marginTop: "0px",
+                }}
+              >
+                Bạn đã có biển số xe? Hãy tìm kiếm ngay nhé!
+              </p>
+            </div>
+            <div className="input-group">
+              <div style={{ width: "100%" }}>
+                <input
+                  className="input bienso"
+                  type="text"
+                  placeholder="Nhập Biển Số Xe"
+                />
+              </div>
+              <div className="input-option">
+                <select className="input" placeholder="Loại xe">
+                  <option value="" disabled selected hidden>
+                    Loại xe
+                  </option>
+                  <option value="">Sedan</option>
+                  <option value="">SUV</option>
+                  <option value="">Hatchback</option>
+                </select>
+                <input
+                  className="input thanhpho"
+                  type="text"
+                  placeholder="Nhập Thành Phố"
+                />
+              </div>
+              <div style={{ width: "100%" }}>
+                <button className="bttn-search">Tìm Kiếm Ngay</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

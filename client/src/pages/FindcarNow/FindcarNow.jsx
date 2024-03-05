@@ -10,6 +10,7 @@ const FindcarNow = () => {
     <div>
       <HersoSlider />
       <FindCar/>
+      <Footer/>
     </div>
   )
 }
