@@ -6,9 +6,8 @@ import FindcarNow from "../pages/FindcarNow/FindcarNow";
 import Detail from "../pages/Detail/Detail";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import SignIn from "../pages/SignIn/SignIn";
-import SignUp from "../pages/SignUp/SignUp";
 import AdminPage from "../components/AdminPage/AdminPage";
-import SigninNew from "../pages/SigninNew/SigninNew";
+import SignUp from "../pages/SignUp/SignUp";
 export const routes = [
   {
     path: "/",
@@ -50,11 +49,11 @@ export const routes = [
     page: SignUp,
     isShowHeader: false,
   },
-  {
-    path: "/sign-in-new",
-    page: SigninNew,
-    isShowHeader: false,
-  },
+  // {
+  //   path: "/sign-in-new",
+  //   page: SigninNew,
+  //   isShowHeader: false,
+  // },
   {
     path: "*",
     page: NotFoundPage,
