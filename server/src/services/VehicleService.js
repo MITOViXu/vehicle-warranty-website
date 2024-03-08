@@ -88,6 +88,30 @@ const getDetailsVehicle = (id) => {
     }
   });
 };
+const getDetailsVehiclePlate = (plate) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const car = await Vehicle.findOne({
+        plates: plate,
+      });
+      if (car === null) {
+        console.log("Plate : ", plate)
+        resolve({
+          status: "ERR",
+          message: "The car is not defined sai plate",
+        });
+      }
+
+      resolve({
+        status: "OK",
+        message: "SUCESS",
+        data: car,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 const deleteVehicle = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -239,6 +263,7 @@ module.exports = {
   createVehicle,
   getDetailsVehicle,
   deleteManyVehicle,
+  getDetailsVehiclePlate,
   deleteVehicle,
   updateVehicle,
   getAllType,

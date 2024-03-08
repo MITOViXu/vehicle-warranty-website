@@ -18,7 +18,6 @@
 // Nhãn hiệu
 // Số loại
 // Giấy tờ đăng kiểm
-
 // ==== còn thiếu
 // Số chỗ xe
 // Số km lăn bánh
@@ -39,7 +38,7 @@ const vehicleSchema = new mongoose.Schema(
     tax: { type: String, require: true },
     seri: { type: String, require: true },
     license: { type: String, require: true },
-    demand: {type: String, require: true},
+    demand: { type: String, require: true },
     engine: { type: String, require: true },
     frame: { type: String, require: true },
     type: { type: String, require: true },

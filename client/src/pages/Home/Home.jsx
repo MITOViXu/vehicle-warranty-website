@@ -49,7 +49,7 @@ const Home = (props) => {
     keepPreviousData: true,
   });
 
-  console.log("vehicle bên homepage: ", vehicles?.data);
+  // console.log("vehicle bên homepage: ", vehicles?.data);
   return (
     <Loading isLoading={loading}>
       <div style={{ overflowX: "hidden" }}>

@@ -3,8 +3,10 @@ import {
   PlusOutlined,
   DeleteOutlined,
   EditOutlined,
+  HistoryOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+
 import InputComponent from "../../InputComponent/InputComponent";
 import { getBase64, renderOptions } from "../../../utils";
 import { WrapperHeader, WrapperUploadFile } from "./style";
@@ -39,6 +41,7 @@ const Vehicle = () => {
   const searchInput = useRef(null);
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
+  const [isLoadingCreate, setIsLoadingCreate] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [deletingVehicleId, setDeletingVehicleId] = useState(null);
   const [vehicleTypes, setVehicleTypes] = useState([]);
@@ -113,7 +116,7 @@ const Vehicle = () => {
         description: res?.data?.description,
       });
     }
-    // console.log("Name là: ", stateVehicleDetail.name);
+    // console.log("Image là: ", res?.data?.image);
     setIsLoadingUpdate(false);
   };
   useEffect(() => {
@@ -171,6 +174,15 @@ const Vehicle = () => {
         <EditOutlined
           style={{ color: "orange", fontSize: "30px", cursor: "pointer" }}
           onClick={handleDetailsProduct}
+        />
+      </div>
+    );
+  };
+  const renderHistory = () => {
+    return (
+      <div>
+        <HistoryOutlined
+          style={{ color: "blue", fontSize: "30px", cursor: "pointer" }}
         />
       </div>
     );
@@ -275,19 +287,32 @@ const Vehicle = () => {
   };
   const columns = [
     {
-      title: "Name",
+      title: "Biển số xe",
+      dataIndex: "plates",
+      sorter: (a, b) => a.name.length - b.name.length,
+      ...getColumnSearchProps("plates"),
+    },
+    {
+      title: "Tên xe",
       dataIndex: "name",
       sorter: (a, b) => a.name.length - b.name.length,
       ...getColumnSearchProps("name"),
     },
     {
-      title: "Type",
+      title: "Loại xe",
       dataIndex: "type",
+      sorter: (a, b) => a.name.length - b.name.length,
+      ...getColumnSearchProps("type"),
     },
     {
-      title: "Action",
+      title: "Chỉnh sửa",
       dataIndex: "action",
       render: renderAction,
+    },
+    {
+      title: "Lịch sử",
+      dataIndex: "history",
+      render: renderHistory,
     },
   ];
   const mutationDeleted = useMutationHooks((data) => {
@@ -302,7 +327,9 @@ const Vehicle = () => {
     isError: isErrorDeleted,
   } = mutationDeleted;
   const onUpdateVehicle = async (values) => {
-    // console.log("Vô được update và id là: ", rowSelected);
+    console.log("Vô được update và id là: ", rowSelected);
+    // console.log("Statevehicle là : ", ...stateVehicleDetail)
+    console.log("Image bên updateVehicle là : ", stateVehicleDetail?.image);
     mutationUpdate.mutate(
       { id: rowSelected, token: user?.access_token, ...stateVehicleDetail },
       {
@@ -387,14 +414,15 @@ const Vehicle = () => {
   };
   const uploadPhoto = async (ev) => {
     try {
-      console.log("Vô được uploadphoto ");
-
+      // console.log("Vô được uploadphoto ");
+      if (isModalOpen) {
+        setIsLoadingCreate(true);
+      } else setIsLoadingUpdate(true);
       const files = ev.target.files;
 
       const CLOUD_NAME = "daa82uroz";
       const PRESET_NAME = "images-preset";
       const FOLDER_NAME = "warranty-website";
-
       const api = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
       const uploadPromises = Array.from(files).map(async (file) => {
@@ -412,20 +440,31 @@ const Vehicle = () => {
         return response.data.secure_url;
       });
       const urls = await Promise.all(uploadPromises);
-      console.log("Type of urls: ", urls);
+      console.log("Type of urls: ", typeof urls[0]);
       // addImage(urls[0]);
       form.setFieldValue({
-        image: urls,
+        image: urls[0],
       });
 
       // const urlsString = urls.join(", "); // Thay ',' bằng dấu phân tách mà bạn muốn
 
       // console.log(urlsString); // In ra urlsString
-
-      // setStateVehicleDetail((prevState) => ({
-      //   ...prevState,
-      //   image: [...prevState.image, ...ur],
-      // }));
+      if (isOpenDrawer) {
+        // console.log("Vo duoc is openDrawer");
+        setStateVehicleDetail((prevState) => ({
+          ...prevState,
+          image: [...prevState.image, urls[0]],
+        }));
+        setIsLoadingUpdate(false);
+      }
+      if (isModalOpen) {
+        // console.log("Vô được photo Is modal open");
+        setStateVehicle((prevState) => ({
+          ...prevState,
+          image: [...prevState.image, urls[0]],
+        }));
+        setIsLoadingCreate(false);
+      }
     } catch (error) {
       console.error("Error uploading images:", error);
       // Thêm xử lý lỗi nếu cần
@@ -481,6 +520,7 @@ const Vehicle = () => {
   const { data, isLoading, isSuccess, isError } = mutation;
   const onFinish = async () => {
     console.log("Da vo duoc onfinish");
+    // setIsLoadingCreate(true);
     const params = {
       name: stateVehicle.name,
       identifynumber: stateVehicle.identifynumber,
@@ -510,6 +550,7 @@ const Vehicle = () => {
           querryVehicle.refetch();
         },
       });
+      // setIsLoadingCreate(false);
     } catch (error) {
       console.log("ERRORR chỗ onFinish: ", error);
     }
@@ -579,12 +620,12 @@ const Vehicle = () => {
       console.log("Vo duoc is OpenDrawer");
       setStateVehicleDetail((prevState) => ({
         ...prevState,
-        image: [...prevState.image, newImage],
+        image: [...prevState.image, e.target.value],
       }));
     } else {
       setStateVehicle((prevState) => ({
         ...prevState,
-        image: [...prevState.image, newImage],
+        image: [...prevState.image, e.target.value],
       }));
     }
   };
@@ -624,7 +665,7 @@ const Vehicle = () => {
           width={800}
           onCancel={handleCancel}
         >
-          <Loading isLoading={false}>
+          <Loading isLoading={isLoadingCreate}>
             <Form
               name="basic"
               labelCol={{ span: 6 }}
@@ -647,11 +688,11 @@ const Vehicle = () => {
               <Form.Item
                 label="Hình ảnh"
                 name="image"
-                rules={[{ required: true, message: "Chọn hình ảnh!" }]}
+                // rules={[{ required: true, message: "Chọn hình ảnh!" }]}
               >
                 <div>
                   <InputComponent
-                    value={stateVehicle.name}
+                    // value={stateVehicle.name}
                     onChange={(ev) => {
                       uploadPhoto(ev);
                       // handleOnchange;
@@ -1306,24 +1347,28 @@ const Vehicle = () => {
               >
                 <div>
                   <InputComponent
-                    value={stateVehicleDetail.image}
+                    // value={stateVehicleDetail.image}
                     onChange={(ev) => {
                       uploadPhoto(ev);
-                      handleOnchangeDetailsImage;
+                      // handleOnchangeDetailsImage;
                     }}
                     type="file"
                     multiple
                   />
-                  <div className="pre_photos">
-                    {image &&
-                      image.map((photo, index) => (
-                        <img
-                          style={{ height: "50px" }}
-                          key={index}
-                          src={photo}
-                          alt=""
-                        />
-                      ))}
+                  <div>
+                    {/* {console.log("Image data: ", stateVehicleDetail?.image)}
+                    {console.log(
+                      "Type of image data: ",
+                      typeof stateVehicleDetail?.image
+                    )} */}
+                    {stateVehicleDetail?.image[0] && (
+                      <img
+                        style={{ height: "50px" }}
+                        key={1}
+                        src={stateVehicleDetail?.image[2]}
+                        alt=""
+                      />
+                    )}
                   </div>
                 </div>
                 {/* <WrapperUploadFile

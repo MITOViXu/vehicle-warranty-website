@@ -1,4 +1,3 @@
-
 import Home from "../pages/Home/Home";
 import Admin from "../pages/Admin/Admin";
 import About from "../pages/About/About";
@@ -35,7 +34,7 @@ export const routes = [
     isShowHeader: true,
   },
   {
-    path: "/detail",
+    path: "/detail/:plate",
     page: Detail,
     isShowHeader: true,
   },

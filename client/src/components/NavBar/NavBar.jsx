@@ -43,7 +43,7 @@ const Navbar = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
-  console.log("use bên navbar", user);
+  // console.log("use bên navbar", user);
   const menuRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -94,7 +94,13 @@ const Navbar = () => {
         zIndex: "10000",
       }}
     >
-      <div className="logo-1"></div>
+      <div
+        className="logo-1"
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          navigate("/");
+        }}
+      ></div>
       <div className="navigation" ref={menuRef} onClick={toggleMenu}>
         <div className="menu">
           {navLinks.map((item, index) => (

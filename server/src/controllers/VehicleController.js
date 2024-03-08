@@ -1,7 +1,25 @@
 const VehicleService = require("../services/VehicleService");
+const validateProduct = (data) => {
+  const errors = {};
 
+  // Kiểm tra các trường bắt buộc
+  if (!data.name) {
+    errors.name = "Tên sản phẩm là bắt buộc";
+  }
+  if (!data.image || !Array.isArray(data.image) || data.image.length === 0) {
+    errors.image =
+      "Ảnh sản phẩm là bắt buộc và phải là một mảng chứa ít nhất một URL";
+  }
+  // Kiểm tra các trường khác...
+
+  // Kiểm tra xem có lỗi nào không
+  const isValid = Object.keys(errors).length === 0;
+
+  return { isValid, errors };
+};
 const createVehicle = async (req, res) => {
   try {
+    console.log("Vô được vehiclke controller");
     const {
       name,
       image,
@@ -21,6 +39,11 @@ const createVehicle = async (req, res) => {
       brand,
       description,
     } = req.body;
+    const { isValid, errors } = validateProduct(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
     if (
       !name ||
       !image ||
@@ -39,7 +62,7 @@ const createVehicle = async (req, res) => {
       !frame ||
       !brand
     ) {
-      return res.status(200).json({
+      return res.status(404).json({
         status: "ERR",
         message: "The input is required",
       });
@@ -105,6 +128,23 @@ const getDetailsVehicle = async (req, res) => {
     });
   }
 };
+const getDetailsVehiclePlate = async (req, res) => {
+  try {
+    const plate = req.params.plate;
+    if (!plate) {
+      return res.status(200).json({
+        status: "ERR",
+        message: "The plate is required",
+      });
+    }
+    const response = await VehicleService.getDetailsVehiclePlate(plate);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
 const deleteMany = async (req, res) => {
   try {
     const ids = req.body.ids;
@@ -153,6 +193,7 @@ module.exports = {
   createVehicle,
   getDetailsVehicle,
   deleteVehicle,
+  getDetailsVehiclePlate,
   deleteMany,
   getAllType,
   updateVehicle,

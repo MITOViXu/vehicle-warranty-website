@@ -34,13 +34,19 @@ export const createVehicle = async (data) => {
     );
     return res.data;
   } catch (error) {
-    console.log("error : ", error);
+    console.log("Lỗi gì rồi : ", error);
   }
 };
 
 export const getDetailsVehicle = async (id) => {
   const res = await axios.get(
     `http://localhost:3001/api/vehicle/get-details/${id}`
+  );
+  return res.data;
+};
+export const getDetailsVehicleByPlate = async (plate) => {
+  const res = await axios.get(
+    `http://localhost:3001/api/vehicle/get-details-plate/${plate}`
   );
   return res.data;
 };
