@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { BsTelephoneInbound } from "react-icons/bs";
 
-import "./Navbar.css";
+import "./NavBar.css";
 const navLinks = [
   {
     path: "/home",

@@ -1,65 +1,85 @@
 import React, { useEffect } from "react";
-import Slider from "react-slick";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./SliderCar.css";
-import Link from "antd/es/typography/Link";
-import ava01 from "../../assets/slider-img/slide1.png";
-import ava02 from "../../assets/slider-img/slide2.png";
-import ava03 from "../../assets/slider-img/slide3.png";
 import { useNavigate } from "react-router-dom";
-
+import "swiper/css";
+import { Autoplay } from "swiper/modules";
+import { Pagination } from "swiper/modules";
+import "swiper/css/free-mode";
+import "swiper/css/autoplay";
+import CarCard from "../CarCard/CarCard";
 const SliderCar = ({ vehicles }) => {
   const navigate = useNavigate();
-  const settings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    speed: 1000,
-    swipeToSlide: true,
-    autoplaySpeed: 2000,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 992,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 576,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
   const handleSlideClick = (plate) => {
-    console.log("Đã click");
-
     navigate(`/detail/${plate}`);
     window.scrollTo(0, 0);
   };
   const car = vehicles;
   const carSlides = car?.map((car, index) => (
-    <div
+    <SwiperSlide
+      style={{ height: "500px" }}
+      // style={{ width: 400, margin: "0 10px" }}
       onClick={() => handleSlideClick(car?.plates)}
       key={index}
-      className="slider-item"
+      // className="card"
     >
+      <CarCard
+        data={{
+          img: car?.image[0],
+          address: car?.address,
+          type: car?.type,
+          name: car?.name,
+          engine: car?.engine,
+          plate: car?.plates,
+        }}
+      />
+      {/* <img className="display-image" src={car?.image[0]} alt="vehicle" />
       <h2>{car?.name}</h2>
-      <p>Engine: {car?.engine}</p>
-      <img className="display-image" src={car?.image[0]} alt="" />
-    </div>
+      <p>Engine: {car?.engine}</p> */}
+    </SwiperSlide>
   ));
   return (
-    <div
-      style={{ paddingTop: "50px", marginLeft: "130px", marginRight: "130px" }}
-    >
-      <Slider {...settings}>{carSlides}</Slider>
+    <div className=" py-4">
+      <Swiper
+        freeMode={true}
+        // grabCursor={true}
+        effect="fade"
+        className="mySwiper"
+        slidesPerView={5}
+        modules={[Pagination, Autoplay]}
+        spaceBetween={30}
+        autoplay={{
+          delay: 5000, // Delay between slides in milliseconds (adjust as needed)
+          disableOnInteraction: false, // Keep autoplay running even after user interaction
+          stopOnLastSlide: false, // Continue autoplay in loop even after reaching the last slide
+          waitForTransition: true, // Wait for slide transition to complete before starting autoplay
+        }}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          480: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 15,
+          },
+          1024: {
+            slidesPerView: 2,
+            spaceBetween: 15,
+          },
+          1280: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+        }}
+      >
+        {carSlides}
+      </Swiper>
     </div>
   );
 };

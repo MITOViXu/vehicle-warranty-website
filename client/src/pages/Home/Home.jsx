@@ -30,9 +30,9 @@ const Home = (props) => {
   const searchDebounce = useDebounce(searchProduct, 500);
   const [loading, setLoading] = useState(false);
   const fetchVehicleAll = async (context) => {
-    const limit = context?.queryKey && context?.queryKey[1];
+    const limit = 10; //context?.queryKey && context?.queryKey[1];
     const search = context?.queryKey && context?.queryKey[2];
-    const res = await VehicleServices.getAllVehicle();
+    const res = await VehicleServices.getAllVehicle(0, limit);
     // console.log("res ben homepage: ", res);
     return res;
   };
@@ -75,7 +75,7 @@ const Home = (props) => {
           <IoMdCheckmarkCircleOutline />
         </h1>
         <SliderAnimate />
-        <div className="p-[100px]">
+        <div className="px-[30px] lg:px-[100px]">
           <h1 style={{ fontWeight: "bolder" }}>Top các xe bán chạy</h1>
           <SliderCar vehicles={vehicles?.data} />
         </div>

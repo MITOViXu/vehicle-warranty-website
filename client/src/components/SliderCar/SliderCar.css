@@ -10,10 +10,19 @@
 } */
 .slider-item {
   cursor: pointer;
+  border: 1px solid grey;
+  border-radius: 10px;
 }
+/* .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 320px;
+  margin: auto 1rem;
+  text-align: center;
+  font-family: arial;
+}*/
 .display-image {
-  width: 200px;
-  height: 100px;
+  width: 100%;
+  height: 16em;
   object-fit: cover;
 }
 /* @media only screen and (max-width: 576px) {

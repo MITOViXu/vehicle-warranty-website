@@ -105,7 +105,7 @@ const Detail = () => {
     <Loading isLoading={isLoading}>
       <div className="detail">
         <aside className="car-intro">
-          <ImageGallery items={generateImageArray(image)} />;
+          <ImageGallery items={generateImageArray(image)} />
         </aside>
         <aside className="product-side">
           <div className="product-info">
