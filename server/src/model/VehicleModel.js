@@ -31,7 +31,7 @@ const vehicleSchema = new mongoose.Schema(
     identifynumber: { type: String, required: true, unique: true },
     dated: { type: Date, require: true },
     email: { type: String, required: true, unique: true },
-    phone: { type: Number, required: true },
+    phone: { type: String, required: true },
     address: { type: String, required: true },
     plates: { type: String, require: true, unique: true },
     bill: { type: String, require: true },
