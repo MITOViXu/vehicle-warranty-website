@@ -61,9 +61,9 @@ const Vehicle = () => {
   // console.log("Data ben Vehicle: ", vehicles);
   const inittial = () => ({
     name: "", //
+    image: [],
     identifynumber: "", //
     dated: "", //
-    image: [],
     email: "", //
     phone: "", //
     address: "", //
@@ -72,6 +72,10 @@ const Vehicle = () => {
     tax: "", //
     seri: "", //
     license: "", //
+    fuel: "",
+    color: "",
+    rolling: "",
+    gear: "",
     engine: "", //
     frame: "", //
     type: "", //
@@ -91,6 +95,25 @@ const Vehicle = () => {
     const res = await VehicleService.getAllTypeVehicle();
     return res;
   };
+  const typeOfFuel = ["Xăng", "Dầu", "Điện"];
+  const typeOfGear = [
+    "Hộp số sàn",
+    "Hộp số tự động",
+    "Hộp số tự động vô cấp CVT",
+    "Hộp số ly hợp kép DCT",
+  ];
+  const renderOptionsOther = (arr) => {
+    let results = [];
+    if (arr) {
+      results = arr?.map((opt) => {
+        return {
+          value: opt,
+          label: opt,
+        };
+      });
+    }
+    return results;
+  };
   const fetchGetDetailsVehicle = async (rowSelected) => {
     const res = await VehicleService.getDetailsVehicle(rowSelected);
     if (res?.data) {
@@ -98,6 +121,7 @@ const Vehicle = () => {
       setStateVehicleDetail({
         name: res?.data?.name, //
         identifynumber: res?.data?.identifynumber, //
+        fuel: res?.data.fuel, //
         dated: res?.data?.dated, //
         email: res?.data?.email, //
         phone: res?.data?.phone, //
@@ -367,6 +391,7 @@ const Vehicle = () => {
       name: "", //
       image: [],
       identifynumber: "", //
+      fuel: "",
       dated: "", //
       email: "", //
       phone: "", //
@@ -474,6 +499,7 @@ const Vehicle = () => {
     const {
       name,
       image,
+      fuel,
       identifynumber,
       dated,
       email,
@@ -496,6 +522,7 @@ const Vehicle = () => {
         name,
         image,
         identifynumber,
+        fuel,
         dated,
         email,
         phone,
@@ -524,6 +551,7 @@ const Vehicle = () => {
     const params = {
       name: stateVehicle.name,
       identifynumber: stateVehicle.identifynumber,
+      fuel: stateVehicle?.fuel,
       dated: stateVehicle.dated,
       email: stateVehicle.email,
       image: stateVehicle.image,
@@ -561,6 +589,7 @@ const Vehicle = () => {
       name: "", //
       identifynumber: "", //
       image: [],
+      fuel: "",
       dated: "", //
       email: "", //
       phone: "", //
@@ -751,6 +780,26 @@ const Vehicle = () => {
                   </Form.Item>
                 </Col>
               </Row>
+              {/* <Row gutter={[16, 16]}>
+                <Col span={12}>
+                  <Form.Item
+                    label="Cccd"
+                    name="fuel"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your fuel!",
+                      },
+                    ]}
+                  >
+                    <InputComponent
+                      value={stateVehicle.fuel}
+                      onChange={handleOnchange}
+                      name="fuel"
+                    />
+                  </Form.Item>
+                </Col>
+              </Row> */}
 
               <Row gutter={[16, 16]}>
                 <Col span={12}>

@@ -290,7 +290,7 @@ const Detail = () => {
                           />{" "}
                           Model
                         </td>
-                        <td>E 300</td>
+                        <td>{car?.name}</td>
                       </tr>
                       <tr>
                         <td>
@@ -301,9 +301,9 @@ const Detail = () => {
                               marginRight: "10px",
                             }}
                           />{" "}
-                          Công tơ mét
+                          Giấy phép
                         </td>
-                        <td>47,000 km</td>
+                        <td>{car?.license}</td>
                       </tr>
                       <tr>
                         <td>
@@ -314,9 +314,9 @@ const Detail = () => {
                               marginRight: "10px",
                             }}
                           />{" "}
-                          Loại hộp số
+                          Nhãn hàng
                         </td>
-                        <td>Hộp số tự động</td>
+                        <td>{car?.brand}</td>
                       </tr>
                       <tr>
                         <td>
@@ -342,7 +342,7 @@ const Detail = () => {
                           />{" "}
                           Kiểu dáng
                         </td>
-                        <td>SEDAN</td>
+                        <td>{car?.type}</td>
                       </tr>
                     </tbody>
                   </table>
