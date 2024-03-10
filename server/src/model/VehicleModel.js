@@ -41,12 +41,12 @@ const vehicleSchema = new mongoose.Schema(
     // demand: { type: String, require: true },
     engine: { type: String, require: true },
     frame: { type: String, require: true },
-    fuel: {type: String, require: true},
+    fuel: {type: String, require: true},//
     type: { type: String, require: true },
-    color: { type: String, require: true },
+    color: { type: String, require: true },//
     brand: { type: String, require: true },
-    rolling: { type: String, require: true },
-    gear: { type: String, require: true },
+    rolling: { type: String, require: true },//
+    gear: { type: String, require: true },//
     description: { type: String },
   },
   {

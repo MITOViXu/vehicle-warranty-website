@@ -98,3 +98,7 @@ export const getAllTypeVehicle = async () => {
   const res = await axios.get(`http://localhost:3001/api/vehicle/get-all-type`);
   return res.data;
 };
+export const getAllColor = async () => {
+  const res = await axios.get(`http://localhost:3001/api/vehicle/get-all-color`);
+  return res.data;
+};

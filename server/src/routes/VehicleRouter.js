@@ -13,5 +13,6 @@ router.delete("/delete/:id", authMiddleWare, VehicleController.deleteVehicle);
 router.post("/delete-many", authMiddleWare, VehicleController.deleteMany);
 router.get("/get/:id", VehicleController.getDetailsVehicle);
 router.get("/get-all-type", VehicleController.getAllType);
+router.get("/get-all-color", VehicleController.gettAllColor);
 
 module.exports = router;

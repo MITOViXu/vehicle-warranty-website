@@ -4,6 +4,10 @@ const createVehicle = (newVehicle) => {
   return new Promise(async (resolve, reject) => {
     const {
       name,
+      fuel,
+      color,
+      gear,
+      rolling,
       identifynumber,
       image,
       dated,
@@ -35,6 +39,10 @@ const createVehicle = (newVehicle) => {
         name,
         identifynumber,
         image,
+        fuel,
+        gear,
+        rolling,
+        color,
         dated: Date(dated),
         email,
         phone: Number(phone),
@@ -95,7 +103,7 @@ const getDetailsVehiclePlate = (plate) => {
         plates: plate,
       });
       if (car === null) {
-        console.log("Plate : ", plate)
+        console.log("Plate : ", plate);
         resolve({
           status: "ERR",
           message: "The car is not defined sai plate",
@@ -233,6 +241,20 @@ const getAllType = () => {
     }
   });
 };
+const gettAllColor = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const allColor = await Vehicle.distinct("color");
+      resolve({
+        status: "OK",
+        message: "Success",
+        data: allColor,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 const updateVehicle = (id, data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -266,6 +288,7 @@ module.exports = {
   getDetailsVehiclePlate,
   deleteVehicle,
   updateVehicle,
+  gettAllColor,
   getAllType,
   getAllVehicle,
 };

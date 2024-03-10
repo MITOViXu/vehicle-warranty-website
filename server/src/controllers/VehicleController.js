@@ -22,9 +22,13 @@ const createVehicle = async (req, res) => {
     console.log("Vô được vehiclke controller");
     const {
       name,
+      gear,
       image,
+      rolling,
+      color,
       identifynumber,
       dated,
+      fuel,
       email,
       phone,
       address,
@@ -46,6 +50,10 @@ const createVehicle = async (req, res) => {
     }
     if (
       !name ||
+      !fuel ||
+      !rolling ||
+      !color ||
+      !gear ||
       !image ||
       !identifynumber ||
       !dated ||
@@ -188,6 +196,16 @@ const getAllType = async (req, res) => {
     });
   }
 };
+const gettAllColor = async (req, res) => {
+  try {
+    const response = await VehicleService.gettAllColor();
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
 
 module.exports = {
   createVehicle,
@@ -196,6 +214,7 @@ module.exports = {
   getDetailsVehiclePlate,
   deleteMany,
   getAllType,
+  gettAllColor,
   updateVehicle,
   getAllVehicle,
 };

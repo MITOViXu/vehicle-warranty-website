@@ -132,7 +132,12 @@ const Detail = () => {
             <div class="grid grid-cols-4 items-center gap-2">
               <div class="rounded bg-gray-100 py-1">
                 <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
-                  {car?.engine}
+                  {car?.rolling} km
+                </p>
+              </div>
+              <div class="rounded bg-gray-100 py-1">
+                <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
+                  {car?.gear}
                 </p>
               </div>
               <div class="rounded bg-gray-100 py-1">
@@ -142,12 +147,7 @@ const Detail = () => {
               </div>
               <div class="rounded bg-gray-100 py-1">
                 <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
-                  {car?.frame}
-                </p>
-              </div>
-              <div class="rounded bg-gray-100 py-1">
-                <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
-                  {car?.seri}
+                  {car?.color}
                 </p>
               </div>
               <div className="product-info-contact">
@@ -329,7 +329,7 @@ const Detail = () => {
                           />{" "}
                           Nhiên liệu
                         </td>
-                        <td>Xăng</td>
+                        <td>{car?.fuel}</td>
                       </tr>
                       <tr>
                         <td>

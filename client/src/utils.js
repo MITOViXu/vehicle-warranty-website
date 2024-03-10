@@ -38,9 +38,10 @@ export const renderOptions = (arr) => {
         })
     }
     results.push({
-        label: 'Thêm type',
-        value: 'add_type'
+        label: 'Thêm tùy chọn',
+        value: 'add_option'
     })
+    // console.log("Đã click add option")
     return results
 }
 

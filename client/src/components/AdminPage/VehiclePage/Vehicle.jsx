@@ -41,7 +41,7 @@ const Vehicle = () => {
   const searchInput = useRef(null);
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
-  const [isLoadingCreate, setIsLoadingCreate] = useState(false);
+  const [isLoadingUp, setIsLoadingUp] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [deletingVehicleId, setDeletingVehicleId] = useState(null);
   const [vehicleTypes, setVehicleTypes] = useState([]);
@@ -72,10 +72,11 @@ const Vehicle = () => {
     tax: "", //
     seri: "", //
     license: "", //
-    fuel: "",
-    color: "",
-    rolling: "",
-    gear: "",
+    fuel: "", //
+    color: "", //
+    newColor: "", //
+    rolling: "", //
+    gear: "", //
     engine: "", //
     frame: "", //
     type: "", //
@@ -93,6 +94,10 @@ const Vehicle = () => {
   };
   const fetchAllTypeProduct = async () => {
     const res = await VehicleService.getAllTypeVehicle();
+    return res;
+  };
+  const fetchAllColor = async () => {
+    const res = await VehicleService.getAllColor();
     return res;
   };
   const typeOfFuel = ["Xăng", "Dầu", "Điện"];
@@ -122,6 +127,9 @@ const Vehicle = () => {
         name: res?.data?.name, //
         identifynumber: res?.data?.identifynumber, //
         fuel: res?.data.fuel, //
+        gear: res?.data.gear,
+        color: res?.data.color,
+        rolling: res?.data.rolling,
         dated: res?.data?.dated, //
         email: res?.data?.email, //
         phone: res?.data?.phone, //
@@ -163,16 +171,68 @@ const Vehicle = () => {
     queryKey: ["type-vehicle"],
     queryFn: fetchAllTypeProduct,
   });
+  const colorCar = useQuery({
+    queryKey: ["color-vehicle"],
+    queryFn: fetchAllColor,
+  });
   // const dataDetails = useQuery({
   //   queryKey: ["data-detail"],
   //   queryFn: fetchDetail,
   // });
 
   const handleChangeSelect = (value) => {
-    setStateVehicle({
-      ...stateVehicle,
-      type: value,
-    });
+    if (isModalOpen)
+      setStateVehicle({
+        ...stateVehicle,
+        type: value,
+      });
+    else
+      setStateVehicleDetail({
+        ...stateVehicleDetail,
+        type: value,
+      });
+    // console.log("State vehicle type : ", stateVehicle.type);
+  };
+  const handleChangeSelectColor = (value) => {
+    // console.log("Vô được handle change selcet color");
+    if (isModalOpen)
+      setStateVehicle({
+        ...stateVehicle,
+        color: value,
+      });
+    else
+      setStateVehicleDetail({
+        ...stateVehicleDetail,
+        color: value,
+      });
+    // console.log("Vô được handle change selcet color value là: ", value);
+
+    // console.log("State vehicle type : ", stateVehicle.type);
+  };
+  const handleChangeSelectFuel = (value) => {
+    if (isModalOpen)
+      setStateVehicle({
+        ...stateVehicle,
+        fuel: value,
+      });
+    else
+      setStateVehicleDetail({
+        ...stateVehicleDetail,
+        fuel: value,
+      });
+    // console.log("State vehicle type : ", stateVehicle.type);
+  };
+  const handleChangeSelectGear = (value) => {
+    if (isModalOpen)
+      setStateVehicle({
+        ...stateVehicle,
+        gear: value,
+      });
+    else
+      setStateVehicleDetail({
+        ...stateVehicleDetail,
+        gear: value,
+      });
     // console.log("State vehicle type : ", stateVehicle.type);
   };
   const [stateVehicle, setStateVehicle] = useState(inittial());
@@ -353,7 +413,7 @@ const Vehicle = () => {
   const onUpdateVehicle = async (values) => {
     console.log("Vô được update và id là: ", rowSelected);
     // console.log("Statevehicle là : ", ...stateVehicleDetail)
-    console.log("Image bên updateVehicle là : ", stateVehicleDetail?.image);
+    // console.log("Image bên updateVehicle là : ", stateVehicleDetail?.image);
     mutationUpdate.mutate(
       { id: rowSelected, token: user?.access_token, ...stateVehicleDetail },
       {
@@ -391,6 +451,10 @@ const Vehicle = () => {
       name: "", //
       image: [],
       identifynumber: "", //
+      gear: "",
+      color: "",
+      newColor: "",
+      rolling: "",
       fuel: "",
       dated: "", //
       email: "", //
@@ -441,7 +505,7 @@ const Vehicle = () => {
     try {
       // console.log("Vô được uploadphoto ");
       if (isModalOpen) {
-        setIsLoadingCreate(true);
+        setIsLoadingUp(true);
       } else setIsLoadingUpdate(true);
       const files = ev.target.files;
 
@@ -488,7 +552,7 @@ const Vehicle = () => {
           ...prevState,
           image: [...prevState.image, urls[0]],
         }));
-        setIsLoadingCreate(false);
+        setIsLoadingUp(false);
       }
     } catch (error) {
       console.error("Error uploading images:", error);
@@ -500,6 +564,9 @@ const Vehicle = () => {
       name,
       image,
       fuel,
+      gear,
+      color,
+      rolling,
       identifynumber,
       dated,
       email,
@@ -516,42 +583,49 @@ const Vehicle = () => {
       brand,
       description,
     } = data;
-    try {
-      // console.log("Vo duoc mutation");
-      const res = VehicleService.createVehicle({
-        name,
-        image,
-        identifynumber,
-        fuel,
-        dated,
-        email,
-        phone,
-        address,
-        plates,
-        bill,
-        tax,
-        seri,
-        license,
-        engine,
-        frame,
-        type,
-        brand,
-        description,
-      });
-    } catch (error) {
-      console.log("ERRORR: ", error);
-    }
+    // console.log("Vo duoc mutation");
+    const res = VehicleService.createVehicle({
+      name,
+      image,
+      identifynumber,
+      fuel,
+      gear,
+      color,
+      rolling,
+      dated,
+      email,
+      phone,
+      address,
+      plates,
+      bill,
+      tax,
+      seri,
+      license,
+      engine,
+      frame,
+      type,
+      brand,
+      description,
+    });
 
     return res;
   });
   const { data, isLoading, isSuccess, isError } = mutation;
+  // console.log("Is success: ", isSuccess);
+
   const onFinish = async () => {
     console.log("Da vo duoc onfinish");
-    // setIsLoadingCreate(true);
+    setIsLoadingUp(true);
     const params = {
       name: stateVehicle.name,
       identifynumber: stateVehicle.identifynumber,
       fuel: stateVehicle?.fuel,
+      gear: stateVehicle?.gear,
+      rolling: stateVehicle?.rolling,
+      color:
+        stateVehicle.color === "add_option"
+          ? stateVehicle.newColor
+          : stateVehicle.color,
       dated: stateVehicle.dated,
       email: stateVehicle.email,
       image: stateVehicle.image,
@@ -565,7 +639,7 @@ const Vehicle = () => {
       engine: stateVehicle.engine,
       frame: stateVehicle.frame,
       type:
-        stateVehicle.type === "add_type"
+        stateVehicle.type === "add_option"
           ? stateVehicle.newType
           : stateVehicle.type,
       brand: stateVehicle.brand,
@@ -578,7 +652,7 @@ const Vehicle = () => {
           querryVehicle.refetch();
         },
       });
-      // setIsLoadingCreate(false);
+      setIsLoadingUp(false);
     } catch (error) {
       console.log("ERRORR chỗ onFinish: ", error);
     }
@@ -590,6 +664,10 @@ const Vehicle = () => {
       identifynumber: "", //
       image: [],
       fuel: "",
+      gear: "",
+      rolling: "",
+      color: "",
+      newColor: "",
       dated: "", //
       email: "", //
       phone: "", //
@@ -616,6 +694,7 @@ const Vehicle = () => {
       message.error();
     }
   }, [isSuccessUpdated]);
+  // console.log("data res: ", data?.status);
   useEffect(() => {
     if (isSuccess && data?.status === "OK") {
       message.success();
@@ -629,8 +708,9 @@ const Vehicle = () => {
     vehicles?.data?.map((vehicle) => {
       return { ...vehicle, key: vehicle._id };
     });
+  console.log("is Success delete: ", isSuccessDelected);
   useEffect(() => {
-    if (isSuccessDelected && dataDeleted?.status === "OK") {
+    if (isSuccessDelected) {
       message.success();
       handleCancelDelete();
     } else if (isErrorDeleted) {
@@ -643,6 +723,14 @@ const Vehicle = () => {
       ...stateVehicleDetail,
       [e.target.name]: e.target.value,
     });
+    if (
+      stateVehicleDetail.color === "add_option" &&
+      stateVehicleDetail.newColor
+    )
+      setStateVehicleDetail({
+        ...stateVehicleDetail,
+        color: stateVehicleDetail.newColor,
+      });
   };
   const handleOnchangeDetailsImage = (e) => {
     if (isOpenDrawer) {
@@ -694,7 +782,7 @@ const Vehicle = () => {
           width={800}
           onCancel={handleCancel}
         >
-          <Loading isLoading={isLoadingCreate}>
+          <Loading isLoading={isLoadingUp}>
             <Form
               name="basic"
               labelCol={{ span: 6 }}
@@ -780,26 +868,6 @@ const Vehicle = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              {/* <Row gutter={[16, 16]}>
-                <Col span={12}>
-                  <Form.Item
-                    label="Cccd"
-                    name="fuel"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your fuel!",
-                      },
-                    ]}
-                  >
-                    <InputComponent
-                      value={stateVehicle.fuel}
-                      onChange={handleOnchange}
-                      name="fuel"
-                    />
-                  </Form.Item>
-                </Col>
-              </Row> */}
 
               <Row gutter={[16, 16]}>
                 <Col span={12}>
@@ -836,7 +904,113 @@ const Vehicle = () => {
                   </Form.Item>
                 </Col>
               </Row>
-
+              <Row gutter={[16, 16]}>
+                <Col span={12}>
+                  <Form.Item
+                    label="Nhiên liệu"
+                    name="fuel"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your fuel!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      name="fuel"
+                      // defaultValue="lucy"
+                      // style={{ width: 120 }}
+                      value={stateVehicle.fuel}
+                      onChange={handleChangeSelectFuel}
+                      options={renderOptionsOther(typeOfFuel)}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item
+                    label="Cần số"
+                    name="gear"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your gear!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      name="gear"
+                      // defaultValue="lucy"
+                      // style={{ width: 120 }}
+                      value={stateVehicle.gear}
+                      onChange={handleChangeSelectGear}
+                      options={renderOptionsOther(typeOfGear)}
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={[16, 16]}>
+                <Col span={12}>
+                  <Form.Item
+                    label="Màu xe"
+                    name="color"
+                    rules={[
+                      { required: true, message: "Please input your color!" },
+                    ]}
+                  >
+                    <Select
+                      name="color"
+                      // defaultValue="lucy"
+                      // style={{ width: 120 }}
+                      value={stateVehicle.color}
+                      onChange={handleChangeSelectColor}
+                      options={renderOptions(colorCar?.data?.data)}
+                    />
+                  </Form.Item>
+                  {/* {console.log("color: ", colorCar?.data?.data)} */}
+                  {/* {console.log(
+                    "Vô được handle change selcet color value là: ",
+                    stateVehicle.color
+                  )} */}
+                  {stateVehicle.color == "add_option" && (
+                    <Form.Item
+                      label="Thêm màu"
+                      name="newColor"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your newColor!",
+                        },
+                      ]}
+                    >
+                      <InputComponent
+                        name="newColor"
+                        // defaultValue="lucy"
+                        // style={{ width: 120 }}
+                        value={stateVehicle.newColor}
+                        onChange={handleOnchange}
+                      />
+                    </Form.Item>
+                  )}
+                </Col>
+                <Col span={12}>
+                  <Form.Item
+                    label="Lăn bánh"
+                    name="rolling"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your count rolling!",
+                      },
+                    ]}
+                  >
+                    <InputComponent
+                      value={stateVehicle.rolling}
+                      onChange={handleOnchange}
+                      name="rolling"
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
               <Row gutter={[16, 16]}>
                 <Col span={12}>
                   <Form.Item
@@ -855,7 +1029,7 @@ const Vehicle = () => {
                       options={renderOptions(typeProduct?.data?.data)}
                     />
                   </Form.Item>
-                  {stateVehicle.type == "add_type" && (
+                  {stateVehicle.type == "add_option" && (
                     <Form.Item
                       label="New type"
                       name="newType"
@@ -1180,21 +1354,16 @@ const Vehicle = () => {
               <Row gutter={[16, 16]}>
                 <Col span={12}>
                   <Form.Item
-                    label="New type"
-                    name="newType"
-                    // rules={[
-                    //   {
-                    //     required: true,
-                    //     message: "Please input your newType!",
-                    //   },
-                    // ]}
+                    label="Mẫu xe"
+                    name="type"
+                    rules={[
+                      { required: true, message: "Please input your type!" },
+                    ]}
                   >
                     <InputComponent
-                      name="newType"
-                      // defaultValue="lucy"
-                      // style={{ width: 120 }}
-                      value={stateVehicleDetail.newType}
+                      value={stateVehicleDetail.type}
                       onChange={handleOnchangeDetails}
+                      name="type"
                     />
                   </Form.Item>
                 </Col>
@@ -1213,6 +1382,82 @@ const Vehicle = () => {
                       value={stateVehicleDetail.address}
                       onChange={handleOnchangeDetails}
                       name="address"
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={[16, 16]}>
+                <Col span={12}>
+                  <Form.Item
+                    label="Nhiên liệu"
+                    name="fuel"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your fuel!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      name="fuel"
+                      // defaultValue="lucy"
+                      // style={{ width: 120 }}
+                      value={stateVehicleDetail.fuel}
+                      onChange={handleChangeSelectFuel}
+                      options={renderOptionsOther(typeOfFuel)}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item
+                    label="Màu xe"
+                    name="color"
+                    rules={[
+                      { required: true, message: "Please input your color!" },
+                    ]}
+                  >
+                    <InputComponent
+                      value={stateVehicleDetail.color}
+                      onChange={handleOnchangeDetails}
+                      name="color"
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={[16, 16]}>
+                <Col span={12}>
+                  <Form.Item
+                    label="Cần số"
+                    name="gear"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your gear!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      name="gear"
+                      // defaultValue="lucy"
+                      // style={{ width: 120 }}
+                      value={stateVehicleDetail.gear}
+                      onChange={handleChangeSelectGear}
+                      options={renderOptionsOther(typeOfGear)}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item
+                    label="Lăn bánh"
+                    name="rolling"
+                    rules={[
+                      { required: true, message: "Please input your rolling!" },
+                    ]}
+                  >
+                    <InputComponent
+                      value={stateVehicleDetail.rolling}
+                      onChange={handleOnchangeDetails}
+                      name="rolling"
                     />
                   </Form.Item>
                 </Col>
