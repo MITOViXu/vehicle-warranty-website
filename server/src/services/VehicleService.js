@@ -163,12 +163,13 @@ const getAllVehicle = (limit, page, sort, filter) => {
       console.log("limit: ", limit);
       const totalVehicle = await Vehicle.countDocuments();
       console.log("total: ", totalVehicle);
+
       let allVehicle = [];
       if (filter) {
         console.log("Vo duoc filter");
         const label = filter[0];
         const allObjectFilter = await Vehicle.find({
-          [label]: { $regex: filter[1] },
+          [label]: { $regex: new RegExp(filter[1], "i") },
         })
           .limit(limit)
           .skip(page * limit)

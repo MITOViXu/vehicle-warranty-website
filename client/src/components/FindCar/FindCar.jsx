@@ -2,28 +2,10 @@ import React, { useState } from "react";
 import { ethers } from "ethers";
 import { contractAddress, abi } from "../../constant/constant";
 import { MdOutlineArrowCircleRight } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import "./FindCar.css";
-
+import { Skeleton } from "antd";
 // Component hiển thị nội dung khi chọn theo hãng
-const ByBrandContent = () => {
-  return (
-    <div className="content-theo-hang">
-      <div class="item toyota"></div>
-      <div class="item honda"></div>
-      <div class="item huyndai"></div>
-      <div class="item kia"></div>
-      <div class="item madza"></div>
-      <div class="item ford"></div>
-      <div class="item audi"></div>
-      <div class="item bmw"></div>
-      <div class="item chervolet"></div>
-      <div class="item mercedes"></div>
-      <div class="item mitsubishi"></div>
-      <div class="item suzuki"></div>
-      <div class="item vin"></div>
-    </div>
-  );
-};
 // Component hiển thị nội dung khi chọn theo nhu cầu
 const ByNeedsContent = () => {
   return (
@@ -63,6 +45,7 @@ const ByStyleContent = () => {
 
 const FindCar = (props) => {
   const [provider, setProvider] = useState(null);
+  const navigate = useNavigate(); // Move useNavigate hook here
   const [vehicleinfor, setVehicleinfor] = useState(null);
   async function handleSubmit(e) {
     try {
@@ -86,7 +69,86 @@ const FindCar = (props) => {
       setActiveButton(button);
     }
   };
-
+  const handleOnClick = (name) => {
+    console.log("Name: ", name);
+    navigate(`/vehicle-type/${name}`);
+  };
+  const ByBrandContent = () => {
+    return (
+      <div className="content-theo-hang">
+        <div
+          class="item toyota"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("toyota")}
+        ></div>
+        <div
+          class="item honda"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("honda")}
+        ></div>
+        <div
+          class="item huyndai"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("hyundai")}
+        ></div>
+        <div
+          class="item kia"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("kia")}
+        ></div>
+        <div
+          class="item madza"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("madza")}
+        ></div>
+        <div
+          class="item ford"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("ford")}
+        ></div>
+        <div
+          class="item audi"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("audi")}
+        ></div>
+        <div
+          class="item bmw"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("bmw")}
+        ></div>
+        <div
+          class="item chervolet"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("chervolet")}
+        ></div>
+        <div
+          class="item mercedes"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("mercedes")}
+        ></div>
+        <div
+          class="item mitsubishi"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("mitsubishi")}
+        ></div>
+        <div
+          class="item suzuki"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("suzuki")}
+        ></div>
+        <div
+          class="item vin"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("vin")}
+        ></div>
+        <div
+          class="item lamborghini"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOnClick("lamborghini")}
+        ></div>
+      </div>
+    );
+  };
   // Render component phù hợp dựa trên activeButton
   const renderContent = () => {
     switch (activeButton) {

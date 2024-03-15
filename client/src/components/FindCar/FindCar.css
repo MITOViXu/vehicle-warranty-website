@@ -1,108 +1,102 @@
-.findcar-container{
-  height:110vh;
+.findcar-container {
+  height: 110vh;
   background-color: rgb(255, 255, 255);
-  display:grid;
-  grid-template-rows: 6fr 9fr ;
-  gap:15px;
+  display: grid;
+  grid-template-rows: 6fr 9fr;
+  gap: 15px;
   padding-left: 250px;
   padding-right: 250px;
   margin-top: 18px;
 }
-.filter-option{
+.filter-option {
   background-color: rgb(255, 255, 255);
-  border-radius:10px;
+  border-radius: 10px;
   display: grid;
   grid-template-columns: 3.5fr 7fr 3fr;
-  gap:15px;
+  gap: 15px;
 }
-.filter-plates{
+.filter-plates {
   background-color: rgb(134, 101, 101);
-  border-radius:10px;
-
+  border-radius: 10px;
 }
-.price-range{
+.price-range {
   background-color: whitesmoke;
-  padding:15px;
+  padding: 15px;
   padding-left: 20px;
   border-radius: 15px;
 }
 
-.price-box{
-    height:90%;
-    display: grid;
-    grid-template-rows: 1fr 1.2fr; /* Chia thành 2 hàng bằng nhau */
-    gap: 10px;
+.price-box {
+  height: 90%;
+  display: grid;
+  grid-template-rows: 1fr 1.2fr; /* Chia thành 2 hàng bằng nhau */
+  gap: 10px;
 }
-.bttn-600-800{
-    border-radius: 15px;
-    background-image: url('600-800.svg');
-    background-position: center;
-    background-size: cover;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    
+.bttn-600-800 {
+  border-radius: 15px;
+  background-image: url("600-800.svg");
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.box2{
-    border-radius: 15px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+.box2 {
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
-.bttn-800-1m{
-    border-radius: 15px;
-    background-image: url('800-1000.svg');
-    background-position: center;
-    background-size: cover;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    
+.bttn-800-1m {
+  border-radius: 15px;
+  background-image: url("800-1000.svg");
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.bttn-1m{
-    border-radius: 15px;
-    background-image: url('1000.svg');
-    background-position: center;
-    background-size: cover;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.bttn-1m {
+  border-radius: 15px;
+  background-image: url("1000.svg");
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
-
-.option-range{
+.option-range {
   background-color: whitesmoke;
   display: grid;
   grid-template-rows: 1fr 9fr;
   gap: 7px;
   border-radius: 15px;
 }
-.option-container-button{
-    background-color: whitesmoke;
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    font-size: 13px;
-    font-weight: bold;
-    font-family: Arial;
-    border-radius: 15px;
+.option-container-button {
+  background-color: whitesmoke;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: Arial;
+  border-radius: 15px;
 }
-.btnn-theo-hang{
-    background-color: #ffffff; 
-    color: #000000; 
-    border: none; 
-    cursor: pointer;
-    
+.btnn-theo-hang {
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  cursor: pointer;
 }
-.btnn-theo-hang.active{
-    background-color: whitesmoke;
-    color:blue;
+.btnn-theo-hang.active {
+  background-color: whitesmoke;
+  color: blue;
 }
-.option-result{
-    background-color: whitesmoke;
+.option-result {
+  background-color: whitesmoke;
 }
-.content-theo-hang{
+.content-theo-hang {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 15px; 
+  gap: 15px;
   width: 100%;
   height: 100%;
   padding: 15px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 .item {
@@ -114,68 +108,73 @@
   transition: all 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
 }
 .item.toyota {
-  background-image: url('./carLogo/toyota.svg');
+  background-image: url("./carLogo/toyota.svg");
   background-size: cover;
   background-position: center;
 }
 
 .item.honda {
-  background-image: url('./carLogo/honda.svg');
+  background-image: url("./carLogo/honda.svg");
   background-size: cover;
   background-position: center;
 }
 .item.huyndai {
-  background-image: url('./carLogo/huyndai.svg');
+  background-image: url("./carLogo/huyndai.svg");
+  background-size: cover;
+  background-position: center;
+}
+.item.lamborghini {
+  background-image: url("./carLogo/lamborghini_Logo.svg.png");
   background-size: cover;
   background-position: center;
 }
 .item.kia {
-  background-image: url('./carLogo/kia.svg');
+  background-image: url("./carLogo/kia.svg");
   background-size: cover;
   background-position: center;
 }
 .item.madza {
-  background-image: url('./carLogo/madza.svg');
+  background-image: url("./carLogo/madza.svg");
   background-size: cover;
   background-position: center;
 }
 .item.ford {
-  background-image: url('./carLogo/ford.svg');
+  background-image: url("./carLogo/ford.svg");
   background-size: cover;
   background-position: center;
 }
 .item.audi {
-  background-image: url('./carLogo/audi.svg');
+  background-image: url("./carLogo/audi.svg");
   background-size: cover;
   background-position: center;
 }
 .item.bmw {
-  background-image: url('./carLogo/bmw.svg');
+  background-image: url("./carLogo/bmw.svg");
   background-size: cover;
   background-position: center;
 }
 .item.chervolet {
-  background-image: url('./carLogo/chervolet.svg');
+  background-image: url("./carLogo/chervolet.svg");
   background-size: cover;
   background-position: center;
 }
 .item.mercedes {
-  background-image: url('./carLogo/mercedes.svg');
+  background-image: url("./carLogo/mercedes.svg");
   background-size: cover;
   background-position: center;
 }
 .item.mitsubishi {
-  background-image: url('./carLogo/mitsubishi.svg');
+  background-image: url("./carLogo/mitsubishi.svg");
   background-size: cover;
   background-position: center;
 }
 .item.suzuki {
-  background-image: url('./carLogo/suzuki.svg');
+  background-image: url("./carLogo/suzuki.svg");
   background-size: cover;
   background-position: center;
 }
 .item.vin {
-  background-image: url('./carLogo/vin.svg');
+  background-image: url("./carLogo/vin.svg");
   background-size: cover;
   background-position: center;
 }
@@ -185,138 +184,136 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Đổi màu đổ bóng khi hover qua */
 }
 
-
-.content-theo-nhu-cau{
-  width: 100%;
-  height: 100%;
-  padding:15px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  box-sizing: border-box; 
-  gap:10px;
-}
-.nhucau{
-  border-radius: 15px;
-  background-color: white;
-  width: 100%; 
-  height: 100%;
-  
-}
-.nhucau.xe-gia-dinh{
-  background-image: url('./carTheoNhucau/xegd.svg');
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.nhucau.xe-luot{
-  background-image: url('./carTheoNhucau/xeluot.svg');
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.nhucau.xe-flex{
-  background-image: url('./carTheoNhucau/xeflex.svg');
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.content-theo-tra-gop{
-  width: 100%;
-  height: 100%;
-  padding:15px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  box-sizing: border-box; 
-  gap:10px;
-}
-.tragop{
-  border-radius: 15px;
-  background-color: white;
-  width: 100%; 
-  height: 100%;
-}
-.tragop.truoc{
-  background-image: url('./carTheotragop/tratruoc.svg');
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.tragop.dinhky{
-  background-image: url('./carTheotragop/tradinhky.svg');
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.content-theo-kieu-dang{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 7px; 
+.content-theo-nhu-cau {
   width: 100%;
   height: 100%;
   padding: 15px;
-  box-sizing: border-box; 
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  box-sizing: border-box;
+  gap: 10px;
 }
-.kieu{
+.nhucau {
+  border-radius: 15px;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+.nhucau.xe-gia-dinh {
+  background-image: url("./carTheoNhucau/xegd.svg");
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.nhucau.xe-luot {
+  background-image: url("./carTheoNhucau/xeluot.svg");
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nhucau.xe-flex {
+  background-image: url("./carTheoNhucau/xeflex.svg");
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.content-theo-tra-gop {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  box-sizing: border-box;
+  gap: 10px;
+}
+.tragop {
+  border-radius: 15px;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+.tragop.truoc {
+  background-image: url("./carTheotragop/tratruoc.svg");
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.tragop.dinhky {
+  background-image: url("./carTheotragop/tradinhky.svg");
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.content-theo-kieu-dang {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.kieu {
   border-radius: 15px;
   background-color: white;
   width: 95%; /* Chiều rộng tối đa của ô vuông */
   height: 80%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng dưới */
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
 }
-.kieu.sedan{
-  background-image: url('./carTheokieudang/sedan.svg');
+.kieu.sedan {
+  background-image: url("./carTheokieudang/sedan.svg");
   background-size: cover;
   background-position: center;
   box-shadow: 0 6px 4px rgba(0, 0, 0, 0.2);
 }
-.kieu.hatchback{
-  background-image: url('./carTheokieudang/hatchback.svg');
+.kieu.hatchback {
+  background-image: url("./carTheokieudang/hatchback.svg");
   background-size: cover;
   background-position: center;
   box-shadow: 0 6px 4px rgba(0, 0, 0, 0.2);
 }
-.kieu.suv{
-  background-image: url('./carTheokieudang/suv.svg');
+.kieu.suv {
+  background-image: url("./carTheokieudang/suv.svg");
   background-size: cover;
   background-position: center;
   box-shadow: 0 6px 4px rgba(0, 0, 0, 0.2);
 }
-.kieu.mpv{  
-  background-image: url('./carTheokieudang/mpv.svg');
+.kieu.mpv {
+  background-image: url("./carTheokieudang/mpv.svg");
   background-size: cover;
   background-position: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.kieu.van{
-  background-image: url('./carTheokieudang/van.svg');
+.kieu.van {
+  background-image: url("./carTheokieudang/van.svg");
   background-size: cover;
   background-position: center;
   box-shadow: 0 6px 4px rgba(0, 0, 0, 0.2);
 }
-.kieu.pickup{
-  background-image: url('./carTheokieudang/pickup.svg');
+.kieu.pickup {
+  background-image: url("./carTheokieudang/pickup.svg");
   background-size: cover;
   background-position: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.kieu.crossover{
-  background-image: url('./carTheokieudang/crossover.svg');
+.kieu.crossover {
+  background-image: url("./carTheokieudang/crossover.svg");
   background-size: cover;
   background-position: center;
   box-shadow: 0 6px 4px rgba(0, 0, 0, 0.2);
 }
-.support-range{
-  background-color:white;
+.support-range {
+  background-color: white;
   display: grid;
   grid-template-rows: 1.1fr 9fr;
   gap: 10px;
   border-radius: 15px;
 }
 .all-car {
-  background-color: #029AF2;
+  background-color: #029af2;
   border-radius: 10px;
   font-size: 12px;
   font-weight: bold;
@@ -330,7 +327,7 @@
 .all-car span {
   margin-right: 5px;
 }
-.support-find-car{
+.support-find-car {
   background-color: whitesmoke;
   font-size: 12px;
   font-weight: bold;
@@ -341,42 +338,48 @@
   padding-bottom: 0px;
   padding-right: 0px;
 }
-.img-support{
-   height: 100%;
-   width: 100%;
-   background-image: url('./man.svg');
-   background-size: cover;
-   background-position: center;
+.img-support {
+  height: 100%;
+  width: 100%;
+  background-image: url("./man.svg");
+  background-size: cover;
+  background-position: center;
 }
 
-.filter-plates{
-  background-color: #0093E9;
-  background-image: linear-gradient(160deg, #0093E9 0%, #1f9be9 50%, #0093e9 100%);
-   padding:40px;
-   padding-left: 60px;
-   padding-right: 60px;
+.filter-plates {
+  background-color: #0093e9;
+  background-image: linear-gradient(
+    160deg,
+    #0093e9 0%,
+    #1f9be9 50%,
+    #0093e9 100%
+  );
+  padding: 40px;
+  padding-left: 60px;
+  padding-right: 60px;
 }
 .plates {
   width: 100%;
   height: 100%;
-  background-color: #0093E9;
-  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  background-color: #0093e9;
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
   position: relative; /* Đảm bảo các hiệu ứng đổ bóng được đặt trên nền */
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
   display: grid;
   grid-template-columns: 6fr 5fr;
 }
-.plates-img{
+.plates-img {
   width: 100%;
   height: 100%;
-  background-image: url('plate.svg');
+  background-image: url("plate.svg");
   background-position: center;
   background-size: cover;
 }
-.plates-find{
-  display:grid;
+.plates-find {
+  display: grid;
   grid-template-rows: 3.5fr 5.5fr;
-  padding-top:0px;
+  padding-top: 0px;
   padding-bottom: 40px;
   padding-right: 40px;
   justify-content: center;
@@ -384,9 +387,9 @@
   color: white;
 }
 .input-group {
-  background-color: #74EBD5;
-  background-image: linear-gradient(301deg, #74EBD5 0%, #9FACE6 100%);
-  padding:15px;
+  background-color: #74ebd5;
+  background-image: linear-gradient(301deg, #74ebd5 0%, #9face6 100%);
+  padding: 15px;
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto; /* Chiều rộng tự động cho input đầu và button, còn lại cho input-option */
@@ -400,12 +403,12 @@
 }
 
 .input {
-  color:white;
+  color: white;
   padding: 8px;
-  border:none;
+  border: none;
   outline: none; /* Loại bỏ đường viền focus */
   background-color: transparent;
-} 
+}
 .input-group input[type="text"],
 .input-group select {
   width: 100%;
@@ -415,7 +418,7 @@
   outline: none;
 }
 .input-group input[type="text"]::placeholder {
-  color:white;
+  color: white;
 }
 
 .input-group input[type="text"]::after {

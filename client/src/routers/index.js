@@ -7,6 +7,7 @@ import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import SignIn from "../pages/SignIn/SignIn";
 import AdminPage from "../components/AdminPage/AdminPage";
 import SignUp from "../pages/SignUp/SignUp";
+import VehicleByType from "../pages/VehicleByType/VehicleByType";
 export const routes = [
   {
     path: "/",
@@ -42,6 +43,11 @@ export const routes = [
     path: "/sign-in",
     page: SignIn,
     isShowHeader: false,
+  },
+  {
+    path: "/vehicle-type/:name",
+    page: VehicleByType,
+    isShowHeader: true,
   },
   {
     path: "/sign-up",

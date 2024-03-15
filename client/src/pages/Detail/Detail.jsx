@@ -104,277 +104,265 @@ const Detail = () => {
   return (
     <Loading isLoading={isLoading}>
       <div className="detail">
-        <aside className="car-intro">
-          <ImageGallery items={generateImageArray(image)} />
-        </aside>
-        <aside className="product-side">
-          <div className="product-info">
-            <div className="product-info-location">
-              <MdOutlineLocationOn size={20} />
-              <p style={{ fontWeight: "500", fontSize: "12px" }}>
-                {car?.address}
-              </p>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-xl-6">
+              <ImageGallery items={generateImageArray(image)} />
             </div>
-            <p style={{ fontWeight: "bolder", fontSize: "20px" }}>
-              {car?.name}
-            </p>
-            <p className="product-info-price">599 triệu VND</p>
-            <div className="product-info-more-info">
-              <p className="product-info-more-info-1">Biển số xe: </p>
-              <p className="product-info-more-info-2">{car?.plates}</p>
-            </div>
-            {/* <div className="product-info-option">
+            <div className="col-xl-6">
+              <div className="product-info">
+                <div className="product-info-location">
+                  <MdOutlineLocationOn size={20} />
+                  <p style={{ fontWeight: "500", fontSize: "12px" }}>
+                    {car?.address}
+                  </p>
+                </div>
+                <p style={{ fontWeight: "bolder", fontSize: "20px" }}>
+                  {car?.name}
+                </p>
+                <p className="product-info-price">599 triệu VND</p>
+                <div className="product-info-more-info">
+                  <p className="product-info-more-info-1">Biển số xe: </p>
+                  <p className="product-info-more-info-2">{car?.plates}</p>
+                </div>
+                {/* <div className="product-info-option">
             <div className="product-info-options">47,000Km</div>
             <div className="product-info-options">5 chỗ</div>
             <div className="product-info-options">Số tự động</div>
             <div className="product-info-options">Sedan</div>
           </div> */}
-            <div class="grid grid-cols-4 items-center gap-2">
-              <div class="rounded bg-gray-100 py-1">
-                <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
-                  {car?.rolling} km
-                </p>
-              </div>
-              <div class="rounded bg-gray-100 py-1">
-                <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
-                  {car?.gear}
-                </p>
-              </div>
-              <div class="rounded bg-gray-100 py-1">
-                <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
-                  {car?.type}
-                </p>
-              </div>
-              <div class="rounded bg-gray-100 py-1">
-                <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
-                  {car?.color}
-                </p>
-              </div>
-              <div className="product-info-contact">
-                <div className="product-info-contact-compare">
-                  <input
-                    style={{
-                      display: "inline-block",
-                      width: "20%",
-                    }}
-                    type="checkbox"
-                  />
-                  <p style={{ display: "inline-block", width: "50%" }}>
-                    So sánh
-                  </p>
-                </div>
-                <div className="product-info-contact-count">
-                  {love ? (
-                    <FaRegHeart
-                      className="product-info-contact-counts"
-                      onClick={() => {
-                        setLove(!love);
-                      }}
-                    />
-                  ) : (
-                    <FaHeart
-                      className="product-info-contact-counts"
-                      onClick={() => {
-                        setLove(!love);
-                      }}
-                      style={{ color: "red" }}
-                    />
-                  )}
-
-                  <p className="product-info-contact-counts">Yêu thích</p>
-                </div>
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "right",
-                justifyContent: "end",
-              }}
-            >
-              <p
-                style={{
-                  display: "inline-block",
-                }}
-              >
-                ID: 567
-              </p>
-            </div>
-          </div>
-          <div className="product-book">
-            <div class="flex flex-row justify-center items-center">
-              <p class="text-black font-semibold text-center text-[17px]">
-                Vehicle Warranty
-              </p>
-            </div>
-            <div>
-              <button className="book-button">Đặt lịch xem xe</button>
-              <button className="price-paid">Trả giá</button>
-            </div>
-          </div>
-        </aside>
-        <div
-          style={{
-            display: "flex",
-            // height: "80vh",
-            // backgroundColor: "red",
-          }}
-        >
-          <aside
-            style={{
-              width: "50%",
-              display: "inline-block",
-              padding: "10px 20px",
-              margin: "20px 0px",
-            }}
-          >
-            <div>
-              <div className="product-more-info">
-                <h1>So sánh giá thị trường</h1>
-                <FaInfoCircle size={30} />
-              </div>
-              <div className="product-more-info-result">
-                <p>Không có thông tin giá thị trường</p>
-              </div>
-            </div>
-            <div></div>
-          </aside>
-          <aside
-            style={{
-              width: "50%",
-              display: "inline-block",
-              padding: "10px 20px",
-              margin: "20px 0px",
-            }}
-          >
-            <div>
-              <div className="product-info-detail">
-                <h1>Thông tin về xe</h1>
-                <div>
-                  <button
-                    style={{ marginRight: "10px" }}
-                    className={
-                      selectedButton === "detail-button"
-                        ? "onclick"
-                        : "detail-button"
-                    }
-                    onClick={() => handleClick("detail-button")}
-                  >
-                    Thông số kỹ thuật
-                  </button>
-                  <button
-                    className={
-                      selectedButton === "describe-button"
-                        ? "onclick"
-                        : "describe-button"
-                    }
-                    onClick={() => handleClick("describe-button")}
-                  >
-                    Mô tả
-                  </button>
-                </div>
-              </div>
-              {selectedButton === "detail-button" ? (
-                <div className="product-more-detail">
-                  <table className="block-table">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <FaCar
-                            size={30}
-                            style={{
-                              display: "inline-block",
-                              marginRight: "10px",
-                            }}
-                          />{" "}
-                          Model
-                        </td>
-                        <td>{car?.name}</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FaTachometerAlt
-                            size={30}
-                            style={{
-                              display: "inline-block",
-                              marginRight: "10px",
-                            }}
-                          />{" "}
-                          Giấy phép
-                        </td>
-                        <td>{car?.license}</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <IoIosSettings
-                            size={30}
-                            style={{
-                              display: "inline-block",
-                              marginRight: "10px",
-                            }}
-                          />{" "}
-                          Nhãn hàng
-                        </td>
-                        <td>{car?.brand}</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FaChargingStation
-                            size={30}
-                            style={{
-                              display: "inline-block",
-                              marginRight: "10px",
-                            }}
-                          />{" "}
-                          Nhiên liệu
-                        </td>
-                        <td>{car?.fuel}</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <IoIosColorPalette
-                            size={30}
-                            style={{
-                              display: "inline-block",
-                              marginRight: "10px",
-                            }}
-                          />{" "}
-                          Kiểu dáng
-                        </td>
-                        <td>{car?.type}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                <div className="product-describe-more">
-                  <div className="product-describe-more-more">
-                    <p>
-                      {car?.description ? car?.description : "Không có mô tả"}
+                <div class="grid grid-cols-4 items-center gap-2">
+                  <div class="rounded bg-gray-100 py-1">
+                    <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
+                      {car?.rolling} km
                     </p>
                   </div>
+                  <div class="rounded bg-gray-100 py-1">
+                    <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
+                      {car?.gear}
+                    </p>
+                  </div>
+                  <div class="rounded bg-gray-100 py-1">
+                    <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
+                      {car?.type}
+                    </p>
+                  </div>
+                  <div class="rounded bg-gray-100 py-1">
+                    <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
+                      {car?.color}
+                    </p>
+                  </div>
+                  <div className="product-info-contact">
+                    <div className="product-info-contact-compare">
+                      <input
+                        style={{
+                          display: "inline-block",
+                          width: "20%",
+                        }}
+                        type="checkbox"
+                      />
+                      <p style={{ display: "inline-block", width: "50%" }}>
+                        So sánh
+                      </p>
+                    </div>
+                    <div className="product-info-contact-count">
+                      {love ? (
+                        <FaRegHeart
+                          className="product-info-contact-counts"
+                          onClick={() => {
+                            setLove(!love);
+                          }}
+                        />
+                      ) : (
+                        <FaHeart
+                          className="product-info-contact-counts"
+                          onClick={() => {
+                            setLove(!love);
+                          }}
+                          style={{ color: "red" }}
+                        />
+                      )}
+
+                      <p className="product-info-contact-counts">Yêu thích</p>
+                    </div>
+                  </div>
                 </div>
-              )}
-              <div
-                style={{ marginTop: "20px" }}
-                className="product-describe-more"
-              >
-                <div className="product-AI">
-                  <FaRobot size={25} />
-                  <p style={{ fontSize: "20px" }}>Hỏi trợ lý AI</p>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "right",
+                    justifyContent: "end",
+                  }}
+                >
+                  <p
+                    style={{
+                      display: "inline-block",
+                    }}
+                  >
+                    ID: 567
+                  </p>
                 </div>
-                <div className="product-AI-ask">
-                  <button className="ask-AI">Ưu và nhược điểm</button>
-                  <button className="ask-AI">Thông số kĩ thuật nâng cao</button>
-                  <button className="ask-AI">Chế độ bảo hành</button>
-                  <button className="ask-AI">Chính sách trả góp</button>
-                  <button className="ask-AI">Quy trình mua xe</button>
-                  <button className="ask-AI">Tính năng an toàn</button>
+              </div>
+              <div className="product-book">
+                <div class="flex flex-row justify-center items-center">
+                  <p class="text-black font-semibold text-center text-[17px]">
+                    Vehicle Warranty
+                  </p>
+                </div>
+                <div>
+                  <button className="book-button">Đặt lịch xem xe</button>
+                  <button className="price-paid">Trả giá</button>
                 </div>
               </div>
             </div>
-          </aside>
+          </div>
+        </div>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-xl-6 mt-5">
+              <div>
+                <div className="product-more-info">
+                  <h1>So sánh giá thị trường</h1>
+                  <FaInfoCircle size={30} />
+                </div>
+                <div className="product-more-info-result">
+                  <p>Không có thông tin giá thị trường</p>
+                </div>
+              </div>
+              <div></div>
+            </div>
+            <div className="col-xl-6 mt-5">
+              <div>
+                <div className="product-info-detail">
+                  <h1>Thông tin về xe</h1>
+                  <div>
+                    <button
+                      style={{ marginRight: "10px" }}
+                      className={
+                        selectedButton === "detail-button"
+                          ? "onclick"
+                          : "detail-button"
+                      }
+                      onClick={() => handleClick("detail-button")}
+                    >
+                      Thông số kỹ thuật
+                    </button>
+                    <button
+                      className={
+                        selectedButton === "describe-button"
+                          ? "onclick"
+                          : "describe-button"
+                      }
+                      onClick={() => handleClick("describe-button")}
+                    >
+                      Mô tả
+                    </button>
+                  </div>
+                </div>
+                {selectedButton === "detail-button" ? (
+                  <div className="product-more-detail">
+                    <table className="block-table">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <FaCar
+                              size={30}
+                              style={{
+                                display: "inline-block",
+                                marginRight: "10px",
+                              }}
+                            />{" "}
+                            Model
+                          </td>
+                          <td>{car?.name}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <FaTachometerAlt
+                              size={30}
+                              style={{
+                                display: "inline-block",
+                                marginRight: "10px",
+                              }}
+                            />{" "}
+                            Giấy phép
+                          </td>
+                          <td>{car?.license}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <IoIosSettings
+                              size={30}
+                              style={{
+                                display: "inline-block",
+                                marginRight: "10px",
+                              }}
+                            />{" "}
+                            Nhãn hàng
+                          </td>
+                          <td>{car?.brand}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <FaChargingStation
+                              size={30}
+                              style={{
+                                display: "inline-block",
+                                marginRight: "10px",
+                              }}
+                            />{" "}
+                            Nhiên liệu
+                          </td>
+                          <td>{car?.fuel}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <IoIosColorPalette
+                              size={30}
+                              style={{
+                                display: "inline-block",
+                                marginRight: "10px",
+                              }}
+                            />{" "}
+                            Kiểu dáng
+                          </td>
+                          <td>{car?.type}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="product-describe-more">
+                    <div className="product-describe-more-more">
+                      <p>
+                        {car?.description ? car?.description : "Không có mô tả"}
+                      </p>
+                    </div>
+                  </div>
+                )}
+                <div
+                  style={{ marginTop: "20px" }}
+                  className="product-describe-more"
+                >
+                  <div className="product-AI">
+                    <FaRobot size={25} />
+                    <p style={{ fontSize: "20px" }}>Hỏi trợ lý AI</p>
+                  </div>
+                  <div className="product-AI-ask">
+                    <button className="ask-AI">Ưu và nhược điểm</button>
+                    <button className="ask-AI">
+                      Thông số kĩ thuật nâng cao
+                    </button>
+                    <button className="ask-AI">Chế độ bảo hành</button>
+                    <button className="ask-AI">Chính sách trả góp</button>
+                    <button className="ask-AI">Quy trình mua xe</button>
+                    <button className="ask-AI">Tính năng an toàn</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Loading>

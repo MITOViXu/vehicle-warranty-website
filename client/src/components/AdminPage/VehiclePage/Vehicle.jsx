@@ -708,7 +708,7 @@ const Vehicle = () => {
     vehicles?.data?.map((vehicle) => {
       return { ...vehicle, key: vehicle._id };
     });
-  console.log("is Success delete: ", isSuccessDelected);
+  // console.log("is Success delete: ", isSuccessDelected);
   useEffect(() => {
     if (isSuccessDelected) {
       message.success();
