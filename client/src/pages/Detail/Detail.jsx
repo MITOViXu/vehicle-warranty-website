@@ -17,6 +17,7 @@ import { IoIosColorPalette } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/LoadingComponent/Loading";
 import { FaRobot } from "react-icons/fa";
+import Footer from "../../components/Footer/Footer";
 import { FaInfoCircle } from "react-icons/fa";
 const Detail = () => {
   const { plate } = useParams();
@@ -349,15 +350,27 @@ const Detail = () => {
                     <FaRobot size={25} />
                     <p style={{ fontSize: "20px" }}>Hỏi trợ lý AI</p>
                   </div>
-                  <div className="product-AI-ask">
-                    <button className="ask-AI">Ưu và nhược điểm</button>
-                    <button className="ask-AI">
-                      Thông số kĩ thuật nâng cao
-                    </button>
-                    <button className="ask-AI">Chế độ bảo hành</button>
-                    <button className="ask-AI">Chính sách trả góp</button>
-                    <button className="ask-AI">Quy trình mua xe</button>
-                    <button className="ask-AI">Tính năng an toàn</button>
+                  <div className="container product-AI-ask">
+                    <div className="row gap-2">
+                      <button className="col-md-3 col-4 p-2 ask-AI d-md-block">
+                        Ưu và nhược điểm
+                      </button>
+                      <button className="col-md-3 col-4 p-2 ask-AI d-md-block">
+                        Thông số kĩ thuật nâng cao
+                      </button>
+                      <button className="col-md-3 col-4 p-2 ask-AI d-md-block">
+                        Chế độ bảo hành
+                      </button>
+                      <button className="col-md-3 col-4 p-2 ask-AI d-md-block">
+                        Chính sách trả góp
+                      </button>
+                      <button className="col-md-3 col-4 p-2 ask-AI d-md-block">
+                        Quy trình mua xe
+                      </button>
+                      <button className="col-md-3 col-4 p-2 ask-AI d-md-block">
+                        Tính năng an toàn
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -365,6 +378,7 @@ const Detail = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </Loading>
   );
 };

@@ -6,7 +6,8 @@ import {
   HistoryOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-
+import Contract from "../Contract/Contract";
+import "./Vehicle.css";
 import InputComponent from "../../InputComponent/InputComponent";
 import { getBase64, renderOptions } from "../../../utils";
 import { WrapperHeader, WrapperUploadFile } from "./style";
@@ -37,9 +38,13 @@ const Vehicle = () => {
   const [rowSelected, setRowSelected] = useState("");
   const [form] = Form.useForm();
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const [isOpenDrawer2, setIsOpenDrawer2] = useState(false);
   const [imageCloud, setImageCloud] = useState([]);
   const searchInput = useRef(null);
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isAccidentOpen, setIsAccidentOpen] = useState(false);
+  const [isSoldOpen, setIsSoldOpen] = useState(false);
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
   const [isLoadingUp, setIsLoadingUp] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
@@ -57,6 +62,7 @@ const Vehicle = () => {
     queryKey: ["vehicles"],
     queryFn: getAllVehicle,
   });
+  console.log("Call querry: ", querryVehicle);
   const { isLoading: isLoadingVehicles, data: vehicles } = querryVehicle;
   // console.log("Data ben Vehicle: ", vehicles);
   const inittial = () => ({
@@ -151,6 +157,7 @@ const Vehicle = () => {
     // console.log("Image là: ", res?.data?.image);
     setIsLoadingUpdate(false);
   };
+
   useEffect(() => {
     if (!isModalOpen) {
       form.setFieldsValue(stateVehicleDetail);
@@ -158,6 +165,7 @@ const Vehicle = () => {
       form.setFieldsValue(inittial());
     }
   }, [form, stateVehicleDetail, isModalOpen]);
+
   useEffect(() => {
     if (rowSelected && isOpenDrawer) {
       setIsLoadingUpdate(true);
@@ -267,6 +275,7 @@ const Vehicle = () => {
       <div>
         <HistoryOutlined
           style={{ color: "blue", fontSize: "30px", cursor: "pointer" }}
+          onClick={handleDetailsProduct2}
         />
       </div>
     );
@@ -446,6 +455,9 @@ const Vehicle = () => {
     // }
   };
   const handleCancel = () => {
+    if (isHistoryOpen) setIsHistoryOpen(false);
+    if (isAccidentOpen) setIsAccidentOpen(false);
+    if (isSoldOpen) setIsSoldOpen(false);
     setIsModalOpen(false);
     setStateVehicle({
       name: "", //
@@ -477,6 +489,10 @@ const Vehicle = () => {
   const handleDetailsProduct = () => {
     // console.log("Vô được update và id là: ", rowSelected);
     setIsOpenDrawer(true);
+  };
+  const handleDetailsProduct2 = () => {
+    // console.log("Vô được update và id là: ", rowSelected);
+    setIsOpenDrawer2(true);
   };
   const handleDeleteVehicle = () => {
     mutationDeleted.mutate(
@@ -746,6 +762,7 @@ const Vehicle = () => {
       }));
     }
   };
+
   return (
     <div>
       <div style={{ marginTop: "10px" }}>
@@ -1702,7 +1719,18 @@ const Vehicle = () => {
             </Form>
           </Loading>
         </DrawerComponent>
-
+        <Contract
+          isOpenDrawer2={isOpenDrawer2}
+          handleOnclose={() => setIsOpenDrawer2(false)}
+          HistoryOpen={() => setIsHistoryOpen(true)}
+          AccidentOpen={() => setIsAccidentOpen(true)}
+          SoldOpen={() => setIsSoldOpen(true)}
+          isHistoryOpen={isHistoryOpen}
+          isAccidentOpen={isAccidentOpen}
+          isSoldOpen={isSoldOpen}
+          handleCancel={handleCancel}
+          form={form}
+        />
         <Modal
           title="Xóa sản phẩm"
           open={isModalOpenDelete}

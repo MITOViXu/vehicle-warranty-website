@@ -8,7 +8,6 @@ import FindCar from "../../components/FindCar/FindCar.jsx";
 import SliderAnimate from "../../components/SliderAnimate/SliderAnimate";
 import ResultSearchCar from "../../components/ResultSearchCar/ResultSearchCar.jsx";
 import AboutUs from "../../components/AboutUs/AboutUs.jsx";
-import ReasonWhy from "../../components/ReasonWhy/ReasonWhy.jsx";
 import HersoSlider from "../../components/HeroSlider/HeroSlider.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import SliderCar from "../../components/SliderCar/SliderCar.jsx";
@@ -16,10 +15,12 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { useQuery } from "@tanstack/react-query";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import * as VehicleServices from "../../services/VehicleService.js";
 import Loading from "../../components/LoadingComponent/Loading.jsx";
-
+import { Reason } from "../../assets/index.js";
 const Home = (props) => {
+  const navigate = useNavigate();
   const [provider, setProvider] = useState(null);
   const [limit, setLimit] = useState(3);
   const [vehicleinfor, setVehicleinfor] = useState(null);
@@ -54,14 +55,33 @@ const Home = (props) => {
     <Loading isLoading={loading}>
       <div style={{ overflowX: "hidden" }}>
         <HersoSlider />
-        <h1
-          style={{ marginTop: "50px", fontWeight: "bold", marginLeft: "130px" }}
-        >
-          Vì sao bạn nên mua xe qua Dinhgiaxe.com?{" "}
-          <button className="Buy-car">Tìm xe ngay</button>
-        </h1>
-        <div className="home" style={{ marginTop: "50px" }}>
-          <ReasonWhy />
+        <div className="container mt-5 mb-5">
+          <div className="row" style={{ margin: "0 auto" }}>
+            <div className="col-md-6">
+              <h3
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                Vì sao bạn nên mua xe qua Dinhgiaxe.com?{" "}
+              </h3>
+            </div>
+            <div className="col-md-6">
+              <div className="container">
+                <button
+                  className="Buy-car"
+                  onClick={() => navigate("/findcar")}
+                >
+                  Tìm xe ngay
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="container">
+          {/* <ReasonWhy /> */}
+          <img style={{ margin: "0 auto" }} src={Reason} alt="" />
         </div>
         <h1
           style={{

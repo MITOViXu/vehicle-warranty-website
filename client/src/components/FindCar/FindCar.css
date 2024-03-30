@@ -1,18 +1,18 @@
 .findcar-container {
-  height: 110vh;
+  /* height: 500vh; */
   background-color: rgb(255, 255, 255);
-  display: grid;
-  grid-template-rows: 6fr 9fr;
+  /* display: grid; */
+  /* grid-template-rows: 6fr 9fr; */
   gap: 15px;
-  padding-left: 250px;
-  padding-right: 250px;
+  /* padding-left: 250px;
+  padding-right: 250px; */
   margin-top: 18px;
 }
 .filter-option {
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
-  display: grid;
-  grid-template-columns: 3.5fr 7fr 3fr;
+  /* display: grid; */
+  /* grid-template-columns: 3.5fr 7fr 3fr; */
   gap: 15px;
 }
 .filter-plates {
@@ -308,7 +308,7 @@
 .support-range {
   background-color: white;
   display: grid;
-  grid-template-rows: 1.1fr 9fr;
+  /* grid-template-rows: 1.1fr 9fr; */
   gap: 10px;
   border-radius: 15px;
 }
@@ -354,9 +354,9 @@
     #1f9be9 50%,
     #0093e9 100%
   );
-  padding: 40px;
-  padding-left: 60px;
-  padding-right: 60px;
+  /* padding: 40px; */
+  /* padding-left: 60px;
+  padding-right: 60px; */
 }
 .plates {
   width: 100%;
@@ -371,7 +371,7 @@
 }
 .plates-img {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   background-image: url("plate.svg");
   background-position: center;
   background-size: cover;
@@ -381,7 +381,7 @@
   grid-template-rows: 3.5fr 5.5fr;
   padding-top: 0px;
   padding-bottom: 40px;
-  padding-right: 40px;
+  /* padding-right: 40px; */
   justify-content: center;
   text-align: start;
   color: white;
@@ -389,7 +389,7 @@
 .input-group {
   background-color: #74ebd5;
   background-image: linear-gradient(301deg, #74ebd5 0%, #9face6 100%);
-  padding: 15px;
+  /* padding: 15px; */
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto; /* Chiều rộng tự động cho input đầu và button, còn lại cho input-option */
@@ -423,7 +423,7 @@
 
 .input-group input[type="text"]::after {
   content: "";
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
   left: 0;
   width: 100%;
@@ -437,9 +437,31 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width: 100%;
 }
 
 .bttn-search:hover {
   background-color: #7775de;
+  transition: background-color 0.3s ease;
+}
+.bttn-search:active {
+  transition: background-color 0.1s ease;
+  background-color: #201f90;
+}
+.hoantac {
+  padding: 10px 20px;
+  background-color: #524fec;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  background-color: green;
+}
+.hoantac:hover {
+  background-color: rgb(7, 162, 7);
+  transition: background-color 0.3s ease;
+}
+.hoantac:active {
+  transition: background-color 0.1s ease;
+  background-color: rgb(11, 96, 11);
 }

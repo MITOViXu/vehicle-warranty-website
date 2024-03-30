@@ -4,7 +4,7 @@ import Footer from "../../components/Footer/Footer.jsx";
 import AboutUs from "../../components/AboutUs/AboutUs.jsx";
 import HeroSlider from "../../components/HeroSlider/HeroSlider";
 import SliderAnimate from "../../components/SliderAnimate/SliderAnimate.jsx";
-
+// import Footer from "../components/Footer/Footer";
 const About = () => {
   return (
     <div>
@@ -65,6 +65,7 @@ const About = () => {
       <div className="SliderAnimate">
         <SliderAnimate />
       </div>
+      <Footer />
     </div>
   );
 };

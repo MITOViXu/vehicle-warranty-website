@@ -3,9 +3,21 @@ import { Link, NavLink, Navigate } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { IoSearchSharp } from "react-icons/io5";
+import { Space } from "antd";
+import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
+import InputComponent from "../InputComponent/InputComponent";
+import {
+  PlusOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  HistoryOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { Badge, Button, Popover } from "antd";
 import { resetUser } from "../../redux/slides/userSlide";
+import ResponsiveMenu from "./ResponsiveMenu";
 import * as UserService from "../../services/UserService";
+import { Logo } from "../../assets";
 import {
   WrapperContentPopup,
   WrapperHeader,
@@ -41,13 +53,16 @@ const Navbar = () => {
   const user = useSelector((state) => state.user);
   const order = useSelector((state) => state.order);
   const [isOpenPopup, setIsOpenPopup] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   // console.log("use bên navbar", user);
   const menuRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
   const handleLogout = async () => {
     setLoading(true);
     await UserService.logoutUser();
@@ -57,6 +72,7 @@ const Navbar = () => {
     navigate("/");
     setLoading(false);
   };
+
   useEffect(() => {
     setLoading(true);
     setUserName(user?.name);
@@ -82,7 +98,14 @@ const Navbar = () => {
       </WrapperContentPopup>
     </div>
   );
-
+  const content2 = (
+    <div>
+      <WrapperContentPopup style={{ marginTop: "20px" }}>
+        <InputComponent />
+      </WrapperContentPopup>
+    </div>
+  );
+  const [isPopup, setIsPopup] = useState(false);
   return (
     <div
       className="main_navbar"
@@ -94,92 +117,185 @@ const Navbar = () => {
         zIndex: "10000",
       }}
     >
-      <div
-        className="logo-1"
-        style={{ cursor: "pointer" }}
-        onClick={() => {
-          navigate("/");
-        }}
-      ></div>
-      <div className="navigation" ref={menuRef} onClick={toggleMenu}>
-        <div className="menu">
-          {navLinks.map((item, index) => (
-            <NavLink
-              to={item.path}
-              className={(a) =>
-                a.isActive ? "nav_item nav_active" : "nav_item"
-              }
-              key={index}
+      <div className="container py-2 md:py-0">
+        <div className="flex justify-between items-center">
+          <img src={Logo} style={{ width: "70px" }} alt="" />
+          <div className="block md:hidden">
+            {showMenu ? (
+              <HiMenuAlt1
+                style={{ color: "white" }}
+                onClick={toggleMenu}
+                className=" cursor-pointer transition-all"
+                size={30}
+              />
+            ) : (
+              <HiMenuAlt3
+                style={{ color: "white" }}
+                onClick={toggleMenu}
+                className="cursor-pointer transition-all"
+                size={30}
+              />
+            )}
+          </div>
+          <div className="hidden md:block">
+            <ul
+              className="flex items-center gap-8"
+              ref={menuRef}
+              onClick={toggleMenu}
             >
-              {item.display}
-            </NavLink>
-          ))}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          {user?.name ? (
-            <>
-              <Popover content={content} trigger="click" open={isOpenPopup}>
+              {navLinks.map((item, index) => (
+                <li key={index} className="py-4">
+                  <NavLink
+                    to={item.path}
+                    className={(a) =>
+                      a.isActive ? "nav_item nav_active" : "nav_item"
+                    }
+                    key={index}
+                  >
+                    {item.display}
+                  </NavLink>
+                </li>
+              ))}
+              {/* <div className="navbar_search">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="search-input"
+                />
+                <button className="search-btn">
+                  {" "}
+                  <IoSearchSharp />
+                </button>
+              </div> */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                {user?.name ? (
+                  <>
+                    <Popover
+                      content={content}
+                      trigger="click"
+                      open={isOpenPopup}
+                    >
+                      <div
+                        style={{
+                          cursor: "pointer",
+                          maxWidth: 100,
+                          overflow: "hidden",
+                          color: "white",
+                          paddingLeft: "60px",
+                          paddingTop: "12px",
+                          fontSize: "20px",
+                          fontWeight: "700",
+                          textOverflow: "ellipsis",
+                        }}
+                        onClick={() => setIsOpenPopup((prev) => !prev)}
+                      >
+                        <p>{userName?.length ? userName : user?.email}</p>
+                      </div>
+                    </Popover>
+                  </>
+                ) : (
+                  <button
+                    className="signIn-button"
+                    onClick={() => {
+                      navigate("/sign-in");
+                    }}
+                  >
+                    Đăng Nhập
+                  </button>
+                )}
+              </div>
+
+              <div className="hidden lg:block">
+                <div className="navbar_search">
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="search-input"
+                  />
+                  <button className="search-btn">
+                    {" "}
+                    <IoSearchSharp />
+                  </button>
+                </div>
+              </div>
+              <div className="block lg:hidden">
+                {/* <button className="search-btn">
+                  {" "}
+                  <IoSearchSharp />
+                </button> */}
                 <div
                   style={{
-                    cursor: "pointer",
-                    maxWidth: 100,
-                    overflow: "hidden",
-                    color: "white",
-                    paddingLeft: "60px",
-                    paddingTop: "12px",
-                    fontSize: "20px",
-                    fontWeight: "700",
-                    textOverflow: "ellipsis",
+                    padding: 8,
                   }}
-                  onClick={() => setIsOpenPopup((prev) => !prev)}
+                  onKeyDown={(e) => e.stopPropagation()}
                 >
-                  <p>{userName?.length ? userName : user?.email}</p>
+                  <Popover content={content2} trigger="click" open={isPopup}>
+                    <div
+                      style={{
+                        cursor: "pointer",
+                        maxWidth: 100,
+                        overflow: "hidden",
+                        color: "white",
+                        paddingLeft: "60px",
+                        paddingTop: "12px",
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        textOverflow: "ellipsis",
+                      }}
+                      onClick={() => setIsPopup((prev) => !prev)}
+                    >
+                      <SearchOutlined style={{ color: "white" }} />
+                    </div>
+                  </Popover>
+                  {/* <InputComponent
+                    style={{
+                      marginBottom: 8,
+                      display: isPopup ? "block" : "none",
+                    }}
+                  />
+                  <Space>
+                    <Button
+                      type="primary"
+                      // onClick={() =>
+                      //   handleSearch(selectedKeys, confirm, dataIndex)
+                      // }
+                      icon={<SearchOutlined />}
+                      size="large"
+                      style={{
+                        width: 90,
+                      }}
+                    ></Button>
+                  </Space> */}
                 </div>
-              </Popover>
-            </>
-          ) : (
-            <button
-              className="signIn-button"
-              onClick={() => {
-                navigate("/sign-in");
-              }}
-            >
-              Đăng Nhập
-            </button>
-          )}
-        </div>
-
-        <div className="navbar_search">
-          <input type="text" placeholder="Search" className="search-input" />
-          <button className="search-btn">
-            {" "}
-            <IoSearchSharp />
-          </button>
-        </div>
-      </div>
-      <div
-        style={{
-          color: "white",
-          marginTop: "7px",
-          width: "90%",
-          marginRight: "150px",
-        }}
-      >
-        <div>
-          <h6>
-            {" "}
-            Hotline{" "}
-            <p style={{ color: "white", display: "flex" }}>0942917989</p>{" "}
-          </h6>
+              </div>
+            </ul>
+            {/* <div
+            style={{
+              color: "white",
+              display: "inline-block",
+            }}
+          >
+            <div>
+              <h6>
+                {" "}
+                Hotline{" "}
+                <p style={{ color: "white", display: "flex" }}>
+                  0942917989
+                </p>{" "}
+              </h6>
+            </div>
+          </div> */}
+          </div>
         </div>
       </div>
+      <ResponsiveMenu showMenu={showMenu} />
     </div>
   );
 };

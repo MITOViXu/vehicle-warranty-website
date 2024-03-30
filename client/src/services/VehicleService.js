@@ -14,6 +14,20 @@ export const getAllVehicle = async (search, limit) => {
   }
   return res.data;
 };
+export const getAllVehicleByPlates = async (search, limit) => {
+  let res = {};
+  if (search?.length > 0) {
+    res = await axios.get(
+      //http://localhost:3001/api/vehicle/get-all?filter=plates&filter=s
+      `http://localhost:3001/api/vehicle/get-all?filter=plates&filter=${search}&limit=${limit}`
+    );
+  } else {
+    res = await axios.get(
+      `http://localhost:3001/api/vehicle/get-all?limit=${limit}`
+    );
+  }
+  return res.data;
+};
 
 export const getVehicleType = async (type, page, limit) => {
   if (type) {

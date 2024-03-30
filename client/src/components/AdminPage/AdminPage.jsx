@@ -11,6 +11,8 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import React, { useState } from "react";
+import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
+
 import User from "./UserPage/User";
 import Vehicle from "./VehiclePage/Vehicle";
 import { useSelector } from "react-redux";
@@ -39,10 +41,14 @@ const items = [
 const AdminPage = () => {
   const [mode, setMode] = useState("inline");
   const [theme, setTheme] = useState("light");
+  const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((state) => state.user);
   const rootSubmenuKeys = ["user", "product"];
   const [openKeys, setOpenKeys] = useState(["user"]);
   const [keySelect, setKeyselect] = useState("vehicles");
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
   const changeMode = (value) => {
     setMode(value ? "vertical" : "inline");
   };
@@ -59,32 +65,47 @@ const AdminPage = () => {
     } else return <Vehicle />;
   };
   return user?.isAdmin ? (
-    <div
-      style={{
-        marginTop: "100px",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-    >
-      <Menu
-        style={{
-          width: 256,
-          borderRadius: 10,
-          height: "100vh",
-        }}
-        onClick={handleOnclick}
-        defaultSelectedKeys={["vehicles"]}
-        defaultOpenKeys={["vehicles"]}
-        mode={"inline"}
-        // theme={"light"}
-        items={items}
-      />
-
-      {/* <Switch onChange={changeMode} /> Mode
+    <div className="container-fluid" style={{ marginTop: "100px" }}>
+      <div className="lg:hidden">
+        <Menu
+          style={{
+            width: 300,
+            borderRadius: 10,
+            // height: "100vh",
+          }}
+          onClick={handleOnclick}
+          defaultSelectedKeys={["vehicles"]}
+          defaultOpenKeys={["vehicles"]}
+          mode={"inline"}
+          // theme={"light"}
+          items={items}
+        />
+      </div>
+      <div className="row">
+        <div className="col-lg-3 hidden lg:block">
+          <Menu
+            style={{
+              width: 256,
+              borderRadius: 10,
+              height: "100vh",
+            }}
+            onClick={handleOnclick}
+            defaultSelectedKeys={["vehicles"]}
+            defaultOpenKeys={["vehicles"]}
+            mode={"inline"}
+            // theme={"light"}
+            items={items}
+          />
+        </div>
+        {/* <Switch onChange={changeMode} /> Mode
         <Divider type="vertical" />
         <Switch onChange={changeTheme} /> Style */}
-      <div style={{ flex: 1, padding: "15px 0 15px 15px" }}>{renderPage()}</div>
+        <div className="col-lg-9">
+          <div style={{ flex: 1, padding: "15px 0 15px 15px" }}>
+            {renderPage()}
+          </div>{" "}
+        </div>
+      </div>
     </div>
   ) : (
     <div style={{ marginTop: "100px", padding: "100px", fontSize: "100px" }}>
