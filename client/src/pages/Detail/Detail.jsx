@@ -4,8 +4,18 @@ import { Mercedes } from "../../assets";
 import { Mercedes1 } from "../../assets";
 import { Mercedes2 } from "../../assets";
 import { MdOutlineLocationOn } from "react-icons/md";
+import DisplayContract from "../../components/DisplayContract/DisplayContract";
 import { FaRegHeart } from "react-icons/fa";
 import * as VehicleService from "../../services/VehicleService";
+import { ethers } from "ethers";
+import {
+  carTransactionHistoryAdress,
+  carmaintenanceAdress,
+  caraccidentAdress,
+  carTransactionHistoryABI,
+  carmaintenanceABI,
+  caraccidentABI,
+} from "../../../Constant/constant";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { FaHeart } from "react-icons/fa";
@@ -21,7 +31,7 @@ import Footer from "../../components/Footer/Footer";
 import { FaInfoCircle } from "react-icons/fa";
 const Detail = () => {
   const { plate } = useParams();
-  console.log("Plates bên detail là: ", plate);
+  const [cars, setCars] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [love, setLove] = useState(false);
   const [image, setImage] = useState([]);
@@ -62,6 +72,7 @@ const Detail = () => {
       } else {
         console.log("Image array is undefined, empty, or not an array.");
       }
+      console.log("ID CUA XE: ", car?._id);
     }
   }, [car]);
   useEffect(() => {
@@ -69,6 +80,11 @@ const Detail = () => {
       fetchCar(plate);
     }
   }, [plate]);
+
+  useEffect(() => {
+    console.log("Cars: ", cars);
+  }, [cars]);
+  useEffect(() => {}, [car?._id]);
   // const imgs = [
   //   { id: 0, value: Mercedes },
   //   { id: 1, value: Mercedes1 },
@@ -377,6 +393,13 @@ const Detail = () => {
             </div>
           </div>
         </div>
+        {/* <div>
+          {car?._id ? (
+            <DisplayContract type="his" carId={car?._id} />
+          ) : (
+            <div>Chưa có lịch sử</div>
+          )}
+        </div> */}
       </div>
       <Footer />
     </Loading>

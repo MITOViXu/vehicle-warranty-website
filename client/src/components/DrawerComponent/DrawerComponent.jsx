@@ -11,7 +11,7 @@ const DrawerComponent = ({
   return (
     <>
       <Drawer
-        style={{ marginTop: "55px" }}
+        style={{ marginTop: "70px", paddingBottom: "50px" }}
         title={title}
         placemen={placement}
         open={isOpen}

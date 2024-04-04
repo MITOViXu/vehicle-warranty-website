@@ -56,8 +56,8 @@ const SignInPage = (props) => {
       console.log("Kết quả đăng nhập: ", isSuccess);
       if (location?.state) {
         navigate(location?.state);
-      }else{
-        navigate("/")
+      } else {
+        navigate("/");
       }
       localStorage.setItem("access_token", JSON.stringify(data?.access_token));
 
@@ -80,7 +80,7 @@ const SignInPage = (props) => {
 
   return (
     <div className="sin">
-      <div className="sin-header">
+      {/* <div className="sin-header">
         <div className="sin-header-title">
           <NavLink style={{ textDecoration: "none", color: "black" }} to="/">
             <h1>Web site đăng kiểm</h1>
@@ -88,13 +88,13 @@ const SignInPage = (props) => {
           <h1 style={{ color: "red" }}>Đăng Nhập</h1>
         </div>
         <p>Bạn cần giúp đỡ ?</p>
-      </div>
-      <div className="sin-content">
-        <div className="sin-content-image">
+      </div> */}
+      <div className="sin-content row">
+        <div className="sin-content-image col-md-6 mt-6">
           <img style={{ width: "70%" }} src={audi} alt="" />
           <img style={{ width: "70%" }} src={mclaren} alt="" />
         </div>
-        <div className="sin-content-form">
+        <div className="sin-content-form col-md-6 mb-6">
           <div>
             <h1 className="sin-content-form-title">Đăng nhập</h1>
           </div>

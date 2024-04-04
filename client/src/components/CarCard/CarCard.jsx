@@ -8,7 +8,7 @@ const CarCard = (props) => {
   let { plate, img, name, engine, address, type } = props.data;
   return (
     <Card
-      style={{ borderRadius: "20px", cursor: "pointer" }}
+      style={{ borderRadius: "20px", cursor: "pointer", border: "none" }}
       className="p-0 overflow-hidden h-100 custom-card"
     >
       <div className="overflow-hidden p-0 bg-light">

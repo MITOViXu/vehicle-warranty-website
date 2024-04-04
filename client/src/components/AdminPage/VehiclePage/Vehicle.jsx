@@ -786,7 +786,7 @@ const Vehicle = () => {
             onRow={(record, rowIndex) => {
               return {
                 onClick: (event) => {
-                  console.log("Row id selected: ", record._id);
+                  // console.log("Row id selected: ", record._id);
                   setRowSelected(record._id);
                 },
               };
@@ -1729,6 +1729,7 @@ const Vehicle = () => {
           isAccidentOpen={isAccidentOpen}
           isSoldOpen={isSoldOpen}
           handleCancel={handleCancel}
+          rowSelected={rowSelected}
           form={form}
         />
         <Modal
