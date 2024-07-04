@@ -49,7 +49,24 @@ const FindCar = (props) => {
   const [provider, setProvider] = useState(null);
   const navigate = useNavigate(); // Move useNavigate hook here
   const [vehicleinfor, setVehicleinfor] = useState(null);
+  const [origin, setOrigin] = useState("");
+  const [condition, setCondition] = useState("");
+  const [carModel, setCarModel] = useState("");
+  const [exteriorColor, setExteriorColor] = useState("");
+  const [interiorColor, setInteriorColor] = useState("");
+  const [numDoor, setNumDoor] = useState(0);
+  const [numSeat, setNumSeat] = useState(0);
+  const [engine, setEngine] = useState("");
+  const [capacity, setCapacity] = useState(0.0);
+  const [drivetype, setDriveType] = useState("");
+  const [inputCar, setInputCar] = useState([]);
   const [plates, setPlates] = useState(null);
+  const [mileague, setMileague] = useState(0.0);
+  const [brand, setBrand] = useState(null);
+  const [grade, setGrade] = useState(null);
+  const [nameCar, setNameCar] = useState(null);
+  const [yearManufac, setYearManufac] = useState(null);
+  const [consumption, setConsumption] = useState(0);
   const [findCar, setFindcar] = useState(null);
   async function handleSubmit(e) {
     try {
@@ -171,10 +188,91 @@ const FindCar = (props) => {
   const handleInput = (e) => {
     setPlates(e.target.value);
   };
+  const handleMileague = (e) => {
+    const value = Number(e.target.value);
+    setMileague(value);
+    if (value > 0) {
+      setCondition("Xe đã dùng");
+    } else {
+      setCondition("Xe mới"); // Reset condition if mileague is not greater than 0
+    }
+  };
+  const handleBrand = (e) => {
+    setBrand(e.target.value);
+  };
+  const handleGrade = (e) => {
+    setGrade(e.target.value);
+  };
+  const handleNameCar = (e) => {
+    setNameCar(e.target.value);
+  };
+  const handleYearManufac = (e) => {
+    setYearManufac(e.target.value);
+  };
+  const handleEngine = (e) => {
+    setEngine(e.target.value);
+  };
+  const handleChangeOrigin = (event) => {
+    setOrigin(event.target.value);
+  };
+  const handleConsumption = (e) => {
+    setConsumption(Number(e.target.value));
+  };
+  const handleCondition = (e) => {
+    setCondition(e.target.value);
+  };
+  const handleCarModel = (e) => {
+    setCarModel(e.target.value);
+  };
+  const handleExteriorColor = (e) => {
+    setExteriorColor(e.target.value);
+  };
+  const handleInterirorColor = (e) => {
+    setInteriorColor(e.target.value);
+  };
+  const handleNumdoor = (e) => {
+    setNumDoor(Number(e.target.value));
+  };
+  const handleNumseat = (e) => {
+    setNumSeat(Number(e.target.value));
+  };
+  const handleCapacity = (e) => {
+    setCapacity(Number(e.target.value));
+  };
+  const handleDriveType = (e) => {
+    setDriveType(e.target.value);
+  };
   const onSubmit = (e) => {
     e.preventDefault();
     setFindcar(plates);
     setPlates(null);
+    // console.log("Plates: ", plates);
+  };
+  useEffect(() => {
+    console.log("input car", inputCar);
+  }, [inputCar]);
+  const onPredict = (e) => {
+    e.preventDefault();
+    console.log("brand", brand);
+    setInputCar([
+      mileague,
+      brand,
+      grade,
+      nameCar,
+      yearManufac,
+      origin,
+      condition,
+      carModel,
+      exteriorColor,
+      interiorColor,
+      numDoor,
+      numSeat,
+      engine,
+      capacity,
+      drivetype,
+      consumption,
+    ]);
+
     // console.log("Plates: ", plates);
   };
   useEffect(() => {
@@ -286,7 +384,7 @@ const FindCar = (props) => {
 
                 <div className="input-option">
                   <select className="input" placeholder="Loại xe">
-                    <option value="" disabled selected hidden>
+                    <option value="" style={{ color: "black" }}>
                       Loại xe
                     </option>
                     <option style={{ color: "black" }} value="">
@@ -320,7 +418,7 @@ const FindCar = (props) => {
       <div className="container p-5 filter-plates mb-6">
         <div className="row" style={{ width: "100%" }}>
           <div className="col-lg-6" style={{ width: "600px" }}>
-            <form action="" onSubmit={onSubmit}>
+            <form action="" onSubmit={onPredict}>
               <div>
                 <h1 style={{ fontWeight: "800" }}>Tra giá xe bằng AI</h1>
                 <p
@@ -336,51 +434,90 @@ const FindCar = (props) => {
               <div className="container">
                 <div className="input-group">
                   <div className="row">
-                    <div className="col-lg-4">
+                    <div className="col-lg-6">
+                      <div className="row align-items-center">
+                        <p
+                          className="col-lg-7"
+                          style={{ padding: "5px 30px", color:"white", fontSize:"16px", fontWeight:"bolder", margin: 0 }}
+                        >
+                          Số km đã đi :
+                        </p>
+                        <input
+                          onChange={handleMileague}
+                          className="col-lg-3 input bienso"
+                          type="number"
+                          value={mileague ? mileague : 0}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-6">
+                      {/* <select
+                        className="input"
+                        placeholder="Tình trạng"
+                        value={condition}
+                        disabled={true}
+                      >
+                        <option style={{ color: "black" }} value="Xe mới">
+                          Xe mới
+                        </option>
+                        <option style={{ color: "black" }} value="Xe đã dùng">
+                          Xe đã dùng
+                        </option>
+                      </select> */}
                       <input
-                        onChange={handleInput}
+                        onChange={handleMileague}
                         className="input bienso"
-                        type="text"
-                        value={plates ? plates : ""}
-                        placeholder="Số km Đã đi"
+                        style={{ fontFamily: "cursive", fontSize: "30px" }}
+                        // type="text"
+                        value={condition ? condition : "Xe mới"}
+                        disabled={true}
                       />
                     </div>
-                    <div className="col-lg-4">
+                  </div>
+                  <div className="row">
+                    <div className="col-lg-6">
                       <input
-                        onChange={handleInput}
+                        onChange={handleBrand}
                         className="input bienso"
                         type="text"
-                        value={plates ? plates : ""}
+                        value={brand ? brand : ""}
                         placeholder="Hãng"
                       />
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-lg-6">
                       <input
-                        onChange={handleInput}
+                        onChange={handleGrade}
                         className="input bienso"
                         type="text"
-                        value={plates ? plates : ""}
+                        value={grade ? grade : ""}
                         placeholder="Grade"
                       />
                     </div>
                   </div>
+                  {/* <input
+                        onChange={handleBrand}
+                        className="input bienso"
+                        type="text"
+                        value={brand ? brand : ""}
+                        placeholder="Hãng"
+                      /> */}
                   <div className="row" style={{ width: "550px" }}>
                     <div className="col-lg-9">
                       <input
-                        onChange={handleInput}
+                        onChange={handleNameCar}
                         className="input bienso"
                         type="text"
-                        value={plates ? plates : ""}
+                        value={nameCar ? nameCar : ""}
                         placeholder="Tên xe"
                       />
                     </div>
 
                     <div className="col-lg-3">
                       <input
-                        onChange={handleInput}
+                        onChange={handleYearManufac}
                         className="input bienso"
                         type="text"
-                        value={plates ? plates : ""}
+                        value={yearManufac ? yearManufac : ""}
                         placeholder="Năm sản xuất"
                       />
                     </div>
@@ -388,65 +525,71 @@ const FindCar = (props) => {
 
                   <div>
                     <div className="row">
-                      <div className="col-lg-4">
-                        <select className="input" placeholder="Xuất xứ">
-                          <option value="" disabled selected hidden>
+                      <div className="col-lg-6">
+                        <select
+                          className="input"
+                          placeholder="Xuất xứ"
+                          value={origin}
+                          onChange={handleChangeOrigin}
+                        >
+                          <option value={"Xuất xứ"} style={{ color: "black" }}>
                             Xuất xứ
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option
+                            style={{ color: "black" }}
+                            value="Lắp ráp trong nước"
+                          >
                             Lắp ráp trong nước
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Nhập khẩu">
                             Nhập khẩu
                           </option>
                         </select>
                       </div>
-                      <div className="col-lg-4">
-                        <select className="input" placeholder="Tình trạng">
-                          <option value="" disabled selected hidden>
-                            Tình trạng
-                          </option>
-                          <option style={{ color: "black" }} value="">
-                            Xe mới
-                          </option>
-                          <option style={{ color: "black" }} value="">
-                            Xe đã dùng
-                          </option>
-                        </select>
-                      </div>
-                      <div className="col-lg-4">
-                        <select className="input" placeholder="Dòng xe">
-                          <option value="" disabled selected hidden>
+                      <div className="col-lg-6">
+                        <select
+                          className="input"
+                          placeholder="Dòng xe"
+                          value={carModel}
+                          onChange={handleCarModel}
+                        >
+                          <option value="Dòng xe" style={{ color: "black" }}>
                             Dòng xe
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="SUV">
                             SUV
                           </option>
-                          <option style={{ color: "black" }} value="">
-                            SUV
-                          </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Crossover">
                             Crossover
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option
+                            style={{ color: "black" }}
+                            value="Van/Minivan"
+                          >
                             Van/Minivan
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option
+                            style={{ color: "black" }}
+                            value="Bán tải / Pickup"
+                          >
                             Bán tải / Pickup
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Sedan">
                             Sedan
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Hatchback">
                             Hatchback
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Wagon">
                             Wagon
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Coupe">
                             Coupe
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option
+                            style={{ color: "black" }}
+                            value="Convertible/Cabriolet"
+                          >
                             Convertible/Cabriolet
                           </option>
                         </select>
@@ -455,157 +598,183 @@ const FindCar = (props) => {
                     <div className="row">
                       <div className="col-lg-4">
                         {" "}
-                        <select className="input" placeholder="Màu ngoại thất">
-                          <option value="" disabled selected hidden>
+                        <select
+                          className="input"
+                          placeholder="Màu ngoại thất"
+                          value={exteriorColor}
+                          onChange={handleExteriorColor}
+                        >
+                          <option
+                            value="Màu ngoại thất"
+                            disabled
+                            selected
+                            hidden
+                          >
                             Màu ngoại thất
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Trắng">
                             Trắng
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Đen">
                             Đen
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Bạc">
                             Bạc
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Đồng">
                             Đồng
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Xám">
                             Xám
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Đỏ">
                             Đỏ
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Nâu">
                             Nâu
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Xanh">
                             Xanh
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Ghi">
                             Ghi
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Cam">
                             Cam
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Vàng">
                             Vàng
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Cát">
                             Cát
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Nhiều màu">
                             Nhiều màu
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Kem">
                             Kem
                           </option>
-                          <option style={{ color: "black" }} value="">
-                            Màu khác
-                          </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Hồng">
                             Hồng
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Tím">
                             Tím
+                          </option>
+                          <option style={{ color: "black" }} value="Màu khác">
+                            Màu khác
                           </option>
                         </select>
                       </div>
                       <div className="col-lg-4">
-                        <select className="input" placeholder="Màu nội thất">
-                          <option value="" disabled selected hidden>
+                        <select
+                          className="input"
+                          placeholder="Màu nội thất"
+                          value={interiorColor}
+                          onChange={handleInterirorColor}
+                        >
+                          <option
+                            value="Màu nội thất"
+                            style={{ color: "black" }}
+                          >
                             Màu nội thất
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Ghi">
                             Ghi
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Đen">
                             Đen
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Nâu">
                             Nâu
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Kem">
                             Kem
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Vàng">
                             Vàng
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Nhiều màu">
                             Nhiều màu
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Cát">
                             Cát
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Xám">
                             Xám
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Đỏ">
                             Đỏ
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Bạc">
                             Bạc
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Xanh">
                             Xanh
                           </option>
-                          <option style={{ color: "black" }} value="">
-                            Màu khác
-                          </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Cam">
                             Cam
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Đồng">
                             Đồng
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Hồng">
                             Hồng
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Tím">
                             Tím
+                          </option>
+                          <option style={{ color: "black" }} value="Màu khác">
+                            Màu khác
                           </option>
                         </select>
                       </div>
                       <div className="col-lg-4">
-                        <select className="input" placeholder="Số cửa">
-                          <option value="" disabled selected hidden>
+                        <select
+                          className="input"
+                          placeholder="Số cửa"
+                          value={numDoor}
+                          onChange={handleNumdoor}
+                        >
+                          <option
+                            value={Number(null)}
+                            style={{ color: "black" }}
+                          >
                             Số cửa
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={2}>
                             2
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={5}>
                             5
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={4}>
                             4
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={6}>
                             6
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={1}>
                             1
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={3}>
                             3
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={45}>
                             45
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={44}>
                             44
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={7}>
                             7
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={54}>
                             54
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={0}>
                             0
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={42}>
                             42
                           </option>
                         </select>
@@ -613,171 +782,210 @@ const FindCar = (props) => {
                     </div>
                     <div className="row">
                       <div className="col-lg-4">
-                        <select className="input" placeholder="Số chỗ ngồi">
-                          <option value="" disabled selected hidden>
+                        <select
+                          className="input"
+                          placeholder="Số chỗ ngồi"
+                          value={numSeat}
+                          onChange={handleNumseat}
+                        >
+                          <option
+                            value={Number(null)}
+                            style={{ color: "black" }}
+                          >
                             Số chỗ ngồi
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={2}>
                             2
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={7}>
                             7
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={8}>
                             8
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={5}>
                             5
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={3}>
                             3
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={4}>
                             4
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={6}>
                             6
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={16}>
                             16
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={20}>
                             20
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={47}>
                             47
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={10}>
                             10
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={29}>
                             29
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={11}>
                             11
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={9}>
                             9
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={42}>
                             42
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={15}>
                             15
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={17}>
                             17
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={12}>
                             12
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={38}>
                             38
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={40}>
                             40
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={1}>
                             1
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={44}>
                             44
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={46}>
                             46
                           </option>
                         </select>
                       </div>
                       <div className="col-lg-4">
-                        <select className="input" placeholder="Động cơ">
-                          <option value="" disabled selected hidden>
+                        <select
+                          className="input"
+                          placeholder="Động cơ"
+                          value={engine}
+                          onChange={handleEngine}
+                        >
+                          <option value="Động cơ" style={{ color: "black" }}>
                             Động cơ
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Xăng">
                             Xăng
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Dầu">
                             Dầu
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value="Hybrid">
                             Hybrid
                           </option>
                         </select>
                       </div>
                       <div className="col-lg-4">
-                        <select className="input" placeholder="Dung tích">
-                          <option value="" disabled selected hidden>
+                        <select
+                          className="input"
+                          placeholder="Dung tích"
+                          value={capacity}
+                          onChange={handleCapacity}
+                        >
+                          <option
+                            value={Number(null)}
+                            style={{ color: "black" }}
+                          >
                             Dung tích
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={1.0}>
                             1.0
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={3.4}>
                             3.4
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={2.0}>
                             2.0
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={1.8}>
                             1.8
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={1.5}>
                             1.5
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={2.7}>
                             2.7
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={2.2}>
                             2.2
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={1.25}>
                             1.25
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={11.1}>
                             11.1
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={3.5}>
                             3.5
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option style={{ color: "black" }} value={2.8}>
                             2.8
                           </option>
                         </select>
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-lg-4">
-                        <select className="input" placeholder="Dẫn động">
-                          <option value="" disabled selected hidden>
+                      <div className="col-lg-8">
+                        <select
+                          className="input"
+                          placeholder="Dẫn động"
+                          value={drivetype}
+                          onChange={handleDriveType}
+                        >
+                          <option value="Dẫn động" style={{ color: "black" }}>
                             Dẫn động
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option
+                            style={{ color: "black" }}
+                            value="RFD - Dẫn động cầu sau"
+                          >
                             RFD - Dẫn động cầu sau
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option
+                            style={{ color: "black" }}
+                            value="AWD - 4 bánh toàn thời gian"
+                          >
                             AWD - 4 bánh toàn thời gian
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option
+                            style={{ color: "black" }}
+                            value="FWD - Dẫn động cầu trước"
+                          >
                             FWD - Dẫn động cầu trước
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option
+                            style={{ color: "black" }}
+                            value="4WD - Dẫn động 4 bánh"
+                          >
                             4WD - Dẫn động 4 bánh
                           </option>
-                          <option style={{ color: "black" }} value="">
+                          <option
+                            style={{ color: "black" }}
+                            value="4WD hoặc AWD"
+                          >
                             4WD hoặc AWD
                           </option>
                         </select>
                       </div>
                       <div className="col-lg-4">
-                        <div className="row">
-                          <input
-                            onChange={handleInput}
-                            className="input bienso"
-                            type="text"
-                            value={plates ? plates : ""}
-                            placeholder="Tiêu thụ nhiên liệu"
-                          />
-                        </div>
+                        <input
+                          onChange={handleConsumption}
+                          className="input bienso"
+                          type="text"
+                          value={consumption ? consumption : ""}
+                          placeholder="Tiêu thụ nhiên liệu"
+                        />
                       </div>
                     </div>
                   </div>
