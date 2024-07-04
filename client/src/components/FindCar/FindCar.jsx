@@ -31,7 +31,6 @@ const ByInstallmentsContent = () => {
   );
 };
 
-
 // Component hiển thị nội dung khi chọn theo kiểu dáng
 const ByStyleContent = () => {
   return (
@@ -49,44 +48,44 @@ const ByStyleContent = () => {
 
 const FindCar = (props) => {
   const [provider, setProvider] = useState(null);
-  const [predictPrice, setPredictPrice] = useState(0)
+  const [predictPrice, setPredictPrice] = useState(0);
   const navigate = useNavigate(); // Move useNavigate hook here
   const [vehicleinfor, setVehicleinfor] = useState(null);
-  const [origin, setOrigin] = useState("Domestic assembly");
+  const [origin, setOrigin] = useState("Imported");
   const [condition, setCondition] = useState("New car");
-  const [carModel, setCarModel] = useState("Crossover");
-  const [exteriorColor, setExteriorColor] = useState("Silver");
-  const [interiorColor, setInteriorColor] = useState("gray");
-  const [numDoor, setNumDoor] = useState("4-door");
-  const [numSeat, setNumSeat] = useState("5-seat");
-  const [engine, setEngine] = useState("Petrol	2.7 L");
-  const [capacity, setCapacity] = useState(0.0);
-  const [drivetype, setDriveType] = useState("");
-  const [inputCar, setInputCar] = useState({  
-      mileague :0,
-      brand:"",
-      grade:"",
-      nameCar:"",
-      yearManufac:"",
-      origin:"",
-      condition:"",
-      carModel:"",
-      exteriorColor:"",
-      interiorColor:"",
-      numDoor:0,
-      numSeat:0,
-      engine:"",
-      capacity:0,
-      drivetype:"",
-      consumption:0,
+  const [carModel, setCarModel] = useState("SUV");
+  const [exteriorColor, setExteriorColor] = useState("Copper");
+  const [interiorColor, setInteriorColor] = useState("Black");
+  const [numDoor, setNumDoor] = useState("5-door");
+  const [numSeat, setNumSeat] = useState("7-seat");
+  const [engine, setEngine] = useState("Petrol");
+  const [transmission, setTranssision] = useState("Automatic");
+  const [capacity, setCapacity] = useState("2.7 L");
+  const [drivetype, setDriveType] = useState("RFD - Rear-wheel drive");
+  const [inputCar, setInputCar] = useState({
+    origin: "",
+    condition: "",
+    car_model: "",
+    log10_mileage: "",
+    exterior_color: "",
+    interior_color: "",
+    num_of_doors: "",
+    seating_capacity: "",
+    fuel_type: "",
+    engine_size: "",
+    transmission: "",
+    drive_type: "",
+    fuel_consumption: "",
+    brand_grade: "",
+    year_of_manufacture: "",
   });
   const [plates, setPlates] = useState(null);
   const [mileague, setMileague] = useState(0);
-  const [brand, setBrand] = useState(null);
+  const [brand, setBrand] = useState("Toyota Fortuner");
   const [grade, setGrade] = useState(null);
   const [nameCar, setNameCar] = useState(null);
-  const [yearManufac, setYearManufac] = useState(null);
-  const [consumption, setConsumption] = useState(0);
+  const [yearManufac, setYearManufac] = useState("2023");
+  const [consumption, setConsumption] = useState("7");
   const [findCar, setFindcar] = useState(null);
   async function handleSubmit(e) {
     try {
@@ -216,12 +215,11 @@ const FindCar = (props) => {
     setPlates(e.target.value);
   };
   const handleMileague = (e) => {
-    const value = Number(e.target.value);
-    setMileague(value);
+    setMileague(Number(e.target.value));
     if (value > 0) {
-      setCondition("Xe đã dùng");
+      setCondition("Used car");
     } else {
-      setCondition("Xe mới"); // Reset condition if mileague is not greater than 0
+      setCondition("New car"); // Reset condition if mileague is not greater than 0
     }
   };
   const handleBrand = (e) => {
@@ -242,8 +240,11 @@ const FindCar = (props) => {
   const handleChangeOrigin = (event) => {
     setOrigin(event.target.value);
   };
+  const handleChangeTranssision = (event) => {
+    setTranssision(event.target.value);
+  };
   const handleConsumption = (e) => {
-    setConsumption(Number(e.target.value));
+    setConsumption(e.target.value);
   };
   const handleCondition = (e) => {
     setCondition(e.target.value);
@@ -258,13 +259,13 @@ const FindCar = (props) => {
     setInteriorColor(e.target.value);
   };
   const handleNumdoor = (e) => {
-    setNumDoor(Number(e.target.value));
+    setNumDoor(e.target.value);
   };
   const handleNumseat = (e) => {
-    setNumSeat(Number(e.target.value));
+    setNumSeat(e.target.value);
   };
   const handleCapacity = (e) => {
-    setCapacity(Number(e.target.value));
+    setCapacity(e.target.value);
   };
   const handleDriveType = (e) => {
     setDriveType(e.target.value);
@@ -281,26 +282,43 @@ const FindCar = (props) => {
 
   const onPredict = (e) => {
     e.preventDefault();
-    console.log("brand", brand);
+    //     origin                   2
+    // condition                2
+    // car_model               10
+    // log10_mileage           29
+    // exterior_color          17
+    // interior_color          17
+    // num_of_doors             6
+    // seating_capacity        12
+    // fuel_type                5
+    // engine_size             41
+    // transmission             3
+    // drive_type               6
+    // fuel_consumption        19
+    // brand_grade            151
+    // year_of_manufacture     28
+    // console.log("brand", brand);
+    // const value = Number(e.target.value);
+    // const log10Value = Math.log10(value).toFixed(1);
+    // setMileague(log10Value.toString());
     setInputCar({
-      mileague:mileague,
-      brand:brand,
-      grade:grade,
-      nameCar:nameCar,
-      yearManufac:yearManufac,
-      origin:origin,
-      condition:condition,
-      carModel:carModel,
-      exteriorColor:exteriorColor,
-      interiorColor:interiorColor,
-      numDoor:numDoor,
-      numSeat:numSeat,
-      engine:engine,
-      capacity:capacity,
-      drivetype:drivetype,
-      consumption:consumption,
-  });
-  getPredictPrice(inputCar);
+      origin: origin,
+      condition: condition,
+      car_model: carModel,
+      log10_mileage: mileague == 0 ? "0.0" : Math.log10(mileague).toFixed(1).toString(),
+      exterior_color: exteriorColor,
+      interior_color: interiorColor,
+      num_of_doors: numDoor,
+      seating_capacity: numSeat,
+      fuel_type: engine,
+      engine_size: capacity,
+      transmission: transmission,
+      drive_type: drivetype,
+      fuel_consumption: consumption,
+      brand_grade: brand,
+      year_of_manufacture: yearManufac + ".0",
+    });
+    getPredictPrice(inputCar);
     // console.log("Plates: ", plates);
   };
   useEffect(() => {
@@ -444,7 +462,7 @@ const FindCar = (props) => {
           {/* here */}
         </div>
       </div>
-      
+
       <div className="container p-5 filter-plates mb-6">
         <div className="row" style={{ width: "100%" }}>
           <div className="col-lg-6" style={{ width: "600px" }}>
@@ -468,7 +486,13 @@ const FindCar = (props) => {
                       <div className="row align-items-center">
                         <p
                           className="col-lg-7"
-                          style={{ padding: "5px 30px", color:"white", fontSize:"16px", fontWeight:"bolder", margin: 0 }}
+                          style={{
+                            padding: "5px 30px",
+                            color: "white",
+                            fontSize: "16px",
+                            fontWeight: "bolder",
+                            margin: 0,
+                          }}
                         >
                           Số km đã đi :
                         </p>
@@ -504,26 +528,7 @@ const FindCar = (props) => {
                       />
                     </div>
                   </div>
-                  <div className="row">
-                    <div className="col-lg-6">
-                      <input
-                        onChange={handleBrand}
-                        className="input bienso"
-                        type="text"
-                        value={brand ? brand : ""}
-                        placeholder="Hãng"
-                      />
-                    </div>
-                    <div className="col-lg-6">
-                      <input
-                        onChange={handleGrade}
-                        className="input bienso"
-                        type="text"
-                        value={grade ? grade : ""}
-                        placeholder="Grade"
-                      />
-                    </div>
-                  </div>
+
                   {/* <input
                         onChange={handleBrand}
                         className="input bienso"
@@ -534,11 +539,11 @@ const FindCar = (props) => {
                   <div className="row" style={{ width: "550px" }}>
                     <div className="col-lg-9">
                       <input
-                        onChange={handleNameCar}
+                        onChange={handleBrand}
                         className="input bienso"
                         type="text"
-                        value={nameCar ? nameCar : ""}
-                        placeholder="Tên xe"
+                        value={brand ? brand : ""}
+                        placeholder="Nhã hiệu xe"
                       />
                     </div>
 
@@ -555,36 +560,63 @@ const FindCar = (props) => {
 
                   <div>
                     <div className="row">
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
                         <select
                           className="input"
                           placeholder="Xuất xứ"
                           value={origin}
                           onChange={handleChangeOrigin}
                         >
-                          <option value={"Xuất xứ"} style={{ color: "black" }}>
+                          <option
+                            value={"Xuát xứ"}
+                            style={{ color: "black" }}
+                          >
                             Xuất xứ
                           </option>
                           <option
                             style={{ color: "black" }}
-                            value="Lắp ráp trong nước"
+                            value="Domestic assembly"
                           >
                             Lắp ráp trong nước
                           </option>
-                          <option style={{ color: "black" }} value="Nhập khẩu">
+                          <option style={{ color: "black" }} value="Imported">
                             Nhập khẩu
                           </option>
                         </select>
                       </div>
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
+                        <select
+                          className="input"
+                          placeholder="Cần số"
+                          value={transmission}
+                          onChange={handleChangeTranssision}
+                        >
+                          <option
+                            value={"Cần số"}
+                            style={{ color: "black" }}
+                          >
+                            Cần số
+                          </option>
+                          <option style={{ color: "black" }} value="Automatic">
+                            Tự động
+                          </option>
+                          <option style={{ color: "black" }} value="Manual">
+                            Thủ công
+                          </option>
+                          <option style={{ color: "black" }} value="Other">
+                            Khác
+                          </option>
+                        </select>
+                      </div>
+                      <div className="col-lg-4">
                         <select
                           className="input"
                           placeholder="Dòng xe"
                           value={carModel}
                           onChange={handleCarModel}
                         >
-                          <option value="Dòng xe" style={{ color: "black" }}>
-                            Dòng xe
+                          <option value="Other" style={{ color: "black" }}>
+                            Khác
                           </option>
                           <option style={{ color: "black" }} value="SUV">
                             SUV
@@ -610,11 +642,11 @@ const FindCar = (props) => {
                           <option style={{ color: "black" }} value="Hatchback">
                             Hatchback
                           </option>
-                          <option style={{ color: "black" }} value="Wagon">
-                            Wagon
-                          </option>
                           <option style={{ color: "black" }} value="Coupe">
                             Coupe
+                          </option>
+                          <option style={{ color: "black" }} value="Truck">
+                            Truck
                           </option>
                           <option
                             style={{ color: "black" }}
@@ -642,55 +674,55 @@ const FindCar = (props) => {
                           >
                             Màu ngoại thất
                           </option>
-                          <option style={{ color: "black" }} value="Trắng">
+                          <option style={{ color: "black" }} value="White">
                             Trắng
                           </option>
-                          <option style={{ color: "black" }} value="Đen">
+                          <option style={{ color: "black" }} value="Black">
                             Đen
                           </option>
-                          <option style={{ color: "black" }} value="Bạc">
+                          <option style={{ color: "black" }} value="Silver">
                             Bạc
                           </option>
-                          <option style={{ color: "black" }} value="Đồng">
+                          <option style={{ color: "black" }} value="Copper">
                             Đồng
                           </option>
-                          <option style={{ color: "black" }} value="Xám">
+                          <option style={{ color: "black" }} value="Grey">
                             Xám
                           </option>
-                          <option style={{ color: "black" }} value="Đỏ">
+                          <option style={{ color: "black" }} value="Red">
                             Đỏ
                           </option>
-                          <option style={{ color: "black" }} value="Nâu">
+                          <option style={{ color: "black" }} value="Brown">
                             Nâu
                           </option>
-                          <option style={{ color: "black" }} value="Xanh">
+                          <option style={{ color: "black" }} value="Green">
                             Xanh
                           </option>
-                          <option style={{ color: "black" }} value="Ghi">
+                          <option style={{ color: "black" }} value="Take note">
                             Ghi
                           </option>
-                          <option style={{ color: "black" }} value="Cam">
+                          <option style={{ color: "black" }} value="Orange">
                             Cam
                           </option>
-                          <option style={{ color: "black" }} value="Vàng">
+                          <option style={{ color: "black" }} value="Yellow">
                             Vàng
                           </option>
-                          <option style={{ color: "black" }} value="Cát">
+                          <option style={{ color: "black" }} value="Sand">
                             Cát
                           </option>
-                          <option style={{ color: "black" }} value="Nhiều màu">
+                          <option style={{ color: "black" }} value="Colorful">
                             Nhiều màu
                           </option>
-                          <option style={{ color: "black" }} value="Kem">
+                          <option style={{ color: "black" }} value="Pink">
                             Kem
                           </option>
-                          <option style={{ color: "black" }} value="Hồng">
+                          <option style={{ color: "black" }} value="Pink">
                             Hồng
                           </option>
-                          <option style={{ color: "black" }} value="Tím">
+                          <option style={{ color: "black" }} value="Cream">
                             Tím
                           </option>
-                          <option style={{ color: "black" }} value="Màu khác">
+                          <option style={{ color: "black" }} value="Other">
                             Màu khác
                           </option>
                         </select>
@@ -708,52 +740,55 @@ const FindCar = (props) => {
                           >
                             Màu nội thất
                           </option>
-                          <option style={{ color: "black" }} value="Ghi">
+                          <option style={{ color: "black" }} value="Black">
                             Ghi
                           </option>
-                          <option style={{ color: "black" }} value="Đen">
+                          <option style={{ color: "black" }} value="Black">
                             Đen
                           </option>
-                          <option style={{ color: "black" }} value="Nâu">
+                          <option style={{ color: "black" }} value="Brown">
                             Nâu
                           </option>
-                          <option style={{ color: "black" }} value="Kem">
+                          <option style={{ color: "black" }} value="Cream">
                             Kem
                           </option>
-                          <option style={{ color: "black" }} value="Vàng">
+                          <option style={{ color: "black" }} value="Yellow">
                             Vàng
                           </option>
-                          <option style={{ color: "black" }} value="Nhiều màu">
+                          <option style={{ color: "black" }} value="Colorful">
                             Nhiều màu
                           </option>
-                          <option style={{ color: "black" }} value="Cát">
+                          <option style={{ color: "black" }} value="Sand">
                             Cát
                           </option>
-                          <option style={{ color: "black" }} value="Xám">
+                          <option style={{ color: "black" }} value="gray">
                             Xám
                           </option>
-                          <option style={{ color: "black" }} value="Đỏ">
+                          <option style={{ color: "black" }} value="Red">
                             Đỏ
                           </option>
-                          <option style={{ color: "black" }} value="Bạc">
+                          <option style={{ color: "black" }} value="Silver">
                             Bạc
                           </option>
-                          <option style={{ color: "black" }} value="Xanh">
+                          <option style={{ color: "black" }} value="Green">
                             Xanh
                           </option>
-                          <option style={{ color: "black" }} value="Cam">
+                          <option style={{ color: "black" }} value="Orange">
                             Cam
                           </option>
-                          <option style={{ color: "black" }} value="Đồng">
+                          <option style={{ color: "black" }} value="Copper">
                             Đồng
                           </option>
-                          <option style={{ color: "black" }} value="Hồng">
+                          <option style={{ color: "black" }} value="Pink">
                             Hồng
                           </option>
-                          <option style={{ color: "black" }} value="Tím">
+                          <option style={{ color: "black" }} value="Copper">
                             Tím
                           </option>
-                          <option style={{ color: "black" }} value="Màu khác">
+                          <option
+                            style={{ color: "black" }}
+                            value="Different color"
+                          >
                             Màu khác
                           </option>
                         </select>
@@ -771,42 +806,25 @@ const FindCar = (props) => {
                           >
                             Số cửa
                           </option>
-                          <option style={{ color: "black" }} value={2}>
-                            2
-                          </option>
-                          <option style={{ color: "black" }} value={5}>
+                          <option style={{ color: "black" }} value={"5-door"}>
                             5
                           </option>
-                          <option style={{ color: "black" }} value={4}>
+                          <option style={{ color: "black" }} value={"4-door"}>
                             4
                           </option>
-                          <option style={{ color: "black" }} value={6}>
-                            6
+                          <option style={{ color: "black" }} value={"2-door"}>
+                            2
                           </option>
-                          <option style={{ color: "black" }} value={1}>
-                            1
-                          </option>
-                          <option style={{ color: "black" }} value={3}>
-                            3
-                          </option>
-                          <option style={{ color: "black" }} value={45}>
-                            45
-                          </option>
-                          <option style={{ color: "black" }} value={44}>
-                            44
-                          </option>
-                          <option style={{ color: "black" }} value={7}>
-                            7
-                          </option>
-                          <option style={{ color: "black" }} value={54}>
-                            54
-                          </option>
-                          <option style={{ color: "black" }} value={0}>
+                          <option style={{ color: "black" }} value={"0-door"}>
                             0
                           </option>
-                          <option style={{ color: "black" }} value={42}>
-                            42
+                          <option style={{ color: "black" }} value={"Other"}>
+                            other
                           </option>
+                          <option style={{ color: "black" }} value={"3-door"}>
+                            3
+                          </option>
+                          ""
                         </select>
                       </div>
                     </div>
@@ -824,74 +842,41 @@ const FindCar = (props) => {
                           >
                             Số chỗ ngồi
                           </option>
-                          <option style={{ color: "black" }} value={2}>
-                            2
-                          </option>
-                          <option style={{ color: "black" }} value={7}>
+                          <option style={{ color: "black" }} value={"7-seat"}>
                             7
                           </option>
-                          <option style={{ color: "black" }} value={8}>
-                            8
-                          </option>
-                          <option style={{ color: "black" }} value={5}>
+                          <option style={{ color: "black" }} value={"5-seat"}>
                             5
                           </option>
-                          <option style={{ color: "black" }} value={3}>
-                            3
-                          </option>
-                          <option style={{ color: "black" }} value={4}>
+                          <option style={{ color: "black" }} value={"4-seat"}>
                             4
                           </option>
-                          <option style={{ color: "black" }} value={6}>
-                            6
+                          <option style={{ color: "black" }} value={"8-seat"}>
+                            8
                           </option>
-                          <option style={{ color: "black" }} value={16}>
+                          <option style={{ color: "black" }} value={"2-seat"}>
+                            2
+                          </option>
+                          <option style={{ color: "black" }} value={"16-seat"}>
                             16
                           </option>
-                          <option style={{ color: "black" }} value={20}>
-                            20
+                          <option style={{ color: "black" }} value={"3-seat"}>
+                            3
                           </option>
-                          <option style={{ color: "black" }} value={47}>
-                            47
+                          <option style={{ color: "black" }} value={"0-seat"}>
+                            0
                           </option>
-                          <option style={{ color: "black" }} value={10}>
+                          <option style={{ color: "black" }} value={"6-seat"}>
+                            6
+                          </option>
+                          <option style={{ color: "black" }} value={"Other"}>
+                            Khác
+                          </option>
+                          <option style={{ color: "black" }} value={"10-seat"}>
                             10
                           </option>
-                          <option style={{ color: "black" }} value={29}>
-                            29
-                          </option>
-                          <option style={{ color: "black" }} value={11}>
-                            11
-                          </option>
-                          <option style={{ color: "black" }} value={9}>
+                          <option style={{ color: "black" }} value={"9-seat"}>
                             9
-                          </option>
-                          <option style={{ color: "black" }} value={42}>
-                            42
-                          </option>
-                          <option style={{ color: "black" }} value={15}>
-                            15
-                          </option>
-                          <option style={{ color: "black" }} value={17}>
-                            17
-                          </option>
-                          <option style={{ color: "black" }} value={12}>
-                            12
-                          </option>
-                          <option style={{ color: "black" }} value={38}>
-                            38
-                          </option>
-                          <option style={{ color: "black" }} value={40}>
-                            40
-                          </option>
-                          <option style={{ color: "black" }} value={1}>
-                            1
-                          </option>
-                          <option style={{ color: "black" }} value={44}>
-                            44
-                          </option>
-                          <option style={{ color: "black" }} value={46}>
-                            46
                           </option>
                         </select>
                       </div>
@@ -905,13 +890,16 @@ const FindCar = (props) => {
                           <option value="Động cơ" style={{ color: "black" }}>
                             Động cơ
                           </option>
-                          <option style={{ color: "black" }} value="Xăng">
+                          <option style={{ color: "black" }} value="Petrol">
                             Xăng
                           </option>
-                          <option style={{ color: "black" }} value="Dầu">
+                          <option style={{ color: "black" }} value="Diesel">
                             Dầu
                           </option>
                           <option style={{ color: "black" }} value="Hybrid">
+                            Hybrid
+                          </option>
+                          <option style={{ color: "black" }} value="Electric">
                             Hybrid
                           </option>
                         </select>
@@ -923,43 +911,40 @@ const FindCar = (props) => {
                           value={capacity}
                           onChange={handleCapacity}
                         >
-                          <option
-                            value={Number(null)}
-                            style={{ color: "black" }}
-                          >
+                          <option value="Dung tích" style={{ color: "black" }}>
                             Dung tích
                           </option>
-                          <option style={{ color: "black" }} value={1.0}>
+                          <option style={{ color: "black" }} value="2.8 L">
                             1.0
                           </option>
-                          <option style={{ color: "black" }} value={3.4}>
+                          <option style={{ color: "black" }} value={"3.4 L"}>
                             3.4
                           </option>
-                          <option style={{ color: "black" }} value={2.0}>
+                          <option style={{ color: "black" }} value={"2.0 L"}>
                             2.0
                           </option>
-                          <option style={{ color: "black" }} value={1.8}>
+                          <option style={{ color: "black" }} value={"1.8 L"}>
                             1.8
                           </option>
-                          <option style={{ color: "black" }} value={1.5}>
+                          <option style={{ color: "black" }} value={"1.5 L"}>
                             1.5
                           </option>
-                          <option style={{ color: "black" }} value={2.7}>
+                          <option style={{ color: "black" }} value={"2.7 L"}>
                             2.7
                           </option>
-                          <option style={{ color: "black" }} value={2.2}>
+                          <option style={{ color: "black" }} value={"2.2 L"}>
                             2.2
                           </option>
-                          <option style={{ color: "black" }} value={1.25}>
+                          <option style={{ color: "black" }} value={"1.25 L"}>
                             1.25
                           </option>
-                          <option style={{ color: "black" }} value={11.1}>
+                          <option style={{ color: "black" }} value={"11.1 L"}>
                             11.1
                           </option>
-                          <option style={{ color: "black" }} value={3.5}>
+                          <option style={{ color: "black" }} value={"3.5 L"}>
                             3.5
                           </option>
-                          <option style={{ color: "black" }} value={2.8}>
+                          <option style={{ color: "black" }} value={"2.8 L"}>
                             2.8
                           </option>
                         </select>
@@ -973,36 +958,39 @@ const FindCar = (props) => {
                           value={drivetype}
                           onChange={handleDriveType}
                         >
-                          <option value="Dẫn động" style={{ color: "black" }}>
+                          <option
+                            value="Dẫn động"
+                            style={{ color: "black" }}
+                          >
                             Dẫn động
                           </option>
                           <option
                             style={{ color: "black" }}
-                            value="RFD - Dẫn động cầu sau"
+                            value="RFD - Rear-wheel drive"
                           >
                             RFD - Dẫn động cầu sau
                           </option>
                           <option
                             style={{ color: "black" }}
-                            value="AWD - 4 bánh toàn thời gian"
+                            value="AWD - 4-wheel drive (AWD)"
                           >
                             AWD - 4 bánh toàn thời gian
                           </option>
                           <option
                             style={{ color: "black" }}
-                            value="FWD - Dẫn động cầu trước"
+                            value="FWD - Front-wheel drive"
                           >
                             FWD - Dẫn động cầu trước
                           </option>
                           <option
                             style={{ color: "black" }}
-                            value="4WD - Dẫn động 4 bánh"
+                            value="4WD - Four-wheel drive (4WD)"
                           >
                             4WD - Dẫn động 4 bánh
                           </option>
                           <option
                             style={{ color: "black" }}
-                            value="4WD hoặc AWD"
+                            value="AWD - 4-wheel drive (AWD)"
                           >
                             4WD hoặc AWD
                           </option>
@@ -1021,7 +1009,7 @@ const FindCar = (props) => {
                   </div>
                 </div>
               </div>
-              <h1 style={{color:"white"}}>{predictPrice}</h1>
+              <h1 style={{ color: "white" }}>{predictPrice}</h1>
               <div style={{ marginTop: "10px" }}>
                 <button className="bttn-search">Tham khảo giá</button>
               </div>
