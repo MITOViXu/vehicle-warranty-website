@@ -282,6 +282,35 @@ const updateVehicle = (id, data) => {
     }
   });
 };
+const { spawn } = require('child_process');
+const getPrice = (inputData, callback) => {
+  // Chạy script Python và truyền dữ liệu đầu vào dưới dạng JSON string
+  // const pythonProcess = spawn('python', ['predict.py', JSON.stringify(inputData)]);
+    
+  // Nhận kết quả từ script Python
+  // pythonProcess.stdout.on('data', (data) => {
+  //     const prediction = data.toString().trim();
+  //     callback(null, prediction);
+  // });
+  
+  // pythonProcess.stderr.on('data', (data) => {
+  //     callback(data.toString(), null);
+  // });
+  return new Promise(async (resolve, reject) => {
+    try {
+      // const allType = await Vehicle.distinct("type");
+      price = 2
+      console.log("data: ", inputData)
+      resolve({
+        status: "OK",
+        message: "Success",
+        data: price,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   createVehicle,
   getDetailsVehicle,
@@ -292,4 +321,5 @@ module.exports = {
   gettAllColor,
   getAllType,
   getAllVehicle,
+  getPrice,
 };

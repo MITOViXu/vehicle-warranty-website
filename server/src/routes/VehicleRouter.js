@@ -14,5 +14,6 @@ router.post("/delete-many", authMiddleWare, VehicleController.deleteMany);
 router.get("/get/:id", VehicleController.getDetailsVehicle);
 router.get("/get-all-type", VehicleController.getAllType);
 router.get("/get-all-color", VehicleController.gettAllColor);
+router.post("/get-price-predict", VehicleController.getPrice);
 
 module.exports = router;

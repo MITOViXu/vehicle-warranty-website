@@ -4,6 +4,7 @@ import { contractAddress, abi } from "../../constant/constant";
 import { MdOutlineArrowCircleRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import plate from "./plate.svg";
+import * as VehicleService from "../../services/VehicleService";
 import "./FindCar.css";
 import VehicleByType from "../../pages/VehicleByType/VehicleByType";
 import { Skeleton } from "antd";
@@ -30,6 +31,7 @@ const ByInstallmentsContent = () => {
   );
 };
 
+
 // Component hiển thị nội dung khi chọn theo kiểu dáng
 const ByStyleContent = () => {
   return (
@@ -47,21 +49,39 @@ const ByStyleContent = () => {
 
 const FindCar = (props) => {
   const [provider, setProvider] = useState(null);
+  const [predictPrice, setPredictPrice] = useState(0)
   const navigate = useNavigate(); // Move useNavigate hook here
   const [vehicleinfor, setVehicleinfor] = useState(null);
-  const [origin, setOrigin] = useState("");
-  const [condition, setCondition] = useState("");
-  const [carModel, setCarModel] = useState("");
-  const [exteriorColor, setExteriorColor] = useState("");
-  const [interiorColor, setInteriorColor] = useState("");
-  const [numDoor, setNumDoor] = useState(0);
-  const [numSeat, setNumSeat] = useState(0);
-  const [engine, setEngine] = useState("");
+  const [origin, setOrigin] = useState("Domestic assembly");
+  const [condition, setCondition] = useState("New car");
+  const [carModel, setCarModel] = useState("Crossover");
+  const [exteriorColor, setExteriorColor] = useState("Silver");
+  const [interiorColor, setInteriorColor] = useState("gray");
+  const [numDoor, setNumDoor] = useState("4-door");
+  const [numSeat, setNumSeat] = useState("5-seat");
+  const [engine, setEngine] = useState("Petrol	2.7 L");
   const [capacity, setCapacity] = useState(0.0);
   const [drivetype, setDriveType] = useState("");
-  const [inputCar, setInputCar] = useState([]);
+  const [inputCar, setInputCar] = useState({  
+      mileague :0,
+      brand:"",
+      grade:"",
+      nameCar:"",
+      yearManufac:"",
+      origin:"",
+      condition:"",
+      carModel:"",
+      exteriorColor:"",
+      interiorColor:"",
+      numDoor:0,
+      numSeat:0,
+      engine:"",
+      capacity:0,
+      drivetype:"",
+      consumption:0,
+  });
   const [plates, setPlates] = useState(null);
-  const [mileague, setMileague] = useState(0.0);
+  const [mileague, setMileague] = useState(0);
   const [brand, setBrand] = useState(null);
   const [grade, setGrade] = useState(null);
   const [nameCar, setNameCar] = useState(null);
@@ -185,6 +205,13 @@ const FindCar = (props) => {
         return <ByBrandContent />;
     }
   };
+  const getPredictPrice = async (car) => {
+    const res = await VehicleService.getPricePredict(car);
+    console.log("input car: ", inputCar);
+    console.log("Gia ca cua xe: ", res.data);
+    setPredictPrice(res.data);
+    return res;
+  };
   const handleInput = (e) => {
     setPlates(e.target.value);
   };
@@ -251,33 +278,35 @@ const FindCar = (props) => {
   useEffect(() => {
     console.log("input car", inputCar);
   }, [inputCar]);
+
   const onPredict = (e) => {
     e.preventDefault();
     console.log("brand", brand);
-    setInputCar([
-      mileague,
-      brand,
-      grade,
-      nameCar,
-      yearManufac,
-      origin,
-      condition,
-      carModel,
-      exteriorColor,
-      interiorColor,
-      numDoor,
-      numSeat,
-      engine,
-      capacity,
-      drivetype,
-      consumption,
-    ]);
-
+    setInputCar({
+      mileague:mileague,
+      brand:brand,
+      grade:grade,
+      nameCar:nameCar,
+      yearManufac:yearManufac,
+      origin:origin,
+      condition:condition,
+      carModel:carModel,
+      exteriorColor:exteriorColor,
+      interiorColor:interiorColor,
+      numDoor:numDoor,
+      numSeat:numSeat,
+      engine:engine,
+      capacity:capacity,
+      drivetype:drivetype,
+      consumption:consumption,
+  });
+  getPredictPrice(inputCar);
     // console.log("Plates: ", plates);
   };
   useEffect(() => {
     console.log("Plates: ", findCar);
   }, [findCar]);
+
   const reset = () => {
     setPlates(null);
     setFindcar(null);
@@ -415,6 +444,7 @@ const FindCar = (props) => {
           {/* here */}
         </div>
       </div>
+      
       <div className="container p-5 filter-plates mb-6">
         <div className="row" style={{ width: "100%" }}>
           <div className="col-lg-6" style={{ width: "600px" }}>
@@ -991,7 +1021,7 @@ const FindCar = (props) => {
                   </div>
                 </div>
               </div>
-
+              <h1 style={{color:"white"}}>{predictPrice}</h1>
               <div style={{ marginTop: "10px" }}>
                 <button className="bttn-search">Tham khảo giá</button>
               </div>

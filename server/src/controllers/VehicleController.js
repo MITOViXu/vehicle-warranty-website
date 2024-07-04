@@ -19,7 +19,7 @@ const validateProduct = (data) => {
 };
 const createVehicle = async (req, res) => {
   try {
-    console.log("Vô được vehiclke controller");
+    console.log("Vô được vehicle controller");
     const {
       name,
       gear,
@@ -206,7 +206,16 @@ const gettAllColor = async (req, res) => {
     });
   }
 };
-
+const getPrice = async (req, res) => {
+  try {
+    const response = await VehicleService.getPrice(req.body);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
+};
 module.exports = {
   createVehicle,
   getDetailsVehicle,
@@ -217,4 +226,5 @@ module.exports = {
   gettAllColor,
   updateVehicle,
   getAllVehicle,
+  getPrice,
 };

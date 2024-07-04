@@ -51,7 +51,25 @@ export const createVehicle = async (data) => {
     console.log("Lỗi gì rồi : ", error);
   }
 };
-
+export const getPricePredict = async (data) => {
+  // const res = await axiosJWT.post(
+  //   `http://localhost:3001/api/vehicle/get-price-predict`,
+  //   data
+  // );
+  // console.log("Gia ca cua xe: ", res);
+  // return res.data;
+  
+  try {
+    const res = await axios.post(
+      `http://localhost:3001/api/vehicle/get-price-predict`,
+      data
+    );
+    
+    return res.data;
+  } catch (error) {
+    console.log("Lỗi gì rồi : ", error);
+  }
+};
 export const getDetailsVehicle = async (id) => {
   const res = await axios.get(
     `http://localhost:3001/api/vehicle/get-details/${id}`
@@ -116,3 +134,4 @@ export const getAllColor = async () => {
   const res = await axios.get(`http://localhost:3001/api/vehicle/get-all-color`);
   return res.data;
 };
+
