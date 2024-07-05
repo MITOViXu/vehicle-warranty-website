@@ -82,10 +82,8 @@ const FindCar = (props) => {
   const [plates, setPlates] = useState(null);
   const [mileague, setMileague] = useState(0);
   const [brand, setBrand] = useState("Toyota Fortuner");
-  const [grade, setGrade] = useState(null);
-  const [nameCar, setNameCar] = useState(null);
   const [yearManufac, setYearManufac] = useState("2023");
-  const [consumption, setConsumption] = useState("7");
+  const [consumption, setConsumption] = useState("None");
   const [findCar, setFindcar] = useState(null);
   async function handleSubmit(e) {
     try {
