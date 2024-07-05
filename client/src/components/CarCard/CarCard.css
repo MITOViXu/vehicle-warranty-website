@@ -6,10 +6,15 @@
   box-shadow: 0 0px 20px rgba(0, 0, 0, 0.3); /* Box shadow khi hover */
 }
 .plate-title {
-  font-size: 25px;
+  font-size: 20px;
 
   font-weight: 650;
   color: rgba(2, 152, 241, 255);
+}
+.price-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(97, 81, 118);
 }
 .address-title {
   font-size: 15px;

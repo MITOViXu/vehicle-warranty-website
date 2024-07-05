@@ -137,7 +137,7 @@ const Detail = () => {
                 <p style={{ fontWeight: "bolder", fontSize: "20px" }}>
                   {car?.name}
                 </p>
-                <p className="product-info-price">599 triệu VND</p>
+                <p className="product-info-price">{car?.price}</p>
                 <div className="product-info-more-info">
                   <p className="product-info-more-info-1">Biển số xe: </p>
                   <p className="product-info-more-info-2">{car?.plates}</p>
@@ -151,7 +151,7 @@ const Detail = () => {
                 <div class="grid grid-cols-4 items-center gap-2">
                   <div class="rounded bg-gray-100 py-1">
                     <p class="text-gray-800 text-[12px] leading-[20px] md:text-[14px] md:leading-[20px] font-semibold text-center">
-                      {car?.rolling} km
+                      {car?.rolling}
                     </p>
                   </div>
                   <div class="rounded bg-gray-100 py-1">

@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./CarCard.css";
 import { Card, Button, CardBody } from "react-bootstrap";
 const CarCard = (props) => {
-  let { plate, img, name, engine, address, type } = props.data;
+  let { plate, img, name, engine, address, type , price} = props.data;
   return (
     <Card
       style={{ borderRadius: "20px", cursor: "pointer", border: "none" }}
@@ -19,10 +19,11 @@ const CarCard = (props) => {
         />
       </div>
       <Card.Body className="text-left">
+        <Card.Title className="name-title">{name}</Card.Title>
+        <Card.Title className="price-title">{price}</Card.Title>
+        <div className="horizontal-custom"></div>
         <Card.Title className="plate-title">{plate}</Card.Title>
         <Card.Title className="address-title">{address}</Card.Title>
-        <div className="horizontal-custom"></div>
-        <Card.Title className="name-title">{name}</Card.Title>
         <div className="more-title">
           <div className="more-tile-option">{engine}</div>
           <div className="more-tile-option">{type}</div>

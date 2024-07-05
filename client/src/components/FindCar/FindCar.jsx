@@ -80,6 +80,7 @@ const FindCar = (props) => {
     year_of_manufacture: "",
   });
   const [plates, setPlates] = useState(null);
+  const [nameCarFind, setNameCarFind] = useState(null);
   const [mileague, setMileague] = useState(0);
   const [brand, setBrand] = useState("Toyota Fortuner");
   const [grade, setGrade] = useState(null);
@@ -87,6 +88,7 @@ const FindCar = (props) => {
   const [yearManufac, setYearManufac] = useState("2023");
   const [consumption, setConsumption] = useState("7");
   const [findCar, setFindcar] = useState(null);
+  const [findCarName, setFindcarName] = useState(null);
   async function handleSubmit(e) {
     try {
       e.preventDefault();
@@ -112,6 +114,10 @@ const FindCar = (props) => {
   const handleOnClick = (name) => {
     console.log("Name: ", name);
     navigate(`/vehicle-type/${name}`);
+  };
+  const handleFindCarByName = (name) => {
+    console.log("Name: ", name);
+    navigate(`/findcar/${name}`);
   };
   const ByBrandContent = () => {
     return (
@@ -214,6 +220,9 @@ const FindCar = (props) => {
   const handleInput = (e) => {
     setPlates(e.target.value);
   };
+  const handleNameCarFind = (e) => {
+    setNameCarFind(e.target.value);
+  };
   const handleMileague = (e) => {
     setMileague(Number(e.target.value));
     if (value > 0) {
@@ -272,8 +281,10 @@ const FindCar = (props) => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    setFindcar(plates);
+    if (plates) setFindcar(plates);
+    else setFindcarName(nameCarFind);
     setPlates(null);
+    setNameCarFind(null);
     // console.log("Plates: ", plates);
   };
   useEffect(() => {
@@ -282,30 +293,12 @@ const FindCar = (props) => {
 
   const onPredict = (e) => {
     e.preventDefault();
-    //     origin                   2
-    // condition                2
-    // car_model               10
-    // log10_mileage           29
-    // exterior_color          17
-    // interior_color          17
-    // num_of_doors             6
-    // seating_capacity        12
-    // fuel_type                5
-    // engine_size             41
-    // transmission             3
-    // drive_type               6
-    // fuel_consumption        19
-    // brand_grade            151
-    // year_of_manufacture     28
-    // console.log("brand", brand);
-    // const value = Number(e.target.value);
-    // const log10Value = Math.log10(value).toFixed(1);
-    // setMileague(log10Value.toString());
-    setInputCar({
+    const updatedInputCar = {
       origin: origin,
       condition: condition,
       car_model: carModel,
-      log10_mileage: mileague == 0 ? "0.0" : Math.log10(mileague).toFixed(1).toString(),
+      log10_mileage:
+        mileague == 0 ? "0.0" : Math.log10(mileague).toFixed(1).toString(),
       exterior_color: exteriorColor,
       interior_color: interiorColor,
       num_of_doors: numDoor,
@@ -317,14 +310,24 @@ const FindCar = (props) => {
       fuel_consumption: consumption,
       brand_grade: brand,
       year_of_manufacture: yearManufac + ".0",
-    });
-    getPredictPrice(inputCar);
+    };
+    setInputCar(updatedInputCar);
+    // getPredictPrice(inputCar);
     // console.log("Plates: ", plates);
   };
   useEffect(() => {
+    if (inputCar.origin) {
+      getPredictPrice(inputCar);
+    }
+  }, [inputCar]);
+  useEffect(() => {
     console.log("Plates: ", findCar);
+    setFindcarName(null);
   }, [findCar]);
-
+  useEffect(() => {
+    console.log("Plates: ", findCarName);
+    setFindcar(null);
+  }, [findCarName]);
   const reset = () => {
     setPlates(null);
     setFindcar(null);
@@ -445,9 +448,11 @@ const FindCar = (props) => {
                     </option>
                   </select>
                   <input
+                    onChange={handleNameCarFind}
                     className="input thanhpho"
                     type="text"
-                    placeholder="Nhập Thành Phố"
+                    value={nameCarFind ? nameCarFind : ""}
+                    placeholder="Nhập Tên Xe"
                   />
                 </div>
               </div>
@@ -567,10 +572,7 @@ const FindCar = (props) => {
                           value={origin}
                           onChange={handleChangeOrigin}
                         >
-                          <option
-                            value={"Xuát xứ"}
-                            style={{ color: "black" }}
-                          >
+                          <option value={"Xuát xứ"} style={{ color: "black" }}>
                             Xuất xứ
                           </option>
                           <option
@@ -591,10 +593,7 @@ const FindCar = (props) => {
                           value={transmission}
                           onChange={handleChangeTranssision}
                         >
-                          <option
-                            value={"Cần số"}
-                            style={{ color: "black" }}
-                          >
+                          <option value={"Cần số"} style={{ color: "black" }}>
                             Cần số
                           </option>
                           <option style={{ color: "black" }} value="Automatic">
@@ -958,10 +957,7 @@ const FindCar = (props) => {
                           value={drivetype}
                           onChange={handleDriveType}
                         >
-                          <option
-                            value="Dẫn động"
-                            style={{ color: "black" }}
-                          >
+                          <option value="Dẫn động" style={{ color: "black" }}>
                             Dẫn động
                           </option>
                           <option
@@ -1026,6 +1022,7 @@ const FindCar = (props) => {
         </div>
       </div>
       {findCar ? <VehicleByType plates={findCar} /> : <></>}
+      {findCarName ? <VehicleByType names={findCarName} /> : <></>}
     </div>
   );
 };

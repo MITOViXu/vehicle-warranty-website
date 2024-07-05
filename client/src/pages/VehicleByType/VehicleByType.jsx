@@ -101,7 +101,10 @@ const VehicleByType = (props) => {
     if (props.plates && hasMore) {
       fetchVehicleAll(props.plates, page);
     }
-  }, [props.plates, name, page, hasMore]);
+    if (props.names && hasMore) {
+      fetchVehicleAll(props.names, page);
+    }
+  }, [props.plates, props.names, name, page, hasMore]);
 
   const renderVehicle =
     vehicles?.length > 0 &&
@@ -117,6 +120,7 @@ const VehicleByType = (props) => {
             address: car?.address,
             type: car?.type,
             name: car?.name,
+            price: car?.price,
             engine: car?.engine,
             plate: car?.plates,
           }}
