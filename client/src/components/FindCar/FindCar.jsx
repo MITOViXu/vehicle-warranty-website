@@ -143,7 +143,7 @@ const FindCar = (props) => {
         <div
           class="item madza"
           style={{ cursor: "pointer" }}
-          onClick={() => handleOnClick("madza")}
+          onClick={() => handleOnClick("Madza")}
         ></div>
         <div
           class="item ford"
