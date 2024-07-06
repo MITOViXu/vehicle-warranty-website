@@ -947,6 +947,9 @@ const FindCar = (props) => {
                           <option style={{ color: "black" }} value={"1.8 L"}>
                             1.8
                           </option>
+                          <option style={{ color: "black" }} value={"2.5 L"}>
+                            2.5
+                          </option>
                           <option style={{ color: "black" }} value={"1.5 L"}>
                             1.5
                           </option>
@@ -1097,10 +1100,16 @@ const FindCar = (props) => {
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
-                        gap:"5px"
+                        gap: "5px",
                       }}
                     >
-                      <DiCodepen style={{ width: "40px", height: "30px", marginTop:"-13px"}} />
+                      <DiCodepen
+                        style={{
+                          width: "40px",
+                          height: "30px",
+                          marginTop: "-13px",
+                        }}
+                      />
                       <p style={{ fontSize: "18px", fontWeight: "bolder" }}>
                         AI phân tích
                       </p>
