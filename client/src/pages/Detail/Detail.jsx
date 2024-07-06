@@ -37,6 +37,23 @@ const Detail = () => {
   const [image, setImage] = useState([]);
   const [selectedButton, setSelectedButton] = useState("detail-button");
   const [car, setCar] = useState({});
+  const [inputData, setInputdata] = useState({
+    origin: "",
+    condition: "",
+    car_model: "",
+    log10_mileage: "",
+    exterior_color: "",
+    interior_color: "",
+    num_of_doors: "",
+    seating_capacity: "",
+    fuel_type: "",
+    engine_size: "",
+    transmission: "",
+    drive_type: "",
+    fuel_consumption: "",
+    brand_grade: "",
+    year_of_manufacture: "",
+  });
   const handleClick = (buttonType) => {
     setSelectedButton(buttonType);
   };
@@ -52,6 +69,26 @@ const Detail = () => {
       if (res?.status === "OK") {
         setIsLoading(false);
         setCar(res?.data);
+        console.log("Data ben detail : ", res?.data);
+        // const updatedInputCar = {
+        //   origin: res?.data.origin,
+        //   condition: condition,
+        //   car_model: carModel,
+        //   log10_mileage:
+        //     mileague == 0 ? "0.0" : Math.log10(mileague).toFixed(1).toString(),
+        //   exterior_color: exteriorColor,
+        //   interior_color: interiorColor,
+        //   num_of_doors: numDoor,
+        //   seating_capacity: numSeat,
+        //   fuel_type: engine,
+        //   engine_size: capacity,
+        //   transmission: transmission,
+        //   drive_type: drivetype,
+        //   fuel_consumption: consumption,
+        //   brand_grade: brand,
+        //   year_of_manufacture: yearManufac + ".0",
+        // };
+        // setInputCar(updatedInputCar);
       } else {
         setIsLoading(false);
         // Handle error, e.g., show an error message
@@ -63,7 +100,7 @@ const Detail = () => {
   };
   useEffect(() => {
     if (car) {
-      console.log("Data ben detail : ", car);
+      
       // console.log("Có phải array không : ", Array.isArray(car.image));
       if (car?.image && Array.isArray(car.image) && car.image.length > 0) {
         // console.log("Type of image : ", typeof car?.image[0]);

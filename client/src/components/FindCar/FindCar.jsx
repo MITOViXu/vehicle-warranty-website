@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { contractAddress, abi } from "../../constant/constant";
+import { DiCodepen } from "react-icons/di";
 import { MdOutlineArrowCircleRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import plate from "./plate.svg";
+import carImage from "./desbribe.jpg";
 import * as VehicleService from "../../services/VehicleService";
 import "./FindCar.css";
 import VehicleByType from "../../pages/VehicleByType/VehicleByType";
@@ -335,6 +337,24 @@ const FindCar = (props) => {
     setPlates(null);
     setFindcar(null);
   };
+  const resetAI = () => {
+    console.log("Vo dc ai reset");
+    setMileague(Number(0));
+    setCondition("New car");
+    setBrand("");
+    setYearManufac("");
+    setEngine("Động cơ");
+    setOrigin("Xuát xứ");
+    setTranssision("Cần số");
+    setConsumption("");
+    setCarModel("Other");
+    setExteriorColor("Màu ngoại thất");
+    setInteriorColor("Màu nội thất");
+    setNumDoor("Số cửa");
+    setNumSeat("Số chỗ ngồi");
+    setCapacity("Dung tích");
+    setDriveType("Dẫn động");
+  };
   return (
     <div className="findcar-container">
       <div className="container filter-option">
@@ -426,9 +446,10 @@ const FindCar = (props) => {
                   Bạn đã có biển số xe? Hãy tìm kiếm ngay nhé!
                 </p>
               </div>
-              <div className="input-group">
+              <div className="input-group2">
                 <input
                   onChange={handleInput}
+                  style={{ width: "100%" }}
                   className="input bienso"
                   type="text"
                   value={plates ? plates : ""}
@@ -471,11 +492,11 @@ const FindCar = (props) => {
         </div>
       </div>
 
-      <div className="container p-5 filter-plates mb-6">
+      <div className="container ai-training-frame p-5 mb-6">
         <div className="row" style={{ width: "100%" }}>
           <div className="col-lg-6" style={{ width: "600px" }}>
             <form action="" onSubmit={onPredict}>
-              <div>
+              <div style={{ marginLeft: "20px" }}>
                 <h1 style={{ fontWeight: "800" }}>Tra giá xe bằng AI</h1>
                 <p
                   style={{
@@ -493,11 +514,11 @@ const FindCar = (props) => {
                     <div className="col-lg-6">
                       <div className="row align-items-center">
                         <p
-                          className="col-lg-7"
+                          className="col-lg-9"
                           style={{
                             padding: "5px 30px",
-                            color: "white",
-                            fontSize: "16px",
+                            color: "black",
+                            fontSize: "18px",
                             fontWeight: "bolder",
                             margin: 0,
                           }}
@@ -508,6 +529,7 @@ const FindCar = (props) => {
                           onChange={handleMileague}
                           className="col-lg-3 input bienso"
                           type="number"
+                          style={{ color: "black" }}
                           value={mileague ? mileague : 0}
                         />
                       </div>
@@ -802,10 +824,7 @@ const FindCar = (props) => {
                           value={numDoor}
                           onChange={handleNumdoor}
                         >
-                          <option
-                            value={Number(null)}
-                            style={{ color: "black" }}
-                          >
+                          <option value={"Số cửa"} style={{ color: "black" }}>
                             Số cửa
                           </option>
                           <option style={{ color: "black" }} value={"5-door"}>
@@ -839,7 +858,7 @@ const FindCar = (props) => {
                           onChange={handleNumseat}
                         >
                           <option
-                            value={Number(null)}
+                            value={"Số chỗ ngồi"}
                             style={{ color: "black" }}
                           >
                             Số chỗ ngồi
@@ -1008,17 +1027,96 @@ const FindCar = (props) => {
                   </div>
                 </div>
               </div>
-              <h1 style={{ color: "white" }}>{predictPrice}</h1>
-              <div style={{ marginTop: "10px" }}>
-                <button className="bttn-search">Tham khảo giá</button>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "start",
+                  gap: "20px",
+                  marginTop: "20px",
+                  marginLeft: "20px",
+                }}
+              >
+                <button className="bttn-search" style={{ marginTop: "10px" }}>
+                  Tham khảo giá
+                </button>
+                <button onClick={resetAI} className="hoantac">
+                  Hoàn Tác
+                </button>
               </div>
             </form>
-            <button onClick={reset} className="hoantac">
-              Hoàn Tác
-            </button>
           </div>
-          <div className="col-lg-6" style={{ width: "600px" }}>
-            <img src={plate} alt="" />
+          <div
+            className="col-lg-6 container"
+            style={{
+              width: "600px",
+              gap: "0",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <div className="ai-result">
+              {predictPrice > 0 ? (
+                <div className="container ai-result-price">
+                  {/* <h1 style={{ color: "black" }}>Giá dự đoán được: </h1>
+                  <h1 style={{ color: "black", verticalAlign: "bottom" }}>
+                    {predictPrice}
+                  </h1> */}
+                  <div className="container pt-4">
+                    <div className="row">
+                      <h4 className="col-lg-5">Giá trị ước tính</h4>
+                      <p
+                        style={{
+                          fontSize: "16px",
+                          fontFamily: "revert-layer",
+                          color: "black",
+                        }}
+                        className="col-lg-7"
+                      >
+                        Tổng hợp từ hơn 30.000 nguồn dữ liệu
+                      </p>
+                    </div>
+                  </div>
+                  <div className="container p-5">
+                    <div
+                      className="row"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <img style={{ width: "250px" }} src={carImage} alt="" />
+                    </div>
+                  </div>
+                  <div className="container ai-finally-result mt-2 p-3">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap:"5px"
+                      }}
+                    >
+                      <DiCodepen style={{ width: "40px", height: "30px", marginTop:"-13px"}} />
+                      <p style={{ fontSize: "18px", fontWeight: "bolder" }}>
+                        AI phân tích
+                      </p>
+                    </div>
+                    <div className="result-price">
+                      <p style={{ fontSize: "15px" }}>Giá dự đoán</p>
+                      <h1>{predictPrice}</h1>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div style={{ margin: "0", padding: "0" }}>
+                  <img src={plate} style={{ width: "400px" }} />
+                </div>
+              )}
+            </div>
           </div>
 
           {/* here */}
