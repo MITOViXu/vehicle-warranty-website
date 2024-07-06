@@ -229,6 +229,13 @@ const FindCar = (props) => {
       setCondition("New car"); // Reset condition if mileague is not greater than 0
     }
   };
+  useEffect(() => {
+    if (mileague > 0) {
+      setCondition("Used car");
+    } else {
+      setCondition("New car"); // Reset condition if mileague is not greater than 0
+    }
+  }, [mileague]);
   const handleBrand = (e) => {
     setBrand(e.target.value);
   };
@@ -253,9 +260,7 @@ const FindCar = (props) => {
   const handleConsumption = (e) => {
     setConsumption(e.target.value);
   };
-  const handleCondition = (e) => {
-    setCondition(e.target.value);
-  };
+
   const handleCarModel = (e) => {
     setCarModel(e.target.value);
   };
@@ -522,11 +527,11 @@ const FindCar = (props) => {
                         </option>
                       </select> */}
                       <input
-                        onChange={handleMileague}
+                        // onChange={handleMileague}
                         className="input bienso"
                         style={{ fontFamily: "cursive", fontSize: "30px" }}
                         // type="text"
-                        value={condition ? condition : "Xe mới"}
+                        value={condition == "New car" ? "Xe Mới" : "Xe Cũ"}
                         disabled={true}
                       />
                     </div>
