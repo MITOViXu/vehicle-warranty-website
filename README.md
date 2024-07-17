@@ -49,6 +49,11 @@ Start the client in a separate terminal:
   cd client
   npm start
 ```
+
+<h3>Start the Server and Client</h3>
+
+Open your web browser and go to [http://localhost:3000](http://localhost:5173/) to access the frontend of the application.
+
 <h2>🚀 DEMO</h2>
 
 [Link to DEMO of this project](https://drive.google.com/file/d/1VOyDNEY2DhmZyKcFNrcY-gBIkN0dhWCw/view)
