@@ -9,9 +9,10 @@ This project leverages modern web technologies to create a comprehensive system 
 - AI for Price Prediction: Implements AI models to predict vehicle prices based on historical data and various vehicle attributes.
 
 <h2>⚙ Project Structure</h2>
-server/: Contains the server-side code using Node.js, Express, MongoDB and AI for car price prediction using Python & Jupyter Notebook.
-client/: Contains the client-side code using React.js.
-smart_contract/: Contains the smart contract code for blockchain integration.
+
+- server/: Contains the server-side code using Node.js, Express, MongoDB and AI for car price prediction using Python & Jupyter Notebook.
+- client/: Contains the client-side code using React.js.
+- smart_contract/: Contains the smart contract code for blockchain integration.
 
 <h2>🛠️ Installation Steps:</h2>
 
