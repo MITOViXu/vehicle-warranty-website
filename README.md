@@ -54,8 +54,8 @@ Start the client in a separate terminal:
 
 Open your web browser and go to [http://localhost:5174/](http://localhost:5174/) to access the frontend of the application.
 
-username: admin@gmail.com
-password: 123
+- username: admin@gmail.com
+- password: 123
 
 <h2>🚀 DEMO</h2>
 
