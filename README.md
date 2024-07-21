@@ -32,14 +32,14 @@ This project leverages modern web technologies to create a comprehensive system 
   npm install
   cd ../smart_contract
   npm install
-```
+``` 
 <h3>Install Meta mask in browser</h3>
-```bash
+
 Go to Chorme Store and find Metamask and create account
-```
+
 <h3> Run smart contract</h3>
 ```bash
-cd .\smartcontract
+cd \smartcontract\
 ```
 In this hardhat.config.js file paste your private account key in account section
 ```bash
@@ -82,7 +82,7 @@ Open your web browser and go to [http://localhost/](http://localhost/) to access
 
 - username: admin@gmail.com
 - password: 123
-
-<h2>🚀 DEMO</h2>
+- Log in with metamask account,switch to Sepolia network
+- confirm the transaction and wait to finshed the transaction
 
 [Link to DEMO of this project](https://drive.google.com/file/d/1VOyDNEY2DhmZyKcFNrcY-gBIkN0dhWCw/view)
