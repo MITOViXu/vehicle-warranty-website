@@ -19,7 +19,7 @@ This project leverages modern web technologies to create a comprehensive system 
 <h3>Clone the Repository</h3>
 
 ```bash
-  git clone https://github.com/MITOViXu/vehicle-warranty-website.git
+  git clone -b main https://github.com/MITOViXu/vehicle-warranty-website.git
 ```
 
 <h3>Install Dependencies</h3>
