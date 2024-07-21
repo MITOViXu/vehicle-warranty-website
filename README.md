@@ -33,6 +33,31 @@ This project leverages modern web technologies to create a comprehensive system 
   cd ../smart_contract
   npm install
 ```
+<h3>Install Meta mask in browser</h3>
+```bash
+Go to Chorme Store and find Metamask and create account
+```
+<h3> Run smart contract</h3>
+```bash
+cd .\smartcontract
+```
+In this hardhat.config.js file paste your private account key in account section
+```bash
+cd ..\scripts\
+```
+In this deploy.js file run 
+```bash
+npx hardhat run scripts/deploy.js
+```
+You will recive 3 result like this 
+CarTransactionHistory address:0x8DD592A57B885E66b6bAB874751e2722285cb0AB
+Carmaintenance address:0xf6568AF39811345ab12301d6b929D7B3cC36c704
+Caraccident address:0xe0336F57A310C11d916e17b2868b18895766997e
+
+```bash
+cd ..\client\Constant
+```
+In constant.js file  paste the contract address you received previously
 
 <h3>Start the Server and Client</h3>
 
@@ -52,7 +77,8 @@ Start the client in a separate terminal:
 
 <h3>Start the Server and Client</h3>
 
-Open your web browser and go to [http://localhost:5174/](http://localhost:5174/) to access the frontend of the application.
+** Note that this blockchain feature is only used for our or your self-created metamask account 
+Open your web browser and go to [http://localhost/](http://localhost/) to access the frontend of the application.
 
 - username: admin@gmail.com
 - password: 123
