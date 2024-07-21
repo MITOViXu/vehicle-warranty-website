@@ -1,4 +1,5 @@
 .footer_container {
+  padding-left: 70px;
   background-color: #000d6b;
   color: rgba(255, 255, 255, 0.715);
   font-family: "Source Sans Pro", sans-serif;
@@ -30,6 +31,7 @@
 }
 
 .rent-car_header {
+  width: 300px;
   font-size: 1.5rem;
   /* margin-left: 14px; */
 }

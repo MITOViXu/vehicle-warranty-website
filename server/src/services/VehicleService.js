@@ -283,38 +283,64 @@ const updateVehicle = (id, data) => {
   });
 };
 const { spawn } = require('child_process');
+const path = require('path');
 
 const getPrice = (inputData) => {
+  console.log(inputData)
   return new Promise((resolve, reject) => {
-      try {
-          // Đường dẫn đến Python script
-          const pythonScriptPath = path.join(__dirname, '../model_ML/predict.py');
+    try {
+      // Đường dẫn đến thư mục chứa file predict.py
+      const pythonScriptsDir = path.join(__dirname, '../model_ML');
 
-          // Gọi Python process để thực hiện dự đoán
-          const pythonProcess = spawn('python', [pythonScriptPath, JSON.stringify(inputData)]);
+      // Đường dẫn đến Python script
+      const pythonScriptPath = path.join(pythonScriptsDir, 'predict.py');
 
-          // Lắng nghe sự kiện stdout từ Python script
-          pythonProcess.stdout.on('data', (data) => {
-              const predictedPrice = parseFloat(data.toString().trim());
-              console.log('Predicted price:', predictedPrice);
+      // Chuyển đổi đầu vào thành chuỗi JSON
+      const inputDataString = JSON.stringify(inputData);
 
-              // Trả về kết quả cho client
-              resolve({
-                  status: 'OK',
-                  message: 'Success',
-                  data: predictedPrice,
-              });
-          });
+      // Gọi Python process để thực hiện dự đoán
+      const pythonProcess = spawn('python', [pythonScriptPath, inputDataString], {
+        cwd: pythonScriptsDir, // Thiết lập thư mục làm việc cho quá trình Python
+      });
 
-          // Xử lý lỗi nếu có từ Python script
-          pythonProcess.stderr.on('data', (data) => {
-              console.error(`Error from Python script: ${data}`);
-              reject(new Error('An error occurred during prediction.'));
-          });
-      } catch (error) {
-          console.error('Error in getPrice:', error);
-          reject(error);
-      }
+      // Biến lưu trữ kết quả dự đoán
+      let predictedPrice = null;
+
+      // Lắng nghe sự kiện stdout từ Python script
+      pythonProcess.stdout.on('data', (data) => {
+        predictedPrice = parseFloat(data.toString().trim());
+        console.log('Predicted price:', predictedPrice);
+      });
+
+      // Xử lý sự kiện khi quá trình Python kết thúc
+      pythonProcess.on('close', (code) => {
+        if (code !== 0) {
+          console.error(`Python process exited with code ${code}`);
+          reject(new Error('An error occurred during prediction.'));
+        } else {
+          // Kiểm tra và trả về kết quả
+          if (predictedPrice !== null && !isNaN(predictedPrice)) {
+            resolve({
+              status: 'OK',
+              message: 'Success',
+              data: predictedPrice,
+            });
+          } else {
+            reject(new Error('Invalid prediction result.'));
+          }
+        }
+      });
+
+      // Xử lý lỗi nếu có từ Python script
+      pythonProcess.stderr.on('data', (data) => {
+        console.error(`Error from Python script: ${data}`);
+        reject(new Error('An error occurred during prediction.'));
+      });
+
+    } catch (error) {
+      console.error('Error in getPrice:', error);
+      reject(error);
+    }
   });
 };
 module.exports = {

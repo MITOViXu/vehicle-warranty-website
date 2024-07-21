@@ -4,26 +4,30 @@
   justify-content: space-between;
   padding: 0;
   margin: 0;
-  height: 74px;
+  height: 70px;
   background: #000d6b;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 .signIn-button {
   margin-left: 50px;
+  margin-top: 13px;
   margin-right: 0px;
-  background-color: hsl(245, 60%, 59%);
   border: none;
   height: 63%;
-  color: white;
   padding: 15px 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 15px;
+  font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
   font-weight: bold;
+  background-color: #FFFFFF; /* Màu trắng */
+  color: #000d6b; /* Màu xanh đậm cho chữ */
 }
 .navigation {
   display: flex;

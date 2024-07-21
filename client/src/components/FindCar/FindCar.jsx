@@ -119,6 +119,7 @@ const FindCar = (props) => {
     console.log("Name: ", name);
     navigate(`/findcar/${name}`);
   };
+
   const ByBrandContent = () => {
     return (
       <div className="content-theo-hang">
@@ -337,6 +338,20 @@ const FindCar = (props) => {
     setPlates(null);
     setFindcar(null);
   };
+  const convertToVND = (val) => {
+    const roundedValue = Math.ceil(val); // Làm tròn lên đến số nguyên gần nhất
+    if (roundedValue < 1000) {
+        return `${roundedValue} triệu`;
+    } else {
+        const billion = parseInt(roundedValue / 1000); // Chuyển đổi thành số nguyên
+        const million = roundedValue % 1000;
+        if (million === 0) {
+            return `${billion} tỷ`;
+        } else {
+            return `${billion} tỷ ${million} triệu`;
+        }
+    }
+};
   const resetAI = () => {
     console.log("Vo dc ai reset");
     setMileague(Number(0));
@@ -435,7 +450,15 @@ const FindCar = (props) => {
           <div className="col-lg-6" style={{ width: "600px" }}>
             <form action="" onSubmit={onSubmit}>
               <div>
-                <h1 style={{ fontWeight: "800" }}>Tìm Kiếm Xe Trực Tuyến</h1>
+                <h1
+                  style={{
+                    fontWeight: "900",
+                    fontFamily: "'Anton SC',sans-serif",
+                    fontStyle: "normal",
+                  }}
+                >
+                  Tìm Kiếm Xe Trực Tuyến
+                </h1>
                 <p
                   style={{
                     fontSize: "13px",
@@ -551,7 +574,7 @@ const FindCar = (props) => {
                       <input
                         // onChange={handleMileague}
                         className="input bienso"
-                        style={{ fontFamily: "cursive", fontSize: "30px" }}
+                        style={{ fontSize: "15px" }}
                         // type="text"
                         value={condition == "New car" ? "Xe Mới" : "Xe Cũ"}
                         disabled={true}
@@ -1116,7 +1139,7 @@ const FindCar = (props) => {
                     </div>
                     <div className="result-price">
                       <p style={{ fontSize: "15px" }}>Giá dự đoán</p>
-                      <h1>{predictPrice}</h1>
+                      <h1>{convertToVND(predictPrice)}</h1>
                     </div>
                   </div>
                 </div>

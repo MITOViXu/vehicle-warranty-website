@@ -415,6 +415,8 @@
   color: black;
   grid-template-columns: auto 1fr auto; /* Chiều rộng tự động cho input đầu và button, còn lại cho input-option */
   grid-gap: 10px; /* Khoảng cách giữa các phần tử */
+  border-radius: 10px;
+  padding: 5px;
 }
 .input-group2 {
   background-color: #74ebd5;
@@ -528,7 +530,7 @@
 }
 .ai-result-price {
   width: 100%;
-  padding: 0;
+  padding: 10px;
   margin: 0;
   border-radius: 20px;
   background-color: white;

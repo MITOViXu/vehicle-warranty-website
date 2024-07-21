@@ -1,36 +1,34 @@
-import sys
-import json
 import pandas as pd
 from catboost import CatBoostRegressor
 import numpy as np
+import sys
+import json
 
-# Load đường dẫn đến file model đã train
-
-# Hàm dự đoán giá
 def predict_price(input_data):
     try:
-        # Chuyển đổi dữ liệu JSON từ Node.js thành DataFrame
+        # Chuyển đổi đầu vào từ JSON thành DataFrame
         input_df = pd.DataFrame([input_data])
 
-        # Load mô hình CatBoost từ file đã train
+        # Nạp lại mô hình đã lưu
         model = CatBoostRegressor()
-        model.load_model('best_model')
+        model.load_model('./best_model')
 
         # Dự đoán giá
         prediction = model.predict(input_df)
-
-        # Chuyển đổi kết quả dự đoán và trả về
         predicted_price = np.power(10, prediction[0])
+
         return predicted_price
 
     except Exception as e:
-        print(f"Error during prediction: {str(e)}")
+        print(f'Error in predict_price: {e}')
         return None
 
-# Đọc dữ liệu đầu vào từ Node.js
-input_data = json.loads(sys.argv[1])
+# Nhận đầu vào từ command line
+if __name__ == '__main__':
+    input_data = json.loads(sys.argv[1])
+    predicted_price = predict_price(input_data)
+    if predicted_price is not None:
+        print(predicted_price)
+    else:
+        print('Error during prediction')
 
-# Gọi hàm dự đoán và in kết quả dự đoán ra stdout
-predicted_price = predict_price(input_data)
-if predicted_price is not None:
-    print(predicted_price)

@@ -11,13 +11,14 @@ function Footer() {
         >
           <div className="rent-car col-md-6 col-xl-3 mt-5">
             <div className="footer_header-content">
-              <div className="rent-car_header">Rent Car Service</div>
+              <div className="rent-car_header">
+               HỆ THỐNG ĐỊNH GIÁ VÀ LƯU TRỮ DỮ LIỆU
+              </div>
             </div>
             <p className="footer_content" id="rent-car-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Consequuntur, distinctio, itaque reiciendis ab cupiditate harum ex
-              quam veniam, omnis expedita animi quibusdam obcaecati mollitia?
-              Delectus et ad illo recusandae temporibus?
+              "Chúng tôi cung cấp các giải pháp định giá chính xác và tin cậy
+              bằng trí tuệ nhân tạo, kết hợp với công nghệ blockchain để đảm bảo
+              tính bảo mật và minh bạch của dữ liệu."
             </p>
           </div>
           <div className="quick-links col-md-6 col-xl-3 mt-5">
@@ -36,9 +37,9 @@ function Footer() {
             <div className="footer_header-content">Head Office</div>
 
             <div className="footer_content">
-              <div>123 Zindabazar, Sylhet, Bangladesh</div>
-              <div>Phone: +0995345875365</div>
-              <div>Email: muhib5532@gmail.com</div>
+              <div>Trường Đại Học Công Nghệ Thông Tin</div>
+              <div>Phone: 0942917989</div>
+              <div>Email: tuanqcao1406@gmail.com</div>
               <div>Office Time: 10am - 7pm</div>
             </div>
           </div>
@@ -59,10 +60,7 @@ function Footer() {
 
         <div className="copyright">
           <hr />
-          <div className="copyright_info">
-            <img src={"copyright.png"} alt="logo" />
-            Copyright 2023, Developed by Muhibur Rahman. All rights reserved.
-          </div>
+          
         </div>
       </div>
     </div>

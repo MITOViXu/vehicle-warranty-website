@@ -1,5 +1,8 @@
 .About-us{
   display: flex;
+  padding: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 .About-infor{
   flex:1.2;

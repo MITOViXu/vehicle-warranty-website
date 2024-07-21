@@ -184,15 +184,19 @@ const Navbar = () => {
                     >
                       <div
                         style={{
+                          textAlign: "center",
                           cursor: "pointer",
                           maxWidth: 100,
                           overflow: "hidden",
                           color: "white",
                           paddingLeft: "60px",
                           paddingTop: "12px",
-                          fontSize: "20px",
-                          fontWeight: "700",
+                          fontSize: "17px",
+                          fontWeight: "bold",
                           textOverflow: "ellipsis",
+                          display:"flex",
+                          alignItems : "center",
+                          justifyContent : "center"
                         }}
                         onClick={() => setIsOpenPopup((prev) => !prev)}
                       >
