@@ -38,9 +38,11 @@ This project leverages modern web technologies to create a comprehensive system 
 Go to Chorme Store and find Metamask and create account
 
 <h3> Run smart contract</h3>
+
 ```bash
 cd \smartcontract\
 ```
+
 In this hardhat.config.js file paste your private account key in account section
 ```bash
 cd ..\scripts\
